@@ -1,20 +1,21 @@
+import Head from 'next/head';
 import { useMemo } from 'react';
 
-import Head from 'next/head';
+import config from '@/config';
 
-import { defaultImage, defaultTitle, metaDescriptionOptimalLength, suffix } from './config';
+import { defaultImage, defaultTitle, metaDescriptionOptimalLength } from './config';
 import { MetaProps } from './types';
 
 export default function Meta({
   title = defaultTitle,
   image = defaultImage,
-  description,
+  description = config.manifest.description,
   keyword,
-  url
+  url = config.appURL
 }: MetaProps) {
   const metaTitle = useMemo(() => {
     const pageTitle = title || defaultTitle;
-    const suffixedTitle = pageTitle === defaultTitle ? pageTitle : `${pageTitle} | ${suffix}`;
+    const suffixedTitle = `${pageTitle} | ${config.appName}`;
 
     return (
       <>

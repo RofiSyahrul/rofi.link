@@ -1,10 +1,13 @@
-import { useState } from 'react';
 
 import { NextComponentType, NextPageContext } from 'next';
 import { NextRouter } from 'next/dist/client/router';
+import Head from 'next/head';
+import { memo, useState } from 'react';
+
 import { Hydrate, QueryClient, QueryClientProvider } from 'react-query';
 
 import '@/styles/globals.css';
+import config from '@/config';
 
 type AppProps = {
   pageProps: AppPageProps;
@@ -14,14 +17,84 @@ type AppProps = {
   __N_SSP?: boolean;
 };
 
+const appleIconSizes = ['152', '144', '120', '114', '76', '72', '60', '57'];
+const msImageSizes = Object.keys(config.manifest.icon.msTile);
+
+const AppHeadContent = memo(() => {
+  return (
+    <Head>
+      <link
+        rel='apple-touch-icon'
+        sizes='180x180'
+        href='/icons/apple-touch-icon.png'
+      />
+      {appleIconSizes.map((size) => (
+        <link
+          key={size}
+          rel='apple-touch-icon'
+          sizes={`${size}x${size}`}
+          href={`/icons/apple-touch-icon-${size}x${size}.png`}
+        />
+      ))}
+      <link
+        rel='icon'
+        type='image/png'
+        sizes='32x32'
+        href='/icons/favicon-32x32.png'
+      />
+      <link
+        rel='icon'
+        type='image/png'
+        sizes='192x192'
+        href='/icons/android-chrome-192x192.png'
+      />
+      <link
+        rel='icon'
+        type='image/png'
+        sizes='384x384'
+        href='/icons/android-chrome-384x384.png'
+      />
+      <link
+        rel='icon'
+        type='image/png'
+        sizes='16x16'
+        href='/icons/favicon-16x16.png'
+      />
+      <link rel='manifest' href='/manifest.json' />
+      <link
+        rel='mask-icon'
+        href='/icons/safari-pinned-tab.svg'
+        color={config.manifest.themeColor}
+      />
+      <link rel='icon' href='/favicon.ico' />
+      <link rel='shortcut icon' href='/favicon.ico' />
+      <meta name='apple-mobile-web-app-title' content={config.appName} />
+      <meta name='application-name' content={config.appName} />
+      <meta name='msapplication-TileColor' content={config.manifest.themeColor} />
+      <meta name='msapplication-config' content='/browserconfig.xml' />
+      <meta name='theme-color' content={config.manifest.themeColor} />
+      {msImageSizes.map((size) => (
+        <meta
+          key={size}
+          name='msapplication-TileImage'
+          content={`/icons/mstile-${size}.png`}
+        />
+      ))}
+    </Head>
+  );
+});
+
 export default function App({ Component, pageProps }: AppProps) {
   const [queryClient] = useState(() => new QueryClient());
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <Hydrate state={pageProps.dehydratedState}>
-        <Component {...pageProps} />
-      </Hydrate>
-    </QueryClientProvider>
+    <>
+      <AppHeadContent />
+      <QueryClientProvider client={queryClient}>
+        <Hydrate state={pageProps.dehydratedState}>
+          <Component {...pageProps} />
+        </Hydrate>
+      </QueryClientProvider>
+    </>
   );
 }

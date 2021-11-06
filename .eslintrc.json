@@ -54,6 +54,7 @@
         "*types.ts",
         "*hook.ts",
         "src/constants/*.ts",
+        "src/services/firebase/**/*",
         "src/utils/regex/*"
       ],
       "rules": {
@@ -120,7 +121,7 @@
         "pathGroups": [
           {
             "group": "external",
-            "pattern": "react",
+            "pattern": "{react,next,next/**}",
             "position": "before"
           },
           {
