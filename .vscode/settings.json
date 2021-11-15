@@ -4,6 +4,11 @@
     "source.fixAll.tslint": true
   },
   "eslint.alwaysShowStatus": true,
+  "[css]": {
+    "editor.suggest.insertMode": "replace",
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  },
   "[javascript]": {
     "editor.formatOnSave": true
   },
@@ -21,5 +26,8 @@
   "javascript.updateImportsOnFileMove.enabled": "always",
   "editor.tabSize": 2,
   "css.lint.unknownAtRules": "ignore",
-  "stylelint.packageManager": "yarn"
+  "stylelint.packageManager": "yarn",
+  "rewrap.autoWrap.enabled": true,
+  "rewrap.wrappingColumn": 100,
+  "tailwindCSS.emmetCompletions": true
 }

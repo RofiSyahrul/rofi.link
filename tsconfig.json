@@ -5,7 +5,7 @@
     "paths": {
       "@/*": ["src/*"]
     },
-    "types": ["node"],
+    "types": ["node", "react"],
     "typeRoots": ["./node_modules/@types", "./src/types"],
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
@@ -13,6 +13,7 @@
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "noEmit": true,
+    "useUnknownInCatchVariables": false,
     "esModuleInterop": true,
     "module": "esnext",
     "moduleResolution": "node",
