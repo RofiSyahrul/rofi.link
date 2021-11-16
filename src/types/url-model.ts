@@ -12,7 +12,7 @@ export type UrlModel = SortableUrlField & {
 
 export type AddUrlParam = Pick<UrlModel, 'slug' | 'actualURL' | 'users'>;
 
-export type UpdateUrlParam = Partial<Pick<UrlModel, 'actualURL' | 'hit' | 'users'>>;
+export type UpdateUrlParam = Partial<Pick<UrlModel, 'actualURL' | 'hit' | 'users' | 'slug'>>;
 
 export type GetUrlListParam = PaginationParam<string | number> & {
   sorter?: keyof SortableUrlField;
