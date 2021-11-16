@@ -1,4 +1,5 @@
 import type { GetServerSideProps, GetStaticProps } from 'next';
+
 import { dehydrate, QueryClient } from 'react-query';
 
 import { initialOfQsOrHashRegex } from '@/utils/regex/urlRegex';

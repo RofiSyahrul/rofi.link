@@ -4,6 +4,7 @@ import type {
   GetStaticPropsContext as _GetStaticPropsContext,
   GetStaticPropsResult
 } from 'next';
+
 import { QueryClient } from 'react-query';
 
 export type GetServerSidePropsContext = _GetServerSidePropsContext & {
