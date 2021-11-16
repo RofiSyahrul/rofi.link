@@ -1,0 +1,213 @@
+.container {
+  @apply my-2 flex flex-col w-full;
+  min-width: 250px;
+}
+
+.innerContainer {
+  @apply relative flex w-full rounded bg-gray-200;
+}
+
+:global(.dark) .innerContainer {
+  @apply bg-gray-600;
+}
+
+.innerContainer.focused:not(.hasError) {
+  @apply border border-solid border-cyan-800;
+}
+
+:global(.dark) .innerContainer.focused:not(.hasError) {
+  @apply border-cyan-200;
+}
+
+.innerContainer.disabled:not(.hasError) {
+  @apply bg-gray-300;
+}
+
+:global(.dark) .innerContainer.disabled:not(.hasError) {
+  @apply bg-gray-500;
+}
+
+.innerContainer.hasError {
+  @apply border border-solid border-red-600 bg-red-200;
+}
+
+:global(.dark) .innerContainer.hasError {
+  @apply border border-solid border-red-300 bg-red-700;
+}
+
+.prefix {
+  @apply pl-3;
+}
+
+.suffix {
+  @apply pr-3;
+}
+
+.prefix,
+.suffix {
+  @apply flex flex-col justify-center py-3;
+  @apply text-gray-700;
+  height: 3rem;
+}
+
+:global(.dark) .prefix,
+:global(.dark) .suffix {
+  @apply text-gray-100;
+}
+
+.prefix.hasLabel,
+.suffix.hasLabel {
+  height: 3.5rem;
+}
+
+.supportText {
+  @apply text-xs my-1 text-gray-600;
+}
+
+:global(.dark) .supportText {
+  @apply text-gray-200;
+}
+
+.supportText.hasError {
+  @apply text-red-600;
+}
+
+:global(.dark) .supportText.hasError {
+  @apply text-red-300;
+}
+
+.label {
+  @apply text-gray-600;
+  @apply absolute left-3;
+  @apply duration-200 pointer-events-none;
+  top: 50%;
+  transition-timing-function: ease;
+  transform: translateY(-50%);
+  transition-property: top, font-size, color, padding;
+}
+
+:global(.dark) .label {
+  @apply text-gray-200;
+}
+
+:global(.hasFilledInput).label,
+.input:focus ~ .label,
+.input:not(:placeholder-shown) ~ .label,
+.input.hasPrefix ~ .label {
+  @apply text-cyan-900 text-xs pr-3;
+  top: 1px;
+  transform: translateY(0px);
+  width: calc(100% - 13px);
+}
+
+.input.hasError ~ .label {
+  @apply text-red-800;
+}
+
+:global(.dark) :global(.hasFilledInput).label,
+:global(.dark) .input:focus ~ .label,
+:global(.dark) .input:not(:placeholder-shown) ~ .label,
+:global(.dark) .input.hasPrefix ~ .label {
+  @apply text-cyan-200;
+}
+
+:global(.dark) .input.hasError ~ .label {
+  @apply text-red-200;
+}
+
+.input {
+  @apply w-full bg-transparent text-gray-700 resize-y px-3;
+  min-height: 3rem;
+}
+
+.input::-webkit-input-placeholder {
+  @apply placeholder;
+}
+
+.input::-moz-placeholder {
+  @apply placeholder;
+}
+
+:global(.dark) .input {
+  @apply text-gray-100;
+}
+
+.input:-ms-input-placeholder {
+  @apply placeholder;
+}
+
+.input:disabled {
+  cursor: not-allowed;
+}
+
+.input:focus::-moz-placeholder {
+  @apply placeholder-focus;
+  opacity: 1;
+}
+
+.input:focus::-webkit-input-placeholder {
+  @apply placeholder-focus;
+}
+
+.input::placeholder {
+  @apply placeholder;
+}
+
+:global(.dark) .input::-webkit-input-placeholder {
+  @apply placeholder-dark;
+}
+
+:global(.dark) .input::-moz-placeholder {
+  @apply placeholder-dark;
+}
+
+:global(.dark) .input:-ms-input-placeholder {
+  @apply placeholder-dark;
+}
+
+:global(.dark) .input::placeholder {
+  @apply placeholder-dark;
+}
+
+.input ::-webkit-outer-spin-button,
+.input ::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  appearance: none;
+  margin: 0rem;
+}
+
+.input.hasLabel {
+  min-height: 3.5rem;
+}
+
+.input.hasLabel:not(.hasPrefix):not(:focus)::placeholder {
+  @apply placeholder-labeled-not-focus;
+}
+
+.input.hasLabel:not(.hasPrefix):not(:focus)::-webkit-input-placeholder {
+  @apply placeholder-labeled-not-focus;
+}
+
+.input.hasLabel:not(.hasPrefix):not(:focus)::-moz-placeholder {
+  @apply placeholder-labeled-not-focus;
+}
+
+.input.hasLabel:not(.hasPrefix):not(:focus):-ms-input-placeholder {
+  @apply placeholder-labeled-not-focus;
+}
+
+.input:focus::placeholder {
+  @apply placeholder-focus;
+}
+
+.input:focus:-ms-input-placeholder {
+  @apply placeholder-focus;
+}
+
+.input:not(.hasError):focus ~ .label {
+  @apply text-cyan-900;
+}
+
+:global(.dark) .input:not(.hasError):focus ~ .label {
+  @apply text-cyan-200;
+}
