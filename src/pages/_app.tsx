@@ -23,6 +23,9 @@ const msImageSizes = Object.keys(config.manifest.icon.msTile);
 const AppHeadContent = memo(() => {
   return (
     <Head>
+      <meta name='viewport' content='width=device-width, initial-scale=1.0' />
+      <meta charSet='utf-8' />
+      <meta httpEquiv='X-UA-Compatible' content='IE=edge' />
       <link
         rel='apple-touch-icon'
         sizes='180x180'
@@ -69,8 +72,13 @@ const AppHeadContent = memo(() => {
       <link rel='icon' href='/favicon.ico' />
       <link rel='shortcut icon' href='/favicon.ico' />
       <meta name='apple-mobile-web-app-title' content={config.appName} />
+      <meta name='apple-mobile-web-app-capable' content='yes' />
+      <meta name='apple-mobile-web-app-status-bar-style' content='default' />
       <meta name='application-name' content={config.appName} />
-      <meta name='msapplication-TileColor' content={config.manifest.themeColor} />
+      <meta name='msapplication-navbutton-color' content={config.manifest.themeColor} />
+      <meta name='msapplication-TileColor' content={config.manifest.backgroundColor} />
+      <meta name='msapplication-starturl' content='/' />
+      <meta name='msapplication-tap-highlight' content='no' />
       <meta name='msapplication-config' content='/browserconfig.xml' />
       <meta name='theme-color' content={config.manifest.themeColor} />
       {msImageSizes.map((size) => (
