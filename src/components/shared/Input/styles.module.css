@@ -4,35 +4,35 @@
 }
 
 .innerContainer {
-  @apply relative flex w-full rounded bg-gray-200;
+  @apply relative flex w-full rounded bg-neutral-bright1;
 }
 
 :global(.dark) .innerContainer {
-  @apply bg-gray-600;
+  @apply bg-neutral-dim1;
 }
 
 .innerContainer.focused:not(.hasError) {
-  @apply border border-solid border-cyan-800;
+  @apply border border-solid border-primary-dim;
 }
 
 :global(.dark) .innerContainer.focused:not(.hasError) {
-  @apply border-cyan-200;
+  @apply border-primary-bright;
 }
 
 .innerContainer.disabled:not(.hasError) {
-  @apply bg-gray-300;
+  @apply bg-neutral-bright2;
 }
 
 :global(.dark) .innerContainer.disabled:not(.hasError) {
-  @apply bg-gray-500;
+  @apply bg-neutral-dim2;
 }
 
 .innerContainer.hasError {
-  @apply border border-solid border-red-600 bg-red-200;
+  @apply border border-solid border-danger-dim1 bg-danger-bright;
 }
 
 :global(.dark) .innerContainer.hasError {
-  @apply border border-solid border-red-300 bg-red-700;
+  @apply border border-solid border-danger-bright1 bg-danger-dim;
 }
 
 .prefix {
@@ -46,13 +46,13 @@
 .prefix,
 .suffix {
   @apply flex flex-col justify-center py-3;
-  @apply text-gray-700;
+  @apply text-neutral-dim;
   height: 3rem;
 }
 
 :global(.dark) .prefix,
 :global(.dark) .suffix {
-  @apply text-gray-100;
+  @apply text-neutral-bright;
 }
 
 .prefix.hasLabel,
@@ -61,23 +61,23 @@
 }
 
 .supportText {
-  @apply text-xs my-1 text-gray-600;
+  @apply text-xs my-1 text-neutral-dim1;
 }
 
 :global(.dark) .supportText {
-  @apply text-gray-200;
+  @apply text-neutral-bright1;
 }
 
 .supportText.hasError {
-  @apply text-red-600;
+  @apply text-danger-dim1;
 }
 
 :global(.dark) .supportText.hasError {
-  @apply text-red-300;
+  @apply text-danger-bright1;
 }
 
 .label {
-  @apply text-gray-600;
+  @apply text-neutral-dim1;
   @apply absolute left-3;
   @apply duration-200 pointer-events-none;
   top: 50%;
@@ -87,36 +87,36 @@
 }
 
 :global(.dark) .label {
-  @apply text-gray-200;
+  @apply text-neutral-bright1;
 }
 
 :global(.hasFilledInput).label,
 .input:focus ~ .label,
 .input:not(:placeholder-shown) ~ .label,
 .input.hasPrefix ~ .label {
-  @apply text-cyan-900 text-xs pr-3;
+  @apply text-primary-dim text-xs pr-3;
   top: 1px;
   transform: translateY(0px);
   width: calc(100% - 13px);
 }
 
 .input.hasError ~ .label {
-  @apply text-red-800;
+  @apply text-danger-dim;
 }
 
 :global(.dark) :global(.hasFilledInput).label,
 :global(.dark) .input:focus ~ .label,
 :global(.dark) .input:not(:placeholder-shown) ~ .label,
 :global(.dark) .input.hasPrefix ~ .label {
-  @apply text-cyan-200;
+  @apply text-primary-bright;
 }
 
 :global(.dark) .input.hasError ~ .label {
-  @apply text-red-200;
+  @apply text-danger-bright;
 }
 
 .input {
-  @apply w-full bg-transparent text-gray-700 resize-y px-3;
+  @apply w-full bg-transparent text-neutral-dim resize-y px-3;
   min-height: 3rem;
 }
 
@@ -205,9 +205,9 @@
 }
 
 .input:not(.hasError):focus ~ .label {
-  @apply text-cyan-900;
+  @apply text-primary-dim;
 }
 
 :global(.dark) .input:not(.hasError):focus ~ .label {
-  @apply text-cyan-200;
+  @apply text-primary-bright;
 }

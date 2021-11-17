@@ -2,95 +2,137 @@
 @tailwind components;
 @tailwind utilities;
 
-* {
-  @apply text-gray-700 dark:text-gray-100 m-0 p-0;
+@layer base {
+  * {
+    @apply text-neutral-dim dark:text-neutral-bright m-0 p-0;
+  }
+
+  body {
+    @apply m-0 w-full p-0 bg-neutral-bright dark:bg-neutral-dim;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    margin: 0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  span,
+  p {
+    margin: 0;
+    color: inherit;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  label,
+  span,
+  p,
+  input,
+  textarea {
+    @apply text-base font-normal;
+  }
+
+  h1,
+  h2,
+  h3 {
+    @apply font-semibold text-neutral-dim0 dark:text-neutral-bright0;
+  }
+
+  h4,
+  h5 {
+    @apply font-medium;
+  }
+
+  h1 {
+    @apply text-3xl;
+  }
+
+  h2 {
+    @apply text-2xl;
+  }
+
+  h3,
+  h4 {
+    @apply text-xl;
+  }
+
+  h5,
+  h6 {
+    @apply text-lg;
+  }
+
+  input {
+    -webkit-appearance: none;
+    background-color: white;
+    -webkit-rtl-ordering: logical;
+    cursor: text;
+    padding: 0;
+    border: none;
+  }
+
+  input[type='button'i],
+  input[type='submit'i],
+  input[type='reset'i],
+  input[type='file'i]::-webkit-file-upload-button,
+  input {
+    -webkit-appearance: none;
+    appearance: none;
+    background-color: white;
+    -webkit-rtl-ordering: logical;
+    cursor: text;
+    padding: 0;
+    border: none;
+  }
+
+  input:focus,
+  textarea:focus,
+  button:focus {
+    outline: none;
+  }
 }
 
-body {
-  @apply m-0 w-full p-0 bg-gray-100 dark:bg-gray-700;
-}
+@layer components {
+  .btn {
+    @apply flex gap-3 items-center justify-center px-4;
+    @apply font-semibold text-base;
+    @apply border-none rounded;
+  }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  margin: 0;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+  .btn:disabled {
+    @apply cursor-not-allowed opacity-30;
+  }
 
-span,
-p {
-  margin: 0;
-  color: inherit;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+  .btn:hover:not(:disabled) {
+    filter: brightness(0.8);
+  }
 
-label,
-span,
-p,
-input,
-textarea {
-  @apply text-base font-normal;
-}
+  .btn-primary {
+    @apply text-neutral-bright bg-primary-dim;
+    @apply dark:text-neutral-dim dark:bg-primary-bright;
+  }
 
-h1,
-h2,
-h3 {
-  @apply font-semibold text-gray-800 dark:text-gray-50;
-}
+  .dark .btn-primary:disabled {
+    @apply opacity-50;
+  }
 
-h4,
-h5 {
-  @apply font-medium;
-}
+  .btn-secondary {
+    @apply bg-transparent;
+    @apply text-primary-dim border border-solid border-primary-dim;
+    @apply dark:text-primary-bright dark:border-primary-bright;
+  }
 
-h1 {
-  @apply text-3xl;
-}
+  .btn-text {
+    @apply bg-transparent;
+    @apply text-primary-dim dark:text-primary-bright;
+  }
 
-h2 {
-  @apply text-2xl;
-}
-
-h3,
-h4 {
-  @apply text-xl;
-}
-
-h5,
-h6 {
-  @apply text-lg;
-}
-
-input {
-  -webkit-appearance: none;
-  background-color: white;
-  -webkit-rtl-ordering: logical;
-  cursor: text;
-  padding: 0;
-  border: none;
-}
-
-input[type='button'i],
-input[type='submit'i],
-input[type='reset'i],
-input[type='file'i]::-webkit-file-upload-button,
-input {
-  -webkit-appearance: none;
-  appearance: none;
-  background-color: white;
-  -webkit-rtl-ordering: logical;
-  cursor: text;
-  padding: 0;
-  border: none;
-}
-
-input:focus,
-textarea:focus,
-button:focus {
-  outline: none;
+  .btn-text:hover:not(:disabled) {
+    @apply filter-none underline;
+  }
 }
