@@ -1,7 +1,6 @@
-import { NextApiRequest, NextApiResponse } from 'next';
+import { NextApiResponse } from 'next';
 
 import HTTPMethod from '@/constants/http-method';
-import StatusCode from '@/constants/status-code';
 import { url } from '@/services/firebase/server';
 import { AddUrlParam } from '@/types/url-model';
 import ApiError from '@/utils/api-helpers/api-error';
@@ -30,24 +29,10 @@ async function handlePOST(req: ApiRequest<AddUrlParam>, res: NextApiResponse) {
   }
 }
 
-async function handleGET(req: NextApiRequest, res: NextApiResponse) {
-  try {
-    const result = await url.get('abc');
-    if (!result) {
-      throw new ApiError('Not Found', StatusCode.NotFound);
-    }
-    return res.status(StatusCode.OK).json(result);
-  } catch (error) {
-    return sendError(res, error);
-  }
-}
-
 const apiURLHandler = withMiddleware((req, res) => {
   switch (req.method) {
     case HTTPMethod.POST:
       return handlePOST(req, res);
-    case HTTPMethod.GET:
-      return handleGET(req, res);
     default:
       return sendMethodNotAllowed(res);
   }
