@@ -1,9 +1,9 @@
 module.exports = {
   appName: 'rofi.link',
-  appURL: process.env.APP_URL,
+  appURL: process.env.APP_URL || `http://localhost:${process.env.PORT}`,
   manifest: {
-    themeColor: '#164e63',
-    backgroundColor: '#7dd3fc',
+    themeColor: '#0e7490',
+    backgroundColor: '#f4f4f5',
     description: 'Singkat tautan dengan mudah',
     icon: {
       main: ['192x192', '384x384'],

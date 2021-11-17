@@ -9,6 +9,26 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        neutral: {
+          dim0: colors.gray[800],
+          bright0: colors.gray[50],
+          dim: colors.gray[700],
+          bright: colors.gray[100],
+          dim1: colors.gray[600],
+          bright1: colors.gray[200],
+          dim2: colors.gray[500],
+          bright2: colors.gray[300]
+        },
+        primary: {
+          dim: colors.cyan[700],
+          bright: colors.cyan[100]
+        },
+        danger: {
+          dim: colors.red[700],
+          bright: colors.red[200],
+          dim1: colors.red[600],
+          bright1: colors.red[300]
+        },
         cyan: colors.cyan,
         sky: colors.sky
       }
@@ -18,9 +38,9 @@ module.exports = {
     extend: {}
   },
   plugins: [
-    plugin(({ addComponents }) => {
+    plugin(({ addUtilities }) => {
       /** @type {Record<string, React.CSSProperties>} */
-      const placeholders = {
+      const newUtilities = {
         '.placeholder': {
           color: colors.gray[600]
         },
@@ -35,7 +55,7 @@ module.exports = {
         }
       };
 
-      addComponents(placeholders);
+      addUtilities(newUtilities);
     })
   ]
 };
