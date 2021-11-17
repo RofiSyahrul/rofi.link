@@ -1,9 +1,12 @@
-import config from '@/config';
+import Meta from '@/components/shared/Meta';
+
+import ShortenerForm from './ShortenerForm';
 
 export default function HomePage() {
   return (
-    <main className='w-screen h-screen flex items-center justify-center'>
-      <h1>{config.manifest.description}</h1>
+    <main className='w-screen h-screen flex items-center justify-center flex-col'>
+      <Meta />
+      <ShortenerForm />
     </main>
   );
 }
