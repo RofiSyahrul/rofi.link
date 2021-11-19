@@ -15,7 +15,7 @@ const SlugInput = memo(({
     const sanitizedValue = value.trim().replace(/\s+/g, '-');
     setSlug(sanitizedValue);
 
-    const isValid = !/[^\w-]/.test(sanitizedValue);
+    const isValid = !!sanitizedValue && !/[^\w-]/.test(sanitizedValue);
     setHasError(!isValid);
     onValidationDone(isValid);
   }, [onValidationDone]);
