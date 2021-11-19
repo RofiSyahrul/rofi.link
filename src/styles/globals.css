@@ -99,7 +99,7 @@
 
 @layer components {
   .btn {
-    @apply flex gap-3 items-center justify-center px-4;
+    @apply flex gap-3 items-center justify-center px-3;
     @apply font-semibold text-base;
     @apply border-none rounded;
   }
@@ -112,27 +112,104 @@
     filter: brightness(0.8);
   }
 
-  .btn-primary {
-    @apply text-neutral-bright bg-primary-dim;
-    @apply dark:text-neutral-dim dark:bg-primary-bright;
+  .btn.btn-solid {
+    @apply text-neutral-bright dark:text-neutral-dim;
   }
 
-  .dark .btn-primary:disabled {
+  .btn.btn-solid:disabled {
     @apply opacity-50;
   }
 
-  .btn-secondary {
-    @apply bg-transparent;
-    @apply text-primary-dim border border-solid border-primary-dim;
-    @apply dark:text-primary-bright dark:border-primary-bright;
+  .btn.btn-solid.btn-primary {
+    @apply bg-primary-dim dark:bg-primary-bright;
   }
 
-  .btn-text {
+  .btn.btn-solid.btn-secondary {
+    @apply bg-secondary-dim dark:bg-secondary-bright;
+  }
+
+  .btn.btn-solid.btn-danger {
+    @apply bg-danger-dim dark:bg-danger-bright;
+  }
+
+  .btn.btn-outline {
     @apply bg-transparent;
+    @apply border border-solid;
+  }
+
+  .btn.btn-outline.btn-primary {
+    @apply border-primary-dim text-primary-dim;
+    @apply dark:border-primary-bright dark:text-primary-bright;
+  }
+
+  .btn.btn-outline.btn-secondary {
+    @apply border-secondary-dim text-secondary-dim;
+    @apply dark:border-secondary-bright dark:text-secondary-bright;
+  }
+
+  .btn.btn-outline.btn-danger {
+    @apply border-danger-dim text-danger-dim;
+    @apply dark:border-danger-bright dark:text-danger-bright;
+  }
+
+  .btn.btn-text {
+    @apply bg-transparent;
+  }
+
+  .btn.btn-text:hover:not(:disabled) {
+    @apply filter-none underline;
+  }
+
+  .btn.btn-text.btn-primary {
     @apply text-primary-dim dark:text-primary-bright;
   }
 
-  .btn-text:hover:not(:disabled) {
-    @apply filter-none underline;
+  .btn.btn-text.btn-secondary {
+    @apply text-secondary-dim dark:text-secondary-bright;
+  }
+
+  .btn.btn-text.btn-danger {
+    @apply text-danger-dim dark:text-danger-bright;
+  }
+
+  .small {
+    @apply w-4 h-4;
+  }
+
+  .medium {
+    @apply w-5 h-5;
+  }
+
+  .large {
+    @apply w-6 h-6;
+  }
+
+  .solid.primary {
+    @apply text-primary-bright dark:text-primary-dim;
+    @apply fill-primary-bright dark:fill-primary-dim;
+  }
+
+  .solid.secondary {
+    @apply text-secondary-bright dark:text-secondary-dim;
+    @apply fill-secondary-bright dark:fill-secondary-dim;
+  }
+
+  .solid.danger {
+    @apply text-danger-bright dark:text-danger-dim;
+  }
+
+  .outline.primary,
+  .text.primary {
+    @apply text-primary-dim dark:text-primary-bright;
+  }
+
+  .outline.secondary,
+  .text.secondary {
+    @apply text-secondary-dim dark:text-secondary-bright;
+  }
+
+  .outline.danger,
+  .text.danger {
+    @apply text-danger-dim dark:text-danger-bright;
   }
 }

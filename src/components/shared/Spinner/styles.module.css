@@ -31,36 +31,6 @@
   animation: spin 1.6s linear infinite;
 }
 
-.spinner.small {
-  @apply w-4 h-4;
-}
-
-.spinner.medium {
-  @apply w-5 h-5;
-}
-
-.spinner.large {
-  @apply w-6 h-6;
-}
-
-.spinner.primary,
-.spinner.secondary {
-  @apply text-primary-bright;
-}
-
-:global(.dark) .spinner.primary,
-:global(.dark) .spinner.secondary {
-  @apply text-primary-dim;
-}
-
-.spinner.text {
-  @apply text-primary-dim;
-}
-
-:global(.dark) .spinner.text {
-  @apply text-primary-bright;
-}
-
 .spinner circle {
   animation: circleAnimation 1.4s linear infinite;
   fill: transparent;

@@ -7,16 +7,19 @@ import { SpinnerProps } from './types';
 
 const Spinner = forwardRef<SVGSVGElement, SpinnerProps>(({
   className,
-  variant,
-  size,
+  variant = 'primary',
+  size = 'medium',
+  mode = 'solid',
   ...props
 }, ref) => {
   const spinnerClassName = clsx(
     styles.spinner,
-    variant && styles[variant],
-    size && styles[size],
+    variant,
+    mode,
+    size,
     className
   );
+
   return (
     <svg
       xmlns='http://www.w3.org/2000/svg'

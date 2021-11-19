@@ -82,8 +82,9 @@
   @apply duration-200 pointer-events-none;
   top: 50%;
   transition-timing-function: ease;
+  transition-duration: 0.2s;
   transform: translateY(-50%);
-  transition-property: top, font-size, color, padding;
+  transition-property: top;
 }
 
 :global(.dark) .label {
@@ -129,7 +130,7 @@
 }
 
 :global(.dark) .input {
-  @apply text-gray-100;
+  @apply text-neutral-bright;
 }
 
 .input:-ms-input-placeholder {
