@@ -5,6 +5,7 @@ declare global {
 
   type AppPageProps<T = {}> = T & {
     dehydratedState?: DehydratedState;
+    cookies?: string;
   };
 
   type PaginationParam<LastValue = any> = {

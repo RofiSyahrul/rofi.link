@@ -8,6 +8,7 @@ import { Hydrate, QueryClient, QueryClientProvider } from 'react-query';
 
 import '@/styles/globals.css';
 import config from '@/config';
+import { ColorModeProvider } from '@/context/color-mode';
 
 type AppProps = {
   pageProps: AppPageProps;
@@ -100,7 +101,9 @@ export default function App({ Component, pageProps }: AppProps) {
       <AppHeadContent />
       <QueryClientProvider client={queryClient}>
         <Hydrate state={pageProps.dehydratedState}>
-          <Component {...pageProps} />
+          <ColorModeProvider cookies={pageProps.cookies}>
+            <Component {...pageProps} />
+          </ColorModeProvider>
         </Hydrate>
       </QueryClientProvider>
     </>

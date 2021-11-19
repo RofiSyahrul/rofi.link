@@ -35,6 +35,7 @@ function getServerSideProps<P = {}>(
       ...rest,
       props: {
         ...props,
+        cookies: req.headers.cookie ?? '',
         dehydratedState: dehydrate(context.queryClient)
       }
     };
