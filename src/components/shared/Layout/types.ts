@@ -5,3 +5,8 @@ export type MetaProps = {
   url?: string;
   keyword?: string;
 };
+
+export interface LayoutProps extends MetaProps {
+  className?: string;
+  children: React.ReactNode;
+}

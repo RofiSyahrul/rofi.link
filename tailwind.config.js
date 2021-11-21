@@ -3,7 +3,6 @@ const plugin = require('tailwindcss/plugin');
 
 /** @type {import('tailwindcss/tailwind-config').TailwindConfig} */
 module.exports = {
-  ...(process.env.NODE_ENV === 'production' && { mode: 'jit' }),
   darkMode: 'class',
   purge: ['./src/pages/**/*.{js,ts,jsx,tsx}', './src/components/**/*.{js,ts,jsx,tsx}'],
   theme: {

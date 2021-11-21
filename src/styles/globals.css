@@ -95,6 +95,10 @@
   button:focus {
     outline: none;
   }
+
+  #__next {
+    @apply relative h-screen flex flex-col;
+  }
 }
 
 @layer components {

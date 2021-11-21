@@ -10,6 +10,7 @@
     "prebuild": "yarn generate-sa && yarn generate-manifest",
     "build": "next build",
     "analyze": "yarn prebuild && ANALYZE=true next build",
+    "export": "yarn build && next export",
     "start": "next start",
     "lint": "next lint"
   },
