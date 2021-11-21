@@ -4,11 +4,12 @@ import { UrlModel, AddUrlParam, GetUrlListParam, UpdateUrlParam } from '@/types/
 import { FirebaseAdmin } from '../_base';
 import { getList, getChildValue, joinPath, getChildKey } from './_utils';
 
+const database = FirebaseAdmin.db;
 const path = '/urls';
 
 function getRef(pathSuffix?: string) {
   const finalPath = joinPath(path, pathSuffix);
-  return FirebaseAdmin.db.ref(finalPath);
+  return database.ref(finalPath);
 }
 
 export const url = {
@@ -28,6 +29,12 @@ export const url = {
   async getList({ sorter = 'createdAt', limit = DEFAULT_LIMIT }: GetUrlListParam = {}) {
     const ref = getRef();
     const snapshot = await ref.orderByChild(sorter).limitToLast(limit).once('value');
+    return getList<UrlModel>(snapshot);
+  },
+
+  async getMyURLs(userID: string) {
+    const ref = getRef();
+    const snapshot = await ref.orderByChild('user').equalTo(userID).once('value');
     return getList<UrlModel>(snapshot);
   },
 

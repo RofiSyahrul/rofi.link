@@ -1,16 +1,24 @@
 import { ParsedUrlQueryInput, stringify } from 'querystring';
 
 import HTTPMethod from '@/constants/http-method';
+import { auth } from '@/services/firebase/client';
 
 const basicHeaders = [
   ['Accept', 'application/json'],
   ['Content-Type', 'application/json']
 ];
 
+async function getAuthHeader() {
+  const idToken = await auth.getToken();
+  if (!idToken) return [];
+  return ['Authorization', `Bearer ${idToken}`];
+}
+
 async function fetcher<T = any>(reqInfo: RequestInfo, reqInit?: RequestInit): Promise<T> {
   const response: Response = await fetch(reqInfo, reqInit);
-  if (response.status >= 400 && response.status < 600) {
-    throw new Error(response.statusText);
+  if (!response.ok) {
+    const res = await response.json();
+    throw new Error(res?.error?.message || response.statusText);
   }
   return (await response.json()) as T;
 }
@@ -21,10 +29,11 @@ function parseEndpoint(endpoint: string, query?: any): string {
 }
 
 async function mutate<T = any>(endpoint: string, method: string, body?: BodyInit): Promise<T> {
+  const authHeader = await getAuthHeader();
   const response = await fetcher<T>(endpoint, {
     method,
     body,
-    headers: basicHeaders
+    headers: [...basicHeaders, authHeader]
   });
 
   return response;
@@ -36,9 +45,10 @@ export const api = {
     endpoint: string,
     query?: Q | null
   ): Promise<T> {
+    const authHeader = await getAuthHeader();
     const response = await fetcher<T>(parseEndpoint(endpoint, query), {
       method: HTTPMethod.GET,
-      headers: basicHeaders
+      headers: [...basicHeaders, authHeader]
     });
     return response;
   },

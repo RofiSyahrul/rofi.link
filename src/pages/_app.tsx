@@ -2,13 +2,14 @@
 import { NextComponentType, NextPageContext } from 'next';
 import { NextRouter } from 'next/dist/client/router';
 import Head from 'next/head';
-import { memo, useState } from 'react';
+import { memo, useEffect, useState } from 'react';
 
 import { Hydrate, QueryClient, QueryClientProvider } from 'react-query';
 
 import '@/styles/globals.css';
 import config from '@/config';
 import { ColorModeProvider } from '@/context/color-mode';
+import { auth } from '@/services/firebase/client';
 
 type AppProps = {
   pageProps: AppPageProps;
@@ -95,6 +96,13 @@ const AppHeadContent = memo(() => {
 
 export default function App({ Component, pageProps }: AppProps) {
   const [queryClient] = useState(() => new QueryClient());
+
+  useEffect(() => {
+    const user = auth.currentUser;
+    if (!user) {
+      auth.signInAnonymously();
+    }
+  }, []);
 
   return (
     <>
