@@ -4,7 +4,11 @@ const plugin = require('tailwindcss/plugin');
 /** @type {import('tailwindcss/tailwind-config').TailwindConfig} */
 module.exports = {
   darkMode: 'class',
-  purge: ['./src/pages/**/*.{js,ts,jsx,tsx}', './src/components/**/*.{js,ts,jsx,tsx}'],
+  purge: [
+    './src/pages/**/*.{js,ts,jsx,tsx}',
+    './src/components/**/*.{js,ts,jsx,tsx}',
+    './src/utils/class-name/*.ts'
+  ],
   theme: {
     colors: {
       transparent: 'transparent',

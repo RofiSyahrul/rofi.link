@@ -95,10 +95,6 @@
   button:focus {
     outline: none;
   }
-
-  #__next {
-    @apply relative h-screen flex flex-col;
-  }
 }
 
 @layer components {
@@ -216,4 +212,8 @@
   .text.danger {
     @apply text-danger-dim dark:text-danger-bright;
   }
+}
+
+#__next {
+  @apply relative h-screen flex flex-col;
 }
