@@ -1,29 +1,9 @@
 import { forwardRef } from 'react';
 
-import clsx from 'clsx';
-
-import { Mode, Size, Variant } from '@/types/style';
+import { buildButtonClassName } from '@/utils/class-name/button';
 
 import Spinner from '../Spinner';
 import { ButtonProps } from './types';
-
-const variantMapping: Record<Variant, string> = {
-  primary: 'btn-primary',
-  secondary: 'btn-secondary',
-  danger: 'btn-danger'
-};
-
-const modeMapping: Record<Mode, string> = {
-  solid: 'btn-solid',
-  outline: 'btn-outline',
-  text: 'btn-text'
-};
-
-const sizeMapping: Record<Size, string> = {
-  small: 'h-8',
-  medium: 'h-10',
-  large: 'h-12'
-};
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(({
   isLoading,
@@ -35,14 +15,13 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(({
   children,
   ...props
 }, ref) => {
-  const buttonClassName = clsx(
-    'btn',
-    variantMapping[variant],
-    modeMapping[mode],
-    sizeMapping[size],
-    isFullWidth ? 'w-full' : '',
-    className
-  );
+  const buttonClassName = buildButtonClassName({
+    className,
+    isFullWidth,
+    mode,
+    size,
+    variant
+  });
 
   return (
     <button {...props} ref={ref} className={buttonClassName}>

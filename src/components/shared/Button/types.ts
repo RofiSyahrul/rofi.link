@@ -1,9 +1,7 @@
-import { Mode, Size, Variant } from '@/types/style';
+import { BuildButtonClassNameParam } from '@/utils/class-name/types';
 
-export type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
+type BaseButtonProps = BuildButtonClassNameParam & {
   isLoading?: boolean;
-  isFullWidth?: boolean;
-  variant?: Variant;
-  size?: Size;
-  mode?: Mode;
 };
+
+export type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & BaseButtonProps;
