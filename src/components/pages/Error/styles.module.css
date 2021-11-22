@@ -1,0 +1,41 @@
+.container {
+  @apply h-full relative px-4;
+  @apply justify-center items-center;
+}
+
+.container h1,
+.container h2 {
+  @apply text-center;
+}
+
+.container h1 {
+  font-size: 10rem;
+  line-height: 1;
+}
+
+.container h1 span {
+  @apply h-32;
+  content: url(/icons/android-chrome-384x384.png);
+}
+
+.container h2 {
+  @apply text-5xl;
+}
+
+@media (max-width: 639.95px) {
+  .container h1 {
+    @apply text-9xl;
+  }
+
+  .container h1 span {
+    @apply h-24;
+  }
+
+  .container h2 {
+    @apply text-3xl;
+  }
+}
+
+.container div {
+  @apply mb-4;
+}
