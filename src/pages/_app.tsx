@@ -73,10 +73,10 @@ const AppHeadContent = memo(() => {
       />
       <link rel='icon' href='/favicon.ico' />
       <link rel='shortcut icon' href='/favicon.ico' />
-      <meta name='apple-mobile-web-app-title' content={config.appName} />
+      <meta name='apple-mobile-web-app-title' content={APP_NAME} />
       <meta name='apple-mobile-web-app-capable' content='yes' />
       <meta name='apple-mobile-web-app-status-bar-style' content='default' />
-      <meta name='application-name' content={config.appName} />
+      <meta name='application-name' content={APP_NAME} />
       <meta name='msapplication-navbutton-color' content={config.manifest.themeColor} />
       <meta name='msapplication-TileColor' content={config.manifest.backgroundColor} />
       <meta name='msapplication-starturl' content='/' />

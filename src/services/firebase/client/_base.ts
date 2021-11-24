@@ -1,8 +1,6 @@
 import { FirebaseApp, FirebaseOptions, initializeApp } from 'firebase/app';
 import { Auth, browserLocalPersistence, initializeAuth } from 'firebase/auth';
 
-import config from '@/config';
-
 const projectId = process.env.F_PROJECT_ID;
 
 const firebaseConfig: FirebaseOptions = {
@@ -23,7 +21,7 @@ export class FirebaseClient {
 
   constructor() {
     if (!app) {
-      app = initializeApp(firebaseConfig, config.appName);
+      app = initializeApp(firebaseConfig, APP_NAME);
     }
 
     this._auth = initializeAuth(app, {

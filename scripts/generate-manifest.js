@@ -4,7 +4,7 @@ const path = require('path');
 const { promisify } = require('util');
 
 const pkg = require('../package.json');
-const { appName, manifest } = require('../src/config');
+const { manifest } = require('../src/config');
 
 const writeFile = promisify(fs.writeFile);
 
@@ -16,8 +16,8 @@ const writeFile = promisify(fs.writeFile);
   }));
 
   const manifestContent = {
-    name: appName,
-    short_name: appName,
+    name: pkg.name,
+    short_name: pkg.name,
     version: pkg.version,
     description: manifest.description,
     background_color: manifest.backgroundColor,

@@ -21,6 +21,9 @@ const nextConfig = {
   webpack(config, { webpack }) {
     config.plugins.push(
       new webpack.DefinePlugin({
+        AUTHOR_NAME: JSON.stringify(pkg.author.name),
+        AUTHOR_URL: JSON.stringify(pkg.author.url),
+        APP_NAME: JSON.stringify(pkg.name),
         APP_VERSION: JSON.stringify(pkg.version)
       })
     );

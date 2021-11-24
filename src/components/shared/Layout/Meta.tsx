@@ -15,7 +15,7 @@ export default function Meta({
 }: MetaProps) {
   const metaTitle = useMemo(() => {
     const pageTitle = title || defaultTitle;
-    const suffixedTitle = `${pageTitle} | ${config.appName}`;
+    const suffixedTitle = `${pageTitle} | ${APP_NAME}`;
 
     return (
       <>

@@ -1,5 +1,4 @@
 module.exports = {
-  appName: 'rofi.link',
   appURL: process.env.APP_URL || `http://localhost:${process.env.PORT}`,
   manifest: {
     themeColor: '#0c4a6e',
