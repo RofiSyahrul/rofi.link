@@ -11,15 +11,18 @@ const viewBoxMapping: Record<Size, string> = {
 };
 
 export function buildSVGProps({
+  className,
   mode = 'solid',
   size = 'medium',
-  variant = 'primary'
+  variant = 'primary',
+  ...props
 }: IconProps): React.SVGProps<SVGSVGElement> {
-  const className = clsx(mode, size, variant);
+  const mergedClassName = clsx(mode, size, variant, className);
 
   return {
-    className,
+    className: mergedClassName,
     viewBox: viewBoxMapping[size],
-    xmlns: 'http://www.w3.org/2000/svg'
+    xmlns: 'http://www.w3.org/2000/svg',
+    ...props
   };
 }

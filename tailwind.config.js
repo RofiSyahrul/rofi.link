@@ -38,10 +38,12 @@ module.exports = {
         bright1: colors.red[300]
       }
     },
+    stroke: (theme) => theme('colors'),
     fill: (theme) => theme('colors')
   },
   variants: {
     extend: {
+      stroke: ['dark'],
       fill: ['dark']
     }
   },
