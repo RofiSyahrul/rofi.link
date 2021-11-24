@@ -1,5 +1,6 @@
 import clsx from 'clsx';
 
+import Footer from './Footer';
 import Meta from './Meta';
 import styles from './styles.module.css';
 import SwitchModeButton from './SwitchModeButton';
@@ -32,6 +33,7 @@ export default function Layout({
       <main className={clsx(styles.main, className)}>
         {children}
       </main>
+      <Footer />
     </>
   );
 }

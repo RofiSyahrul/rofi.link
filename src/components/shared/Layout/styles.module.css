@@ -11,3 +11,24 @@
 .main {
   @apply w-screen h-full flex flex-col px-3;
 }
+
+.footer {
+  @apply absolute bottom-0 p-4 w-full;
+  @apply flex flex-col justify-center items-center;
+}
+
+.footer span {
+  @apply inline-flex;
+}
+
+.footer > span {
+  @apply items-center justify-center flex-wrap text-center;
+}
+
+.footer > :global(#hosting-provider) {
+  @apply mb-2 gap-1;
+}
+
+.footer a:global(.btn) {
+  @apply px-0 h-6 gap-1;
+}
