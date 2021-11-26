@@ -1,5 +1,5 @@
 .header {
-  @apply sticky top-0 z-40 w-screen p-4;
+  @apply sticky top-0 z-40 w-full h-header p-4;
   @apply shadow-lg bg-neutral-bright;
   @apply flex justify-between items-center;
 }
@@ -9,12 +9,12 @@
 }
 
 .main {
-  @apply w-screen h-full flex flex-col px-3;
+  @apply w-full flex flex-col px-3;
 }
 
 .footer {
-  @apply absolute bottom-0 p-4 w-full;
-  @apply flex flex-col justify-center items-center;
+  @apply w-full h-footer p-3;
+  @apply flex flex-col justify-end items-center;
 }
 
 .footer span {

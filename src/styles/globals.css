@@ -215,5 +215,5 @@
 }
 
 #__next {
-  @apply relative h-screen flex flex-col;
+  @apply relative flex flex-col;
 }

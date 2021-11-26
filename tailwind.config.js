@@ -51,6 +51,16 @@ module.exports = {
     plugin(({ addUtilities }) => {
       /** @type {Record<string, React.CSSProperties>} */
       const newUtilities = {
+        '.h-header': {
+          height: '4.5rem'
+        },
+        '.h-footer': {
+          height: '10rem'
+        },
+        '.layout-full': {
+          minHeight: 'calc(100vh - 14.5rem)',
+          width: '100%'
+        },
         '.placeholder': {
           color: colors.blueGray[700]
         },
