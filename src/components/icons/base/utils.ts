@@ -1,14 +1,6 @@
 import clsx from 'clsx';
 
-import { Size } from '@/types/style';
-
 import { IconProps } from './types';
-
-const viewBoxMapping: Record<Size, string> = {
-  small: '0 0 16 16',
-  medium: '0 0 20 20',
-  large: '0 0 24 24'
-};
 
 export function buildSVGProps({
   className,
@@ -21,7 +13,7 @@ export function buildSVGProps({
 
   return {
     className: mergedClassName,
-    viewBox: viewBoxMapping[size],
+    viewBox: '0 0 20 20',
     xmlns: 'http://www.w3.org/2000/svg',
     ...props
   };
