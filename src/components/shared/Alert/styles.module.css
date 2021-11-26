@@ -1,0 +1,39 @@
+.alert {
+  @apply hidden;
+  @apply flex-wrap items-center px-3 py-2 gap-2 w-full;
+  @apply text-neutral-dim0;
+}
+
+.alert.visible {
+  @apply flex;
+}
+
+:global(.dark) .alert {
+  @apply text-neutral-bright0;
+}
+
+.alert.info,
+.alert.success {
+  @apply bg-primary-bright;
+}
+
+:global(.dark) .alert.info,
+:global(.dark) .alert.success {
+  @apply bg-primary-dim;
+}
+
+.alert.error {
+  @apply bg-danger-bright;
+}
+
+:global(.dark) .alert.error {
+  @apply bg-danger-dim;
+}
+
+.alert .closeButton {
+  @apply px-0 h-auto;
+}
+
+.alert * {
+  color: inherit;
+}
