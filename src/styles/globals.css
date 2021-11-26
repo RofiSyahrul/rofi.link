@@ -201,16 +201,19 @@
   .outline.primary,
   .text.primary {
     @apply text-primary-dim dark:text-primary-bright;
+    @apply fill-primary-dim dark:fill-primary-bright;
   }
 
   .outline.secondary,
   .text.secondary {
     @apply text-secondary-dim dark:text-secondary-bright;
+    @apply fill-secondary-dim dark:fill-secondary-bright;
   }
 
   .outline.danger,
   .text.danger {
     @apply text-danger-dim dark:text-danger-bright;
+    @apply fill-danger-dim dark:fill-danger-bright;
   }
 }
 
