@@ -1,0 +1,17 @@
+.form {
+  @apply layout-full max-w-lg flex flex-col justify-center;
+}
+
+.alertContent {
+  @apply flex items-center justify-between gap-1;
+  width: calc(100% - 4rem);
+}
+
+.alertContent > span {
+  @apply break-words;
+  width: calc(100% - 3.25rem);
+}
+
+.alertContent > :global(.btn) {
+  width: 3rem;
+}

@@ -1,16 +1,25 @@
-import { ChangeEvent, memo, useCallback, useState } from 'react';
+import {
+  ChangeEvent,
+  forwardRef,
+  memo,
+  useCallback,
+  useImperativeHandle,
+  useRef,
+  useState
+} from 'react';
 
 import Input from '@/components/shared/Input';
 
-import { InputFieldProps } from './types';
+import { InputFieldProps, InputFieldRefAttribute } from './types';
 
 const initialSupportText = 'Tautan harus valid';
 const supportTextValidURL = 'Tautan valid';
 const supportTextInvalidURL = 'Tautan harus dimulai dengan http:// atau https://';
 
-const ActualURLInput = memo(({
+const ActualURLInput = memo(forwardRef<InputFieldRefAttribute, InputFieldProps>(({
   onValidationDone
-}: InputFieldProps) => {
+}, ref) => {
+  const inputRef = useRef<HTMLInputElement>(null);
   const [actualURL, setActualURL] = useState('');
   const [hasError, setHasError] = useState(false);
   const [supportText, setSupportText] = useState(initialSupportText);
@@ -25,8 +34,14 @@ const ActualURLInput = memo(({
     setSupportText(isValid ? supportTextValidURL : supportTextInvalidURL);
   }, [onValidationDone]);
 
+  useImperativeHandle(ref, () => ({
+    ...inputRef.current,
+    setValue: setActualURL
+  }), []);
+
   return (
     <Input
+      ref={inputRef}
       type='url'
       id='actualURL'
       name='actualURL'
@@ -40,6 +55,6 @@ const ActualURLInput = memo(({
       hasError={hasError}
     />
   );
-});
+}));
 
 export default ActualURLInput;
