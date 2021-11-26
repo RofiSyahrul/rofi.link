@@ -28,7 +28,7 @@ export default function ErrorPage({ statusCode, title }: ErrorProps) {
         <h2>{pageTitle}</h2>
       </div>
       <Anchor href='/' mode='solid'>
-        Kembali ke beranda
+        Coba singkat tautan disini
       </Anchor>
     </Layout>
   );

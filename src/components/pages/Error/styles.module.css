@@ -1,5 +1,5 @@
 .container {
-  @apply h-full relative px-4;
+  @apply layout-full relative px-4;
   @apply justify-center items-center;
 }
 
