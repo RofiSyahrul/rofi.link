@@ -19,6 +19,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^1.29.1",
     "clsx": "^1.1.1",
     "dotenv": "^10.0.0",
     "firebase": "^9.5.0",

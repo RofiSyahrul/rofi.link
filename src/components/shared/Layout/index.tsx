@@ -1,3 +1,5 @@
+import dynamic from 'next/dynamic';
+
 import clsx from 'clsx';
 
 import Footer from './Footer';
@@ -6,10 +8,13 @@ import styles from './styles.module.css';
 import SwitchModeButton from './SwitchModeButton';
 import { LayoutProps } from './types';
 
+const GoogleLogin = dynamic(() => import('../GoogleLogin'), { ssr: true });
+
 export default function Layout({
   children,
   className = '',
   description,
+  hideUserInfo = false,
   image,
   keyword,
   title,
@@ -25,10 +30,8 @@ export default function Layout({
         url={url}
       />
       <header className={styles.header}>
-        <div />
-        <div>
-          <SwitchModeButton />
-        </div>
+        <SwitchModeButton />
+        {!hideUserInfo && <GoogleLogin />}
       </header>
       <main className={clsx(styles.main, className)}>
         {children}

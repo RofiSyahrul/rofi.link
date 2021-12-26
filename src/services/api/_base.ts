@@ -10,8 +10,16 @@ const basicHeaders = [
 
 async function getAuthHeader() {
   const idToken = await auth.getToken();
-  if (!idToken) return [];
+  if (!idToken) return null;
   return ['Authorization', `Bearer ${idToken}`];
+}
+
+async function getHeaders() {
+  const authHeader = await getAuthHeader();
+  if (authHeader) {
+    return [...basicHeaders, authHeader];
+  }
+  return basicHeaders;
 }
 
 async function fetcher<T = any>(reqInfo: RequestInfo, reqInit?: RequestInit): Promise<T> {
@@ -29,11 +37,10 @@ function parseEndpoint(endpoint: string, query?: any): string {
 }
 
 async function mutate<T = any>(endpoint: string, method: string, body?: BodyInit): Promise<T> {
-  const authHeader = await getAuthHeader();
   const response = await fetcher<T>(endpoint, {
     method,
     body,
-    headers: [...basicHeaders, authHeader]
+    headers: await getHeaders()
   });
 
   return response;
@@ -45,10 +52,9 @@ export const api = {
     endpoint: string,
     query?: Q | null
   ): Promise<T> {
-    const authHeader = await getAuthHeader();
     const response = await fetcher<T>(parseEndpoint(endpoint, query), {
       method: HTTPMethod.GET,
-      headers: [...basicHeaders, authHeader]
+      headers: await getHeaders()
     });
     return response;
   },
