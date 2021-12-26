@@ -25,7 +25,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(({
 
   return (
     <button {...props} ref={ref} className={buttonClassName}>
-      {isLoading && <Spinner variant={variant} size={size} />}
+      {isLoading && <Spinner variant={variant ?? 'primary'} size={size} />}
       {children}
     </button>
   );

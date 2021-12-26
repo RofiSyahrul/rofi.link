@@ -31,8 +31,8 @@ export function buildButtonClassName({
 }: BuildButtonClassNameParam) {
   return clsx(
     'btn',
-    variantMapping[variant],
-    modeMapping[mode],
+    variant && variantMapping[variant],
+    mode && modeMapping[mode],
     sizeMapping[size],
     isFullWidth ? 'w-full' : '',
     className

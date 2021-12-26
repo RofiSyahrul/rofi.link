@@ -8,5 +8,6 @@ export type MetaProps = {
 
 export interface LayoutProps extends MetaProps {
   className?: string;
+  hideUserInfo?: boolean;
   children: React.ReactNode;
 }

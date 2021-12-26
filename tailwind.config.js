@@ -52,13 +52,13 @@ module.exports = {
       /** @type {Record<string, React.CSSProperties>} */
       const newUtilities = {
         '.h-header': {
-          height: '4.5rem'
+          height: '5rem'
         },
         '.h-footer': {
           height: '10rem'
         },
         '.layout-full': {
-          minHeight: 'calc(100vh - 14.5rem)',
+          minHeight: 'calc(100vh - 15rem)',
           width: '100%'
         },
         '.placeholder': {

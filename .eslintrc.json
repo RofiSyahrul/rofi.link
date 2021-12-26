@@ -40,26 +40,6 @@
         "react/no-array-index-key": "off",
         "react/jsx-filename-extension": "off"
       }
-    },
-    {
-      "files": [
-        "*utils.ts",
-        "*utils.tsx",
-        "*config.ts",
-        "*config.tsx",
-        "*styles.ts",
-        "*styles.tsx",
-        "*constants.ts",
-        "*enum.ts",
-        "*types.ts",
-        "*hook.ts",
-        "src/constants/*.ts",
-        "src/services/firebase/**/*",
-        "src/utils/regex/*"
-      ],
-      "rules": {
-        "import/prefer-default-export": "off"
-      }
     }
   ],
   "rules": {
@@ -138,7 +118,7 @@
         }
       }
     ],
-    "import/prefer-default-export": "warn",
+    "import/prefer-default-export": "off",
     "indent": [
       "error",
       2,
