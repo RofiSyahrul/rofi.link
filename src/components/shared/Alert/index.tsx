@@ -3,12 +3,12 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import clsx from 'clsx';
 
 import { CheckIcon, CloseIcon, ExclamationIcon, InfoIcon } from '@/components/icons';
-import { Variant } from '@/types/style';
+import type { Variant } from '@/types/style';
 
 import Button from '../Button';
 import VisuallyHidden from '../VisuallyHidden';
 import styles from './styles.module.css';
-import { AlertProps, AlertStatus } from './types';
+import type { AlertProps, AlertStatus } from './types';
 
 const statusMapping: Record<AlertStatus, {
   icon: React.ReactNode,

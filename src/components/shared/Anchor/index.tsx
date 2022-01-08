@@ -3,7 +3,7 @@ import { forwardRef } from 'react';
 
 import { buildButtonClassName } from '@/utils/class-name/button';
 
-import { AnchorProps } from './types';
+import type { AnchorProps } from './types';
 
 function isExternalURL(href: AnchorProps['href']): href is string {
   if (typeof href !== 'string') return false;

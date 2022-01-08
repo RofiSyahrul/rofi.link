@@ -1,4 +1,4 @@
-import { IconProps } from './base/types';
+import type { IconProps } from './base/types';
 import { buildSVGProps } from './base/utils';
 
 export default function MoonIcon(props: IconProps) {

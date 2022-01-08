@@ -16,7 +16,7 @@
     "analyze": "yarn prebuild && ANALYZE=true next build",
     "export": "yarn build && next export",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint -d src --fix"
   },
   "dependencies": {
     "@supabase/supabase-js": "^1.29.1",

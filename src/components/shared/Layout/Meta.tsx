@@ -4,7 +4,7 @@ import { useMemo } from 'react';
 import config from '@/config';
 
 import { defaultImage, defaultTitle, metaDescriptionOptimalLength } from './config';
-import { MetaProps } from './types';
+import type { MetaProps } from './types';
 
 export default function Meta({
   title = defaultTitle,

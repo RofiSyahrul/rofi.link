@@ -1,4 +1,5 @@
-import { ParsedUrlQueryInput, stringify } from 'querystring';
+import type { ParsedUrlQueryInput } from 'querystring';
+import { stringify } from 'querystring';
 
 import HTTPMethod from '@/constants/http-method';
 import { auth } from '@/services/firebase/client';

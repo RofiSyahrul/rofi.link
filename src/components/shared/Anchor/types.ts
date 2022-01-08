@@ -1,6 +1,6 @@
-import { UrlObject } from 'url';
+import type { UrlObject } from 'url';
 
-import { BuildButtonClassNameParam } from '@/utils/class-name/types';
+import type { BuildButtonClassNameParam } from '@/utils/class-name/types';
 
 type HTMLAnchorProps = Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, 'href'>;
 

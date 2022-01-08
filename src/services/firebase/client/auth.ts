@@ -1,4 +1,5 @@
-import { Auth, signInAnonymously } from 'firebase/auth';
+import type { Auth } from 'firebase/auth';
+import { signInAnonymously } from 'firebase/auth';
 
 import { FirebaseClient } from './_base';
 

@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 
 import { ColorModeContext } from './context';
-import { ColorModeContextType, ColorModeProviderProps } from './types';
+import type { ColorModeContextType, ColorModeProviderProps } from './types';
 import { cookieStorageManager } from './utils';
 
 export default function ColorModeProvider({

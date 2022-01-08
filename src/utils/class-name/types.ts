@@ -1,4 +1,4 @@
-import { Mode, Size, Variant } from '@/types/style';
+import type { Mode, Size, Variant } from '@/types/style';
 
 export type BuildButtonClassNameParam = {
   className?: string;

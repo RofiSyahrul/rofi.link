@@ -1,5 +1,5 @@
 import { DEFAULT_LIMIT } from '@/constants/pagination';
-import { UrlModel, AddUrlParam, GetUrlListParam, UpdateUrlParam } from '@/types/url-model';
+import type { UrlModel, AddUrlParam, GetUrlListParam, UpdateUrlParam } from '@/types/url-model';
 
 import { FirebaseAdmin } from '../_base';
 import { getList, getChildValue, joinPath, getChildKey } from './_utils';

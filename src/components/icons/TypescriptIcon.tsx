@@ -1,6 +1,6 @@
 import { singleLineWithoutSpace } from '@/utils/string-helpers';
 
-import { IconProps } from './base/types';
+import type { IconProps } from './base/types';
 import { buildSVGProps } from './base/utils';
 
 export default function TypescriptIcon(props: IconProps) {

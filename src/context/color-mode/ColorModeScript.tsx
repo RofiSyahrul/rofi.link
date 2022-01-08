@@ -1,4 +1,4 @@
-import { ColorMode } from './types';
+import type { ColorMode } from './types';
 
 const setScript = () => {
   let colorMode: ColorMode;

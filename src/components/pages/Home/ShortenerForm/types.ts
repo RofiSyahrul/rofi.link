@@ -1,4 +1,4 @@
-import { AlertStatus } from '@/components/shared/Alert/types';
+import type { AlertStatus } from '@/components/shared/Alert/types';
 
 export type InputFieldValidateHandler = (isValid: boolean) => void;
 

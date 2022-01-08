@@ -1,4 +1,4 @@
-import { AddUrlParam } from '@/types/url-model';
+import type { AddUrlParam } from '@/types/url-model';
 
 import { api } from '../_base';
 

@@ -1,4 +1,4 @@
-import { ColorMode } from './types';
+import type { ColorMode } from './types';
 
 const storageKey = 'rofi.link-color-mode';
 const oneYearStorageAge = 31536000;

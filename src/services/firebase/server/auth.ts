@@ -1,4 +1,4 @@
-import { Auth } from 'firebase-admin/lib/auth/auth';
+import type { Auth } from 'firebase-admin/lib/auth/auth';
 
 import { FirebaseAdmin } from './_base';
 

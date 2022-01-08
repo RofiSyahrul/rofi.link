@@ -1,4 +1,4 @@
-import { NextApiHandler, NextApiRequest, NextApiResponse } from 'next';
+import type { NextApiHandler, NextApiRequest, NextApiResponse } from 'next';
 
 import StatusCode from '@/constants/status-code';
 import { serverAuth } from '@/services/firebase/server';
@@ -6,7 +6,7 @@ import parse from '@/utils/helpers/parse';
 
 import ApiError from './api-error';
 import sendError from './send-error';
-import { ApiRequest } from './types';
+import type { ApiRequest } from './types';
 
 async function verifyAuth(req: NextApiRequest) {
   try {
