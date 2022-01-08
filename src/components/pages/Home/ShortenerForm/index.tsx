@@ -4,7 +4,7 @@ import { useMutation } from 'react-query';
 
 import Alert from '@/components/shared/Alert';
 import Button from '@/components/shared/Button';
-import { shortenNewURL, shortenNewURLKey } from '@/services/api/url/shorten-new-url';
+import { shortenNewURL, shortenNewURLKey } from '@/libs/api/url/shorten-new-url';
 import type { AddUrlParam } from '@/types/url-model';
 
 import ActualURLInput from './ActualURLInput';

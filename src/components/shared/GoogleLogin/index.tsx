@@ -4,7 +4,7 @@ import { useMutation } from 'react-query';
 
 import { GoogleIconDark, GoogleIconLight } from '@/components/icons';
 import { useColorModeValue } from '@/context/color-mode';
-import { loginWithGoogle, loginWithGoogleKey } from '@/services/api/auth/google-login';
+import { loginWithGoogle, loginWithGoogleKey } from '@/libs/api/auth/google-login';
 
 import Button from '../Button';
 import styles from './styles.module.css';

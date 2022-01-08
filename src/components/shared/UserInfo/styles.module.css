@@ -1,0 +1,10 @@
+.accountWrapper {
+  @apply flex flex-col gap-1;
+  max-width: 10rem;
+}
+
+.accountName {
+  @apply line-clamp-1 w-full;
+  text-overflow: ellipsis;
+  padding: 0rem;
+}

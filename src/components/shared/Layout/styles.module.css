@@ -1,5 +1,5 @@
 .header {
-  @apply sticky top-0 z-40 w-full h-header p-4;
+  @apply sticky top-0 z-40 w-full h-header px-4 py-3;
   @apply shadow-lg bg-neutral-bright;
   @apply flex justify-between items-center gap-2;
 }
