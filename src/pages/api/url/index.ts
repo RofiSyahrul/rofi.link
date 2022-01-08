@@ -1,14 +1,14 @@
-import { NextApiResponse } from 'next';
+import type { NextApiResponse } from 'next';
 
 import HTTPMethod from '@/constants/http-method';
 import StatusCode from '@/constants/status-code';
 import { url } from '@/services/firebase/server';
-import { AddUrlParam } from '@/types/url-model';
+import type { AddUrlParam } from '@/types/url-model';
 import ApiError from '@/utils/api-helpers/api-error';
 import sendMethodNotAllowed from '@/utils/api-helpers/method-not-allowed';
 import sendError from '@/utils/api-helpers/send-error';
 import sendOK from '@/utils/api-helpers/send-ok';
-import { ApiRequest } from '@/utils/api-helpers/types';
+import type { ApiRequest } from '@/utils/api-helpers/types';
 import withMiddleware from '@/utils/api-helpers/with-middlewares';
 
 async function handlePOST(req: ApiRequest<AddUrlParam>, res: NextApiResponse) {

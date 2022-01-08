@@ -43,6 +43,7 @@
     }
   ],
   "rules": {
+    "@typescript-eslint/consistent-type-imports": "warn",
     "@typescript-eslint/comma-dangle": ["error", "never"],
     "@typescript-eslint/no-shadow": ["error"],
     "@typescript-eslint/return-await": "off",

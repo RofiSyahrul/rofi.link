@@ -1,4 +1,4 @@
-import { NextApiRequest, NextApiResponse } from 'next';
+import type { NextApiRequest, NextApiResponse } from 'next';
 
 import HTTPMethod from '@/constants/http-method';
 import { setSession } from '@/libs/supabase.server';

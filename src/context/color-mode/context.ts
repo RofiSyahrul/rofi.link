@@ -1,6 +1,6 @@
 import { createContext, useContext } from 'react';
 
-import { ColorModeContextType } from './types';
+import type { ColorModeContextType } from './types';
 
 export const ColorModeContext = createContext({} as ColorModeContextType);
 

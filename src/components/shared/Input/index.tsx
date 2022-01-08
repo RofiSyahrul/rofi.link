@@ -5,7 +5,7 @@ import clsx from 'clsx';
 import getDefaultId from '@/utils/helpers/get-default-id';
 
 import styles from './styles.module.css';
-import { InputProps } from './types';
+import type { InputProps } from './types';
 
 const Input = forwardRef<HTMLInputElement, InputProps>(({
   id = getDefaultId(),

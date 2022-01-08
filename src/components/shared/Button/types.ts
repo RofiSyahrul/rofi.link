@@ -1,4 +1,4 @@
-import { BuildButtonClassNameParam } from '@/utils/class-name/types';
+import type { BuildButtonClassNameParam } from '@/utils/class-name/types';
 
 type BaseButtonProps = BuildButtonClassNameParam & {
   isLoading?: boolean;

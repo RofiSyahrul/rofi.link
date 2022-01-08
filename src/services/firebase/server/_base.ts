@@ -1,8 +1,8 @@
 import path from 'path';
 
 import admin from 'firebase-admin';
-import { Auth } from 'firebase-admin/lib/auth/auth';
-import { Database } from 'firebase-admin/lib/database/database';
+import type { Auth } from 'firebase-admin/lib/auth/auth';
+import type { Database } from 'firebase-admin/lib/database/database';
 
 import serverConfig from '@/server-config';
 

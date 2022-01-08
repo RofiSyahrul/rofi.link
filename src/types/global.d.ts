@@ -1,4 +1,4 @@
-import { DehydratedState } from 'react-query';
+import type { DehydratedState } from 'react-query';
 
 declare global {
   declare const APP_NAME: string;

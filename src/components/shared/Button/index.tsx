@@ -3,7 +3,7 @@ import { forwardRef } from 'react';
 import { buildButtonClassName } from '@/utils/class-name/button';
 
 import Spinner from '../Spinner';
-import { ButtonProps } from './types';
+import type { ButtonProps } from './types';
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(({
   isLoading,

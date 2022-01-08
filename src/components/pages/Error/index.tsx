@@ -1,4 +1,4 @@
-import { ErrorProps } from 'next/error';
+import type { ErrorProps } from 'next/error';
 import Head from 'next/head';
 import { useMemo } from 'react';
 

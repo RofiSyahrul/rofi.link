@@ -4,7 +4,7 @@ import { dehydrate, QueryClient } from 'react-query';
 
 import { initialOfQsOrHashRegex } from '@/utils/regex/urlRegex';
 
-import {
+import type {
   GetServerSidePropsCallback,
   GetServerSidePropsContext,
   GetStaticPropsCallback,

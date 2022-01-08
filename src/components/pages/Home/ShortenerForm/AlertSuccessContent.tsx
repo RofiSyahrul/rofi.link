@@ -5,7 +5,7 @@ import config from '@/config';
 import copyToClipboard from '@/utils/dom/copy-to-clipboard';
 
 import styles from './styles.module.css';
-import { AlertSuccessContentProps } from './types';
+import type { AlertSuccessContentProps } from './types';
 
 export default function AlertSuccessContent({ slug }: AlertSuccessContentProps) {
   const shortenedURLResult = `${config.appURL}/${slug}`;

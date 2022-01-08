@@ -1,8 +1,8 @@
 import clsx from 'clsx';
 
-import { Variant, Size, Mode } from '@/types/style';
+import type { Variant, Size, Mode } from '@/types/style';
 
-import { BuildButtonClassNameParam } from './types';
+import type { BuildButtonClassNameParam } from './types';
 
 export const variantMapping: Record<Variant, string> = {
   primary: 'btn-primary',

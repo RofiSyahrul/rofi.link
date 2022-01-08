@@ -1,5 +1,7 @@
-import { FirebaseApp, FirebaseOptions, initializeApp } from 'firebase/app';
-import { Auth, browserLocalPersistence, initializeAuth } from 'firebase/auth';
+import type { FirebaseApp, FirebaseOptions } from 'firebase/app';
+import { initializeApp } from 'firebase/app';
+import type { Auth } from 'firebase/auth';
+import { browserLocalPersistence, initializeAuth } from 'firebase/auth';
 
 const projectId = process.env.F_PROJECT_ID;
 

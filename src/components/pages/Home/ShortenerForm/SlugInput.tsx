@@ -1,5 +1,6 @@
+import type {
+  ChangeEvent } from 'react';
 import {
-  ChangeEvent,
   forwardRef,
   memo,
   useCallback,
@@ -10,7 +11,7 @@ import {
 
 import Input from '@/components/shared/Input';
 
-import { InputFieldProps, InputFieldRefAttribute } from './types';
+import type { InputFieldProps, InputFieldRefAttribute } from './types';
 
 const SlugInput = memo(forwardRef<InputFieldRefAttribute, InputFieldProps>(({
   onValidationDone

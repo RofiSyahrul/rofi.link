@@ -1,4 +1,4 @@
-import { NextApiRequest } from 'next';
+import type { NextApiRequest } from 'next';
 
 export interface ApiRequest<ReqBody = any> extends NextApiRequest {
   body: ReqBody;

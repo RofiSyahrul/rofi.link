@@ -3,7 +3,7 @@ import { forwardRef } from 'react';
 import clsx from 'clsx';
 
 import styles from './styles.module.css';
-import { VisuallyHiddenProps } from './types';
+import type { VisuallyHiddenProps } from './types';
 
 const VisuallyHidden = forwardRef<HTMLSpanElement, VisuallyHiddenProps>(({
   className,

@@ -6,7 +6,7 @@ import Footer from './Footer';
 import Meta from './Meta';
 import styles from './styles.module.css';
 import SwitchModeButton from './SwitchModeButton';
-import { LayoutProps } from './types';
+import type { LayoutProps } from './types';
 
 const GoogleLogin = dynamic(() => import('../GoogleLogin'), { ssr: true });
 

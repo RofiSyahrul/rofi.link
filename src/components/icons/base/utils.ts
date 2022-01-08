@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 
-import { IconProps } from './types';
+import type { IconProps } from './types';
 
 export function buildSVGProps({
   className,

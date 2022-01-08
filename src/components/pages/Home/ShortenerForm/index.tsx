@@ -4,14 +4,14 @@ import { useMutation } from 'react-query';
 
 import Alert from '@/components/shared/Alert';
 import Button from '@/components/shared/Button';
-import { shortenNewURL, shortenNewURLKey } from '@/services/api/url/shortenNewURL';
-import { AddUrlParam } from '@/types/url-model';
+import { shortenNewURL, shortenNewURLKey } from '@/services/api/url/shorten-new-url';
+import type { AddUrlParam } from '@/types/url-model';
 
 import ActualURLInput from './ActualURLInput';
 import AlertSuccessContent from './AlertSuccessContent';
 import SlugInput from './SlugInput';
 import styles from './styles.module.css';
-import { AlertState, InputFieldRefAttribute, InputFieldValidateHandler } from './types';
+import type { AlertState, InputFieldRefAttribute, InputFieldValidateHandler } from './types';
 
 const initialAlertState: AlertState = {
   visible: false,
