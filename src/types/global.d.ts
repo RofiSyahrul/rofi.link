@@ -1,5 +1,7 @@
 import type { DehydratedState } from 'react-query';
 
+import type { User } from './user';
+
 declare global {
   declare const APP_NAME: string;
   declare const APP_VERSION: string;
@@ -9,6 +11,7 @@ declare global {
   type AppPageProps<T = {}> = T & {
     dehydratedState?: DehydratedState;
     cookies?: string;
+    user?: User | null;
   };
 
   type PaginationParam<LastValue = any> = {

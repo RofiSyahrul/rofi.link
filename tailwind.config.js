@@ -48,6 +48,7 @@ module.exports = {
     }
   },
   plugins: [
+    require('@tailwindcss/line-clamp'),
     plugin(({ addUtilities }) => {
       /** @type {Record<string, React.CSSProperties>} */
       const newUtilities = {

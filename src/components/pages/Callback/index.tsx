@@ -8,7 +8,7 @@ import Spinner from '@/components/shared/Spinner';
 import {
   setSessionToServer,
   setSessionToServerKey
-} from '@/services/api/auth/set-session-to-server';
+} from '@/libs/api/auth/set-session-to-server';
 
 export default function CallbackPage() {
   const isMutatedRef = useRef(false);
