@@ -1,3 +1,4 @@
+import Anchor from '@/components/shared/Anchor';
 import AuthSection from '@/components/shared/AuthSection';
 import Layout from '@/components/shared/Layout';
 import { useAuth } from '@/context/auth';
@@ -17,6 +18,9 @@ export default function Dashboard() {
     >
       <h1>Halaman Dashboard</h1>
       <h3>Segera hadir!!!</h3>
+      <Anchor href='/' mode='solid' className='mt-4'>
+        Kembali ke halaman depan
+      </Anchor>
     </Layout>
   );
 }
