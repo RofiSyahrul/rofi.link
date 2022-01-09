@@ -1,3 +1,5 @@
+import type { ReactNode } from 'react';
+
 export type MetaProps = {
   title?: string;
   description?: string;
@@ -8,6 +10,6 @@ export type MetaProps = {
 
 export interface LayoutProps extends MetaProps {
   className?: string;
-  hideUserInfo?: boolean;
-  children: React.ReactNode;
+  additionalHeader?: ReactNode;
+  children: ReactNode;
 }
