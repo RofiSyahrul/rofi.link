@@ -41,7 +41,7 @@ export default function UserInfo() {
         />
       )}
       <div className={styles.accountWrapper}>
-        <Anchor href='/dashboard' className={styles.accountName} style={{ height: 'unset' }}>
+        <Anchor href='/p/dashboard' className={styles.accountName} style={{ height: 'unset' }}>
           {user.fullName || user.email}
         </Anchor>
         <Button
