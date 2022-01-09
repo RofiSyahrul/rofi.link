@@ -6,6 +6,7 @@ export type MetaProps = {
   image?: string;
   url?: string;
   keyword?: string;
+  noIndex?: boolean;
 };
 
 export interface LayoutProps extends MetaProps {

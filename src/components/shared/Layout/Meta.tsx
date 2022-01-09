@@ -11,6 +11,7 @@ export default function Meta({
   image = defaultImage,
   description = config.manifest.description,
   keyword,
+  noIndex,
   url = config.appURL
 }: MetaProps) {
   const metaTitle = useMemo(() => {
@@ -84,6 +85,10 @@ export default function Meta({
     <meta name='keywords' content={keyword} />
   ), [keyword]);
 
+  const metaNoIndex = useMemo(() => noIndex && (
+    <meta name='robots' content='noindex' />
+  ), [noIndex]);
+
   return (
     <Head>
       {metaTitle}
@@ -91,6 +96,7 @@ export default function Meta({
       {metaDescription}
       {metaImage}
       {metaKeyword}
+      {metaNoIndex}
     </Head>
   );
 }

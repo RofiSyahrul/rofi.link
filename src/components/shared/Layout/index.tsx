@@ -13,6 +13,7 @@ export default function Layout({
   description,
   image,
   keyword,
+  noIndex,
   title,
   url
 }: LayoutProps) {
@@ -22,6 +23,7 @@ export default function Layout({
         description={description}
         image={image}
         keyword={keyword}
+        noIndex={noIndex}
         title={title}
         url={url}
       />
