@@ -1,6 +1,7 @@
 import type { GetServerSideProps } from 'next';
 
-import { url } from '@/services/firebase/server';
+import { getUrlBySlug } from '@/libs/supabase/url/get-by-slug';
+import { increaseUrlHitById } from '@/libs/supabase/url/increase-hit';
 
 type Params = {
   slug: string;
@@ -14,15 +15,15 @@ export const getServerSideProps: GetServerSideProps<{}, Params> = async ({ param
   const { slug } = params || {};
   if (!slug) return { notFound: true };
 
-  const data = await url.get(slug);
-  if (!data) return { notFound: true };
+  const data = await getUrlBySlug(slug);
+  if (!data || !data.actualUrl) return { notFound: true };
 
-  await url.update(slug, { hit: data.hit + 1 });
+  await increaseUrlHitById(data.id, data.hit);
 
   return {
     redirect: {
       permanent: false,
-      destination: data.actualURL
+      destination: data.actualUrl
     }
   };
 };

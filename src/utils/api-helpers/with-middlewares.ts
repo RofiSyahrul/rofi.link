@@ -1,20 +1,17 @@
 import type { NextApiHandler, NextApiRequest, NextApiResponse } from 'next';
 
-import StatusCode from '@/constants/status-code';
-import { serverAuth } from '@/services/firebase/server';
+import { getUser } from '@/libs/supabase/auth/get-user';
 import parse from '@/utils/helpers/parse';
 
-import ApiError from './api-error';
 import sendError from './send-error';
 import type { ApiRequest } from './types';
 
-async function verifyAuth(req: NextApiRequest) {
+async function getUserId(req: NextApiRequest) {
   try {
-    const { authorization } = req.headers;
-    const decoded = await serverAuth.decode(authorization ?? '');
-    return decoded.uid;
+    const user = await getUser(req);
+    return user?.id ?? '';
   } catch {
-    throw new ApiError('Unauthorized', StatusCode.Unauthorized);
+    return '';
   }
 }
 
@@ -23,7 +20,7 @@ export default function withMiddleware<ReqBody = any, ResData = any>(
 ): NextApiHandler {
   return async (req, res) => {
     try {
-      const userId = await verifyAuth(req);
+      const userId = await getUserId(req);
       const newReq: ApiRequest<ReqBody> = req as any;
       newReq.user = { id: userId };
 

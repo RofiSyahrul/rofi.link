@@ -44,8 +44,8 @@ const ActualURLInput = memo(forwardRef<InputFieldRefAttribute, InputFieldProps>(
     <Input
       ref={inputRef}
       type='url'
-      id='actualURL'
-      name='actualURL'
+      id='actualUrl'
+      name='actualUrl'
       label='Tautan asli'
       placeholder='Tautan yang akan disingkat'
       supportText={supportText}

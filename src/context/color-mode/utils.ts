@@ -1,3 +1,5 @@
+import { cookie, createCookieManager } from '@/libs/cookie';
+
 import type { ColorMode } from './types';
 
 const storageKey = 'rofi.link-color-mode';
@@ -5,13 +7,13 @@ const oneYearStorageAge = 31536000;
 
 export const cookieStorageManager = {
   get(init?: ColorMode, cookies = '') {
-    const match = cookies.match(new RegExp(`(^|\\s)${storageKey}=([^;]+)`));
-    if (match && match[2]) return match[2] as ColorMode;
+    const cookieManager = createCookieManager(cookies);
+    const result = cookieManager.get<ColorMode>(storageKey);
+    if (result) return result;
     return init === 'dark' ? 'dark' : 'light';
   },
 
   set(value: ColorMode) {
-    if (typeof document === 'undefined') return;
-    document.cookie = `${storageKey}=${value}; max-age=${oneYearStorageAge}; path=/`;
+    cookie.set(storageKey, value, oneYearStorageAge);
   }
 };
