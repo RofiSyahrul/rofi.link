@@ -1,7 +1,6 @@
 const env = require('dotenv').config().parsed || {};
 const withPlugins = require('next-compose-plugins');
 const withPWA = require('next-pwa');
-const runtimeCaching = require('next-pwa/cache');
 
 const pkg = require('./package.json');
 
@@ -53,7 +52,6 @@ module.exports = withPlugins(
         pwa: {
           disable: !isProd,
           dest: 'public',
-          runtimeCaching,
           buildExcludes: [/middleware-manifest\.json$/]
         }
       }
