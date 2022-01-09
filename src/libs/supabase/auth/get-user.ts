@@ -10,6 +10,7 @@ export async function getUser(
   req: GetServerSidePropsContext['req'] | NextApiRequest
 ): Promise<User | null> {
   try {
+    if (!req.cookies['sb:token']) return null;
     const { user, error } = await supabase.auth.api.getUserByCookie(req);
     if (error) throw error as unknown;
     return convertUserFromSupabase(user);
