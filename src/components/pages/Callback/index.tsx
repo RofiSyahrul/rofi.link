@@ -41,7 +41,7 @@ export default function CallbackPage() {
   }, [mutate]);
 
   return (
-    <Layout className='justify-center items-center layout-full' hideUserInfo>
+    <Layout className='justify-center items-center layout-full'>
       <Spinner mode='text' style={{ width: '10rem', height: '10rem' }} />
     </Layout>
   );

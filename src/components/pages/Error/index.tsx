@@ -19,7 +19,7 @@ export default function ErrorPage({ statusCode, title }: ErrorProps) {
   }), [statusCode, title]);
 
   return (
-    <Layout title={pageTitle} className={styles.container} hideUserInfo>
+    <Layout title={pageTitle} className={styles.container}>
       <Head>
         <meta name='robots' content='noindex' />
       </Head>
