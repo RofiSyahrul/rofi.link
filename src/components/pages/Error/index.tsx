@@ -1,5 +1,4 @@
 import type { ErrorProps } from 'next/error';
-import Head from 'next/head';
 import { useMemo } from 'react';
 
 import Anchor from '@/components/shared/Anchor';
@@ -19,10 +18,7 @@ export default function ErrorPage({ statusCode, title }: ErrorProps) {
   }), [statusCode, title]);
 
   return (
-    <Layout title={pageTitle} className={styles.container}>
-      <Head>
-        <meta name='robots' content='noindex' />
-      </Head>
+    <Layout title={pageTitle} className={styles.container} noIndex>
       <div>
         <h1 dangerouslySetInnerHTML={{ __html: status }} />
         <h2>{pageTitle}</h2>
