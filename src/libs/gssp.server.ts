@@ -9,7 +9,11 @@ import {
 } from '@/utils/regex/urlRegex';
 
 import { getUser } from './supabase/auth/get-user';
-import type { GetServerSidePropsCallback, GetServerSidePropsContext } from './types';
+import type {
+  GetServerSidePropsCallback,
+  GetServerSidePropsConfig,
+  GetServerSidePropsContext
+} from './types';
 
 function normalizeUrl(url: string = ''): string {
   const normedUrl = url.replace(nextServerUrlPrefixRegex, '/');
@@ -19,15 +23,28 @@ function normalizeUrl(url: string = ''): string {
 }
 
 const defaultCallback: any = () => ({ props: {} });
+const defaultConfig: GetServerSidePropsConfig = { requireAuth: false };
 
 export function baseGetServerSideProps<P = {}>(
-  callback: GetServerSidePropsCallback<P> = defaultCallback
+  callback: GetServerSidePropsCallback<P> = defaultCallback,
+  config?: GetServerSidePropsConfig
 ): GetServerSideProps<AppPageProps<P>> {
+  const finalConfig = { ...defaultConfig, ...config };
+
   return async (ctx) => {
     const { req } = ctx;
     const context = ctx as GetServerSidePropsContext;
 
     const user = await getUser(req);
+
+    if (finalConfig.requireAuth && !user) {
+      return {
+        redirect: {
+          destination: '/',
+          permanent: false
+        }
+      };
+    }
 
     const queryClient = new QueryClient();
     context.queryClient = queryClient;

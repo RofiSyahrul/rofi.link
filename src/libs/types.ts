@@ -16,6 +16,10 @@ export type GetServerSidePropsCallback<P = {}> = (
   ctx: GetServerSidePropsContext
 ) => GetServerSidePropsResult<P> | Promise<GetServerSidePropsResult<P>>;
 
+export type GetServerSidePropsConfig = {
+  requireAuth?: boolean;
+};
+
 export type GetStaticPropsContext = _GetStaticPropsContext & {
   queryClient: QueryClient;
 };
