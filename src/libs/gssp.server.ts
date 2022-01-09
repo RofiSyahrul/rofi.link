@@ -8,7 +8,7 @@ import {
   nextServerPathnameSuffixRegex
 } from '@/utils/regex/urlRegex';
 
-import { getUser } from './supabase.server';
+import { getUser } from './supabase/auth/get-user';
 import type { GetServerSidePropsCallback, GetServerSidePropsContext } from './types';
 
 function normalizeUrl(url: string = ''): string {

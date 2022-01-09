@@ -5,7 +5,7 @@ import { useMutation } from 'react-query';
 import Alert from '@/components/shared/Alert';
 import Button from '@/components/shared/Button';
 import { shortenNewURL, shortenNewURLKey } from '@/libs/api/url/shorten-new-url';
-import type { AddUrlParam } from '@/types/url-model';
+import type { ShortenNewUrlParam } from '@/types/url';
 
 import ActualURLInput from './ActualURLInput';
 import AlertSuccessContent from './AlertSuccessContent';
@@ -27,7 +27,7 @@ const ShortenerForm = memo(() => {
   const actualURLInputRef = useRef<InputFieldRefAttribute>(null);
   const slugInputRef = useRef<InputFieldRefAttribute>(null);
 
-  const { mutate, isLoading } = useMutation<any, Error, AddUrlParam>({
+  const { mutate, isLoading } = useMutation<any, Error, ShortenNewUrlParam>({
     mutationKey: shortenNewURLKey,
     mutationFn: shortenNewURL,
     onSuccess(_, variables) {
@@ -87,7 +87,7 @@ const ShortenerForm = memo(() => {
 
     const formData = Object.fromEntries(
       new FormData(e.currentTarget).entries()
-    ) as unknown as AddUrlParam;
+    ) as unknown as ShortenNewUrlParam;
     mutate(formData);
   }, [mutate, isDisabledSubmit]);
 

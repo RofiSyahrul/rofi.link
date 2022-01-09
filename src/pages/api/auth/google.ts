@@ -2,7 +2,7 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 
 import HTTPMethod from '@/constants/http-method';
 import StatusCode from '@/constants/status-code';
-import { loginWithGoogle } from '@/libs/supabase.server';
+import { loginWithGoogle } from '@/libs/supabase/auth/login-with-google';
 import sendMethodNotAllowed from '@/utils/api-helpers/method-not-allowed';
 
 async function handlePOST(req: NextApiRequest, res: NextApiResponse) {

@@ -7,11 +7,10 @@
     "url": "https://github.com/RofiSyahrul"
   },
   "scripts": {
-    "generate-sa": "node ./scripts/generate-service-account",
     "generate-manifest": "node ./scripts/generate-manifest",
-    "predev": "yarn generate-sa && yarn generate-manifest",
+    "predev": "yarn generate-manifest",
     "dev": "PORT=2500 TAILWIND_MODE=watch next dev",
-    "prebuild": "yarn generate-sa && yarn generate-manifest",
+    "prebuild": "yarn generate-manifest",
     "build": "next build",
     "analyze": "yarn prebuild && ANALYZE=true next build",
     "export": "yarn build && next export",
@@ -22,8 +21,6 @@
     "@supabase/supabase-js": "^1.29.1",
     "clsx": "^1.1.1",
     "dotenv": "^10.0.0",
-    "firebase": "^9.5.0",
-    "firebase-admin": "^10.0.0",
     "next": "^12.0.4",
     "next-compose-plugins": "^2.2.1",
     "next-pwa": "^5.4.0",

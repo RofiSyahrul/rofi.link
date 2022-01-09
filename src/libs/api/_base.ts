@@ -2,26 +2,11 @@ import type { ParsedUrlQueryInput } from 'querystring';
 import { stringify } from 'querystring';
 
 import HTTPMethod from '@/constants/http-method';
-import { auth } from '@/services/firebase/client';
 
 const basicHeaders = [
   ['Accept', 'application/json'],
   ['Content-Type', 'application/json']
 ];
-
-async function getAuthHeader() {
-  const idToken = await auth.getToken();
-  if (!idToken) return null;
-  return ['Authorization', `Bearer ${idToken}`];
-}
-
-async function getHeaders() {
-  const authHeader = await getAuthHeader();
-  if (authHeader) {
-    return [...basicHeaders, authHeader];
-  }
-  return basicHeaders;
-}
 
 async function fetcher<T = any>(reqInfo: RequestInfo, reqInit?: RequestInit): Promise<T> {
   const response: Response = await fetch(reqInfo, reqInit);
@@ -41,13 +26,12 @@ async function mutate<T = any>(endpoint: string, method: string, body?: BodyInit
   const response = await fetcher<T>(endpoint, {
     method,
     body,
-    headers: await getHeaders()
+    headers: basicHeaders
   });
 
   return response;
 }
 
-// eslint-disable-next-line import/prefer-default-export
 export const api = {
   async get<T = any, Q extends ParsedUrlQueryInput = any>(
     endpoint: string,
@@ -55,7 +39,7 @@ export const api = {
   ): Promise<T> {
     const response = await fetcher<T>(parseEndpoint(endpoint, query), {
       method: HTTPMethod.GET,
-      headers: await getHeaders()
+      headers: basicHeaders
     });
     return response;
   },

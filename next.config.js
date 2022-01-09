@@ -36,11 +36,7 @@ const nextConfig = {
         APP_NAME: JSON.stringify(pkg.name),
         APP_VERSION: JSON.stringify(pkg.version),
         'process.env.APP_URL': JSON.stringify(process.env.APP_URL),
-        'process.env.PORT': JSON.stringify(process.env.PORT),
-        'process.env.F_PROJECT_ID': JSON.stringify(process.env.F_PROJECT_ID),
-        'process.env.F_API_KEY': JSON.stringify(process.env.F_API_KEY),
-        'process.env.F_APP_ID': JSON.stringify(process.env.F_APP_ID),
-        'process.env.F_MESSAGING_SENDER_ID': JSON.stringify(process.env.F_MESSAGING_SENDER_ID)
+        'process.env.PORT': JSON.stringify(process.env.PORT)
       })
     );
 
