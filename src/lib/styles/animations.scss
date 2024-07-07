@@ -1,0 +1,32 @@
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0%;
+  }
+}
+
+@keyframes fadeOut {
+  to {
+    opacity: 0%;
+  }
+}
+
+@keyframes zoomIn {
+  from {
+    transform: scale3d(0.3, 0.3, 0.3);
+  }
+}
+
+@keyframes zoomOut {
+  to {
+    transform: scale3d(0.3, 0.3, 0.3);
+  }
+}

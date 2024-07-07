@@ -1,27 +1,37 @@
 {
+  "extends": "astro/tsconfigs/strict",
   "compilerOptions": {
-    "target": "es5",
-    "baseUrl": ".",
-    "paths": {
-      "@/*": ["src/*"]
-    },
-    "types": ["node", "react"],
-    "typeRoots": ["./node_modules/@types", "./src/types"],
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowImportingTsExtensions": true,
     "allowJs": true,
+    "baseUrl": ".",
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "isolatedModules": true,
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "noEmit": true,
+    "paths": {
+      "$lib/*": ["./src/lib/*"]
+    },
+    "resolveJsonModule": true,
     "skipLibCheck": true,
     "strict": true,
-    "forceConsistentCasingInFileNames": true,
-    "noEmit": true,
+    "target": "ESNext",
     "useUnknownInCatchVariables": false,
-    "esModuleInterop": true,
-    "module": "esnext",
-    "moduleResolution": "node",
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "jsx": "preserve",
-    "incremental": true
+    "verbatimModuleSyntax": true
   },
-  "include": ["next-env.d.ts", "**/*.js", "scripts/*", "**/*.ts", "**/*.tsx"],
-  "exclude": ["node_modules"]
+  "exclude": ["dist", "node_modules"],
+  "include": [
+    "**/*.ts",
+    ".prettierrc.cjs",
+    ".stylelintrc.cjs",
+    "eslint.config.mjs",
+    "postcss.config.cjs",
+    "svelte.config.js",
+    "tailwind.config.cjs",
+    "src/env.d.ts",
+    "src/**/*.astro",
+    "src/**/*.svelte"
+  ]
 }

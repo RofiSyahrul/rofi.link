@@ -1,0 +1,301 @@
+---
+import { APP_DESC, APP_NAME, APP_NAME_SHORT } from 'astro:env/server';
+import { ViewTransitions } from 'astro:transitions';
+
+import appConfig from './app.config';
+import type { LiteralUnion, SEOMeta } from './types/general';
+
+interface LinkDescriptor {
+  /**
+   * Address of the hyperlink
+   */
+  href: string;
+
+  /**
+   * Relationship between the document containing the hyperlink and the destination resource
+   */
+  rel: LiteralUnion<
+    | 'alternate'
+    | 'dns-prefetch'
+    | 'icon'
+    | 'manifest'
+    | 'modulepreload'
+    | 'next'
+    | 'pingback'
+    | 'preconnect'
+    | 'prefetch'
+    | 'preload'
+    | 'prerender'
+    | 'search'
+    | 'stylesheet',
+    string
+  >;
+
+  /**
+   * Sizes of the icons (for rel="icon")
+   */
+  sizes?: string;
+
+  /**
+   * Hint for the type of the referenced resource
+   */
+  type?: string;
+
+  /**
+   * Color to use when customizing a site's icon (for rel="mask-icon")
+   */
+  color?: string;
+}
+
+type CriticalFont = 'myriad_pro_regular' | 'myriad_pro_bold';
+
+interface Props extends Partial<SEOMeta> {
+  class?: string;
+  criticalFonts?: CriticalFont[];
+  disabledTransitionAnimation?: boolean;
+  disabledCanonicalURL?: boolean;
+  keyword?: string;
+  noIndex?: boolean;
+}
+
+export type DocumentProps = Props;
+
+const { isMobile } = Astro.locals;
+const { origin, pathname } = Astro.url;
+
+const DEFAULT_CRITICAL_FONTS: CriticalFont[] = [
+  'myriad_pro_regular',
+  'myriad_pro_bold',
+];
+
+const {
+  class: className,
+  criticalFonts = DEFAULT_CRITICAL_FONTS,
+  description = APP_DESC,
+  disabledCanonicalURL,
+  imageDescription,
+  imageTitle,
+  imageURL: imageURLProp,
+  keyword,
+  noIndex = false,
+  title = APP_NAME,
+} = Astro.props;
+
+function buildImageURL() {
+  const imgURL = new URL('/og.png', origin);
+
+  if (imageTitle) {
+    imgURL.searchParams.set('t', imageTitle);
+  }
+
+  if (imageDescription) {
+    imgURL.searchParams.set('d', imageDescription);
+  }
+
+  return imgURL.href;
+}
+
+const canonicalURL = origin + pathname;
+const imageURL = imageURLProp || buildImageURL();
+
+const { backgroundColor, iconSizes, msTileIcon, themeColor } =
+  appConfig.manifest;
+
+const meta: Record<string, string> = {
+  generator: Astro.generator,
+  viewport: 'width=device-width, initial-scale=1.0',
+  'theme-color': themeColor,
+  'application-name': APP_NAME,
+  'apple-mobile-web-app-capable': 'yes',
+  'apple-mobile-web-app-title': APP_NAME_SHORT,
+  'apple-mobile-web-app-status-bar-style': 'default',
+  'msapplication-navbutton-color': themeColor,
+  'msapplication-TileColor': backgroundColor,
+  'msapplication-starturl': '/',
+  'msapplication-tap-highlight': 'no',
+};
+
+const faviconSizes = ['16', '32'];
+
+const appleIconSizes = [
+  '180',
+  '152',
+  '144',
+  '120',
+  '114',
+  '76',
+  '72',
+  '60',
+  '57',
+];
+
+const links: LinkDescriptor[] = [
+  ...iconSizes.map<LinkDescriptor>(iconSize => ({
+    rel: 'icon',
+    type: 'image/png',
+    href: `/icons/android-chrome-${iconSize}x${iconSize}.png`,
+  })),
+  ...faviconSizes.map<LinkDescriptor>(iconSize => {
+    const sizes = `${iconSize}x${iconSize}`;
+    return {
+      rel: 'icon',
+      type: 'image/png',
+      href: `/icons/favicon-${sizes}.png`,
+      sizes,
+    };
+  }),
+  ...appleIconSizes.map<LinkDescriptor>(iconSize => {
+    const sizes = `${iconSize}x${iconSize}`;
+    return {
+      rel: 'apple-touch-icon',
+      type: 'image/png',
+      href: `/icons/apple-touch-icon-${sizes}.png`,
+      sizes,
+    };
+  }),
+  {
+    rel: 'apple-touch-icon',
+    type: 'image/png',
+    href: '/icons/apple-touch-icon.png',
+  },
+  {
+    rel: 'mask-icon',
+    href: '/icons/safari-pinned-tab.svg',
+    color: themeColor,
+  },
+  {
+    rel: 'manifest',
+    href: '/manifest.json',
+  },
+  {
+    rel: 'icon',
+    href: '/favicon.ico',
+  },
+  {
+    rel: 'shortcut icon',
+    href: '/favicon.ico',
+  },
+];
+---
+
+<!doctype html>
+<html lang='id'>
+  <head>
+    <ViewTransitions fallback='animate' />
+
+    <meta transition:persist='charset' charset='utf8' />
+    <meta
+      transition:persist='http-equiv'
+      http-equiv='X-UA-Compatible'
+      content='IE=edge'
+    />
+
+    {
+      Object.entries(meta).map(([name, content]) => (
+        <meta transition:persist={name} {name} {content} />
+      ))
+    }
+
+    {
+      Object.entries(msTileIcon).map(([size, iconName]) => {
+        const name = `msapplication-${iconName}${size}`;
+        const content = `/icons/mstile-${size}.png`;
+        return <meta transition:persist={name} {name} {content} />;
+      })
+    }
+
+    <title>{title}</title>
+    <meta property='og:title' content={title} />
+    <meta name='twitter:title' content={title} />
+
+    {
+      !disabledCanonicalURL && (
+        <>
+          <meta property='og:url' content={canonicalURL} />
+          <link rel='canonical' href={canonicalURL} />
+        </>
+      )
+    }
+
+    {
+      description && (
+        <>
+          <meta name='description' content={description} />
+          <meta property='og:description' content={description} />
+          <meta name='twitter:description' content={description} />
+        </>
+      )
+    }
+
+    {
+      imageURL && (
+        <>
+          <meta property='og:image' content={imageURL} />
+          <meta name='twitter:image' content={imageURL} />
+        </>
+      )
+    }
+
+    <meta
+      transition:persist='twitter:card'
+      name='twitter:card'
+      content='summary_large_image'
+    />
+    <meta
+      transition:persist='twitter:creator'
+      name='twitter:creator'
+      content='@RofiSyahrul'
+    />
+    <meta
+      transition:persist='twitter:site'
+      name='twitter:site'
+      content={APP_NAME_SHORT}
+    />
+    <meta
+      transition:persist='site'
+      name='site'
+      content={APP_NAME_SHORT}
+    />
+    <meta
+      transition:persist='og:site'
+      property='og:site'
+      content={APP_NAME_SHORT}
+    />
+
+    {keyword && <meta name='keywords' content={keyword} />}
+
+    {noIndex && <meta name='robots' content='noindex' />}
+
+    {
+      links.map(link => (
+        <link
+          transition:persist
+          rel={link.rel}
+          href={link.href}
+          sizes={link.sizes}
+          type={link.type}
+          color={link.color}
+        />
+      ))
+    }
+
+    {
+      criticalFonts.map(font => (
+        <link
+          transition:persist
+          rel='preload'
+          href={`/fonts/${font}.woff2`}
+          as='font'
+          type='font/woff2'
+          crossorigin
+        />
+      ))
+    }
+
+    <slot name='head' />
+  </head>
+
+  <body class:list={[isMobile ? 'mobile' : 'desktop', className]}>
+    <slot />
+  </body>
+</html>

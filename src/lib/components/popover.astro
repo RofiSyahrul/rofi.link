@@ -1,0 +1,85 @@
+---
+export interface Props {
+  class?: string;
+  contentOffset?: number;
+  /** @default 'right' */
+  contentPlacement?: 'left' | 'right';
+  transitionPersist?: true;
+}
+
+const {
+  class: className,
+  contentOffset = 0,
+  contentPlacement = 'right',
+  transitionPersist,
+} = Astro.props;
+---
+
+<div
+  class:list={['popover', className]}
+  transition:persist={transitionPersist}
+>
+  <slot name='trigger' />
+
+  <div
+    class:list={['content', `content_${contentPlacement}`]}
+    style={`--content-offset: ${contentOffset}px`}
+  >
+    <slot name='content' />
+  </div>
+</div>
+
+<style lang='scss'>
+  .content {
+    position: absolute;
+    display: none;
+    top: 100%;
+    z-index: 2;
+    min-width: 140px;
+    background-color: var(--color-neutral-bright0);
+    border-radius: 8px;
+    box-shadow: var(--shadow-low);
+
+    &::before {
+      position: absolute;
+      bottom: 100%;
+      border: 10px solid transparent;
+      border-bottom-color: var(--color-neutral-bright0);
+      content: '';
+    }
+
+    &.content_right {
+      right: var(--content-offset);
+
+      &::before {
+        right: calc(8px - var(--content-offset));
+      }
+    }
+
+    &.content_left {
+      left: var(--content-offset);
+
+      &::before {
+        left: calc(8px - var(--content-offset));
+      }
+    }
+
+    > :global(*) {
+      padding: 8px;
+      width: 100%;
+    }
+
+    > :global(form > *) {
+      width: 100%;
+    }
+  }
+
+  .popover {
+    position: relative;
+
+    &:hover .content,
+    &:focus-within .content {
+      display: block;
+    }
+  }
+</style>
