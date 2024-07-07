@@ -1,0 +1,108 @@
+---
+import { getActionProps, actions } from 'astro:actions';
+import { Image } from 'astro:assets';
+
+import type { CurrentUser } from '$/env';
+
+import Snackbar from '$lib/components/snackbar.svelte';
+import { DASHBOARD_PATH } from '$lib/constants/internal-urls';
+import SignOutIcon from '$lib/icons/sign-out-icon.svelte';
+
+export interface Props {
+  currentUser: CurrentUser;
+  justSignedIn: boolean;
+}
+
+const { currentUser, justSignedIn } = Astro.props;
+const { avatarURL, name } = currentUser;
+
+const isDashboardPage = Astro.url.pathname === DASHBOARD_PATH;
+
+const signOutActionProps = getActionProps(actions.signOut);
+---
+
+<div class='user-menu'>
+  {
+    avatarURL && (
+      <Image
+        alt={name}
+        height={120}
+        loading='lazy'
+        src={avatarURL}
+        width={120}
+      />
+    )
+  }
+
+  <div class='flex flex-wrap gap-1 w-40'>
+    <a
+      aria-current={isDashboardPage}
+      class='btn btn-text btn-primary'
+      href={DASHBOARD_PATH}
+      title={`Halaman dashboard untuk ${name}`}
+    >
+      {name}
+    </a>
+
+    <slot name='switch-color-mode' />
+
+    <form method='post'>
+      <input {...signOutActionProps} />
+      <button class='btn btn-solid btn-danger'>
+        Keluar
+        <SignOutIcon />
+      </button>
+    </form>
+  </div>
+</div>
+
+{
+  justSignedIn && (
+    <div class='snackbar-container'>
+      <Snackbar variant='success' client:load>
+        {`Berhasil masuk menggunakan Google. Akun: `}
+        <strong>{name}</strong>
+      </Snackbar>
+    </div>
+  )
+}
+
+<style lang='scss'>
+  .user-menu {
+    @apply flex gap-2 items-center;
+
+    :global(img) {
+      @apply rounded-full size-12 object-contain bg-neutral-bright2;
+    }
+  }
+
+  a {
+    padding: 2px 0;
+    border-bottom: 1px solid;
+    @apply w-full line-clamp-1 text-ellipsis text-center border-b-primary-dim;
+
+    &[aria-current='true'] {
+      pointer-events: none;
+    }
+  }
+
+  form {
+    flex: 1;
+
+    button {
+      width: 100%;
+      height: 30px;
+      padding: 0 4px;
+    }
+  }
+
+  @include dark {
+    .user-menu :global(img) {
+      @apply bg-neutral-dim2;
+    }
+
+    a {
+      @apply border-b-primary-bright;
+    }
+  }
+</style>

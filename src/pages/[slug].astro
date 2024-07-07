@@ -1,0 +1,11 @@
+---
+import Error from '$lib/pages/error/error.astro';
+import { getServerResponse } from '$lib/pages/slug-handler/_script.server';
+
+const response = await getServerResponse(Astro as any);
+if (response instanceof Response) return response;
+
+Astro.response.status = 404;
+---
+
+<Error status='404' />

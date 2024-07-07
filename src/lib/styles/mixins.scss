@@ -1,0 +1,48 @@
+$screen-xxs: 320px;
+$screen-xs: 370px;
+$screen-sm: 420px;
+$screen-md: 540px;
+$screen-lg: 768px;
+$screen-xl: 1024px;
+
+@mixin xxs {
+  @media (min-width: #{$screen-xxs}) {
+    @content;
+  }
+}
+
+@mixin xs {
+  @media (min-width: #{$screen-xs}) {
+    @content;
+  }
+}
+
+@mixin sm {
+  @media (min-width: #{$screen-sm}) {
+    @content;
+  }
+}
+
+@mixin md {
+  @media (min-width: #{$screen-md}) {
+    @content;
+  }
+}
+
+@mixin lg {
+  @media (min-width: #{$screen-lg}) {
+    @content;
+  }
+}
+
+@mixin xl {
+  @media (min-width: #{$screen-xl}) {
+    @content;
+  }
+}
+
+@mixin dark {
+  :global(.dark) {
+    @content;
+  }
+}

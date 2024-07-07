@@ -1,0 +1,133 @@
+---
+import { getActionProps, actions } from 'astro:actions';
+
+import {
+  CustomActionError,
+  CustomActionInputError,
+} from '$/actions/error';
+
+import Document from '$lib/_document.astro';
+import Layout from '$lib/layout/layout.astro';
+
+import Feedback from './components/feedback.astro';
+import Form from './components/form.svelte';
+import InputSlug from './components/input-slug.svelte';
+import InputUrl from './components/input-url.svelte';
+import ShortenedUrl from './components/shortened-url/_shortened-url.astro';
+
+interface FieldError {
+  message: string;
+  value: string;
+}
+
+const actionProps = getActionProps(actions.shortenNewURL);
+const actionResult = Astro.getActionResult(actions.shortenNewURL);
+
+let shortenedURL: URL | undefined;
+let errorMessage = '';
+const actualURLError: FieldError = { message: '', value: '' };
+const slugError: FieldError = { message: '', value: '' };
+
+if (actionResult?.data?.shortenedURL) {
+  shortenedURL = actionResult.data.shortenedURL;
+} else if (CustomActionInputError.hasInstance(actionResult?.error)) {
+  const { input, fields, message } = actionResult.error;
+  errorMessage = message;
+  actualURLError.message = fields.actualURL?.join('<br />') ?? '';
+  actualURLError.value = input.actualURL;
+  slugError.message = fields.slug?.join('<br />') ?? '';
+  slugError.value = input.slug;
+} else if (CustomActionError.hasInstance(actionResult?.error)) {
+  const { code, input, message } = actionResult.error;
+  errorMessage = `${message}<br />[<code>${code}</code>]`;
+  actualURLError.value = input.actualURL;
+  slugError.value = input.slug;
+}
+---
+
+<Document class='home'>
+  <Layout class='layout-full'>
+    <Form client:load>
+      <input {...actionProps} />
+
+      <InputUrl
+        invalid={!!actualURLError.message}
+        value={actualURLError.value}
+      />
+      {
+        actualURLError.message && (
+          <Feedback message={actualURLError.message} />
+        )
+      }
+
+      <InputSlug
+        invalid={!!slugError.message}
+        value={slugError.value}
+      />
+      {slugError.message && <Feedback message={slugError.message} />}
+
+      {
+        errorMessage &&
+          !actualURLError.message &&
+          !slugError.message && (
+            <Feedback
+              class='general-feedback'
+              message={errorMessage}
+            />
+          )
+      }
+
+      {
+        shortenedURL && (
+          <Feedback class='general-feedback' variant='success'>
+            <ShortenedUrl {shortenedURL} />
+          </Feedback>
+        )
+      }
+
+      <button
+        class='btn btn-solid btn-primary h-10 w-full'
+        disabled
+        type='submit'
+      >
+        Singkat
+      </button>
+    </Form>
+  </Layout>
+</Document>
+
+<style lang='scss'>
+  .home {
+    :global(main) {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    :global(.form) {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      justify-content: center;
+      width: 100%;
+
+      @apply max-w-lg;
+
+      :global(.snackbar) {
+        width: 100%;
+        margin-top: -12px;
+      }
+    }
+
+    .general-feedback {
+      :global(.snackbar) {
+        margin-top: 8px;
+      }
+
+      :global(.snackbar_success .snackbar__message) {
+        flex: 1;
+      }
+    }
+  }
+</style>

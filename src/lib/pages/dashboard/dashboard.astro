@@ -1,0 +1,19 @@
+---
+import Document from '$lib/_document.astro';
+import Layout from '$lib/layout/layout.astro';
+
+import type { DashboardProps } from './_script.server';
+
+export type Props = DashboardProps;
+
+const { name = '' } = Astro.props.currentUser;
+---
+
+<Document noIndex title={`Dashboard ${name}`}>
+  <Layout
+    class='flex flex-col items-center justify-center layout-full text-center'
+  >
+    <h1>Halaman Dashboard</h1>
+    <h3>Segera hadir!!!</h3>
+  </Layout>
+</Document>

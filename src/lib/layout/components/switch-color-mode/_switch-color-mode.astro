@@ -1,0 +1,11 @@
+---
+import Form from './form.svelte';
+import OptionsSwitch from './options-switch.svelte';
+
+const activeValue = Astro.locals.colorModeManager.colorMode;
+---
+
+<Form client:load>
+  <OptionsSwitch {activeValue} />
+  <button class='visually-hidden'>Terapkan</button>
+</Form>

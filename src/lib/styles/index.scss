@@ -1,0 +1,172 @@
+@import './animations';
+
+:root {
+  --font-default: -apple-system, system-ui, sans-serif, 'Segoe UI',
+    'Helvetica Neue', helvetica, roboto, arial, 'Apple Color Emoji',
+    'Segoe UI Emoji';
+  --font-myriad: 'Myriad Pro', var(--font-default);
+  --header-height: 80px;
+
+  color-scheme: light;
+  height: 100%;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  @apply w-full h-full p-0 bg-neutral-bright text-neutral-dim;
+
+  font-family: var(--font-myriad);
+}
+
+.dark {
+  color-scheme: dark;
+
+  body {
+    @apply bg-neutral-dim text-neutral-bright;
+  }
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+span,
+p {
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1,
+h2,
+h3 {
+  @apply font-semibold text-neutral-dim0 dark:text-neutral-bright0;
+}
+
+h4,
+h5 {
+  @apply font-medium;
+}
+
+h1 {
+  @apply text-3xl;
+}
+
+h2 {
+  @apply text-2xl;
+}
+
+h3,
+h4 {
+  @apply text-xl;
+}
+
+h5,
+h6 {
+  @apply text-lg;
+}
+
+label,
+span,
+p,
+input,
+textarea {
+  @apply text-base font-normal;
+}
+
+input {
+  padding: 0;
+  background-color: white;
+  border: none;
+  cursor: text;
+  appearance: none;
+  -webkit-rtl-ordering: logical;
+}
+
+input[type='button'i],
+input[type='submit'i],
+input[type='reset'i],
+input[type='file'i]::-webkit-file-upload-button,
+input {
+  padding: 0;
+  background-color: white;
+  border: none;
+  cursor: text;
+  appearance: none;
+  -webkit-rtl-ordering: logical;
+}
+
+input:focus,
+textarea:focus,
+button:focus {
+  outline: none;
+}
+
+astro-island,
+astro-slot,
+astro-static-slot {
+  display: contents;
+}
+
+progress.bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  width: 100%;
+  height: 6px;
+  appearance: none;
+
+  @apply shadow-md rounded-full;
+
+  &::-webkit-progress-bar {
+    width: 100%;
+    height: 6px;
+    overflow: hidden;
+
+    @apply bg-neutral-bright shadow-md rounded-full;
+  }
+
+  &::-webkit-progress-value {
+    @apply bg-primary-dim;
+  }
+
+  &::-moz-progress-bar {
+    @apply bg-primary-dim rounded-full;
+  }
+}
+
+.dark progress.bar {
+  &::-webkit-progress-bar {
+    @apply bg-neutral-dim;
+  }
+
+  &::-webkit-progress-value {
+    @apply bg-primary-bright;
+  }
+
+  &::-moz-progress-bar {
+    @apply bg-primary-bright;
+  }
+}
+
+.spinner {
+  box-sizing: border-box;
+  width: var(--spinner-size, 1em);
+  height: var(--spinner-size, 1em);
+  border: 2px solid transparent;
+  border-radius: 50%;
+  animation: spin 0.4s linear infinite;
+
+  @apply border-t-neutral-bright border-l-neutral-bright;
+}
+
+.dark .spinner {
+  @apply border-t-neutral-dim border-l-neutral-dim;
+}

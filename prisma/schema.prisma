@@ -1,0 +1,45 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["multiSchema"]
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DATABASE_URL_NON_POOLING")
+  schemas   = ["lnk"]
+}
+
+model Account {
+  id              String  @id @default(cuid())
+  googleAccountId String  @unique @map("ga_id")
+  email           String  @unique
+  avatarURL       String? @map("avatar_url")
+  name            String
+
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+  deletedAt DateTime? @map("deleted_at")
+
+  urls Url[]
+
+  @@map("accounts")
+  @@schema("lnk")
+}
+
+model Url {
+  id        String @id @default(cuid())
+  slug      String @unique
+  actualURL String @map("actual_url")
+  hit       Int    @default(0)
+
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+  deletedAt DateTime? @map("deleted_at")
+
+  accountId String?  @map("account_id")
+  account   Account? @relation(fields: [accountId], references: [id])
+
+  @@map("urls")
+  @@schema("lnk")
+}

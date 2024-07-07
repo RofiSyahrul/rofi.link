@@ -1,0 +1,61 @@
+---
+import { actions } from 'astro:actions';
+import { GOOGLE_AUTH_CLIENT_ID } from 'astro:env/server';
+
+import Snackbar from '$lib/components/snackbar.svelte';
+import { HOMEPAGE_PATH } from '$lib/constants/internal-urls';
+
+export interface Props {
+  failedSignIn: boolean;
+}
+
+const { failedSignIn } = Astro.props;
+
+const { isErrorPage } = Astro.locals;
+const { origin, pathname, search } = Astro.url;
+
+const redirectURL = isErrorPage ? HOMEPAGE_PATH : pathname + search;
+
+const loginURI = new URL(actions.signIn.toString(), origin);
+loginURI.searchParams.set('r', redirectURL);
+---
+
+<div
+  id='g_id_onload'
+  data-client_id={GOOGLE_AUTH_CLIENT_ID}
+  data-context='use'
+  data-ux_mode='popup'
+  data-login_uri={loginURI.href}
+  data-nonce=''
+  data-auto_prompt='false'
+  data-use_fedcm_for_prompt='true'
+>
+</div>
+
+<div
+  class='g_id_signin'
+  data-locale='id'
+  data-shape='pill'
+  data-theme='filled_blue'
+  data-text='signin_with'
+  data-size='large'
+  data-logo_alignment='left'
+  transition:persist
+>
+</div>
+
+{
+  failedSignIn && (
+    <div class='snackbar-container'>
+      <Snackbar variant='error' client:load>
+        Gagal masuk menggunakan Google
+      </Snackbar>
+    </div>
+  )
+}
+
+<style lang='scss'>
+  .g_id_signin {
+    color-scheme: light;
+  }
+</style>

@@ -1,0 +1,14 @@
+---
+import Error from '$lib/pages/error/error.astro';
+
+export interface Props {
+  error: unknown;
+}
+
+const { error } = Astro.props;
+const { logger } = Astro.locals;
+
+logger.fatal('ERROR 500', error);
+---
+
+<Error status='500' />
