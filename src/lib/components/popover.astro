@@ -32,20 +32,21 @@ const {
 <style lang='scss'>
   .content {
     position: absolute;
-    display: none;
     top: 100%;
     z-index: 2;
+    display: none;
     min-width: 140px;
-    background-color: var(--color-neutral-bright0);
     border-radius: 8px;
-    box-shadow: var(--shadow-low);
+
+    @apply bg-neutral-bright0 shadow;
 
     &::before {
       position: absolute;
       bottom: 100%;
       border: 10px solid transparent;
-      border-bottom-color: var(--color-neutral-bright0);
       content: '';
+
+      @apply border-b-neutral-bright0;
     }
 
     &.content_right {
@@ -65,8 +66,8 @@ const {
     }
 
     > :global(*) {
-      padding: 8px;
       width: 100%;
+      padding: 8px;
     }
 
     > :global(form > *) {

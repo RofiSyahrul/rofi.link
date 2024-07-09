@@ -16,30 +16,29 @@
 
 <style lang="scss">
   label {
+    position: relative;
     display: flex;
     flex-direction: column;
     margin: -1px;
-    overflow: hidden;
     padding: 2px;
-    position: relative;
+    overflow: hidden;
   }
 
   span {
-    align-items: center;
-    border: 1px solid var(--color-neutral-dim);
-    border-radius: 32px;
-    color: var(--color-neutral-dim);
-    background-color: transparent;
-    cursor: pointer;
     display: flex;
     gap: 6px;
-    min-height: 36px;
+    align-items: center;
     justify-content: center;
-    text-align: center;
-    padding: 4px 12px;
-    user-select: none;
     width: 100%;
-    @apply text-xs;
+    min-height: 36px;
+    padding: 4px 12px;
+    text-align: center;
+    background-color: transparent;
+    border-radius: 32px;
+    cursor: pointer;
+    user-select: none;
+
+    @apply text-xs text-neutral-dim border border-solid border-neutral-dim;
 
     @include xxs {
       @apply text-base;
@@ -47,12 +46,11 @@
   }
 
   input {
-    left: -9em;
     position: absolute;
+    left: -9em;
 
     &:focus-visible + span {
-      outline: 1px solid var(--color-neutral-dim);
-      outline-offset: 1px;
+      @apply outline outline-1 outline-neutral-dim outline-offset-1;
     }
 
     &:hover + span {
@@ -60,8 +58,7 @@
     }
 
     &:checked + span {
-      background-color: var(--color-neutral-dim);
-      color: var(--color-neutral-bright);
+      @apply text-neutral-bright bg-neutral-dim;
     }
 
     &:checked:hover + span {

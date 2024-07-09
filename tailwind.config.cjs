@@ -1,31 +1,32 @@
+const twColors = require('tailwindcss/colors');
 const plugin = require('tailwindcss/plugin');
 
 const colors = {
   current: 'currentColor',
-  inherit: 'inherit',
   danger: {
-    bright: 'var(--color-danger-bright)',
-    bright1: 'var(--color-danger-bright1)',
-    dim: 'var(--color-danger-dim)',
-    dim1: 'var(--color-danger-dim1)',
+    bright: twColors.red[200],
+    bright1: twColors.red[300],
+    dim: twColors.red[700],
+    dim1: twColors.red[600],
   },
+  inherit: 'inherit',
   neutral: {
-    bright: 'var(--color-neutral-bright)',
-    bright0: 'var(--color-neutral-bright0)',
-    bright1: 'var(--color-neutral-bright1)',
-    bright2: 'var(--color-neutral-bright2)',
-    dim: 'var(--color-neutral-dim)',
-    dim0: 'var(--color-neutral-dim0)',
-    dim1: 'var(--color-neutral-dim1)',
-    dim2: 'var(--color-neutral-dim2)',
+    bright: twColors.slate[200],
+    bright0: twColors.slate[100],
+    bright1: twColors.slate[300],
+    bright2: twColors.slate[400],
+    dim: twColors.slate[800],
+    dim0: twColors.slate[900],
+    dim1: twColors.slate[700],
+    dim2: twColors.slate[600],
   },
   primary: {
-    bright: 'var(--color-primary-bright)',
-    dim: 'var(--color-primary-dim)',
+    bright: twColors.sky[200],
+    dim: twColors.sky[800],
   },
   secondary: {
-    bright: 'var(--color-secondary-bright)',
-    dim: 'var(--color-secondary-dim)',
+    bright: twColors.lime[200],
+    dim: twColors.emerald[600],
   },
   transparent: 'transparent',
 };

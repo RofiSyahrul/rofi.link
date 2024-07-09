@@ -1,7 +1,7 @@
 {
   "[astro]": {
     "editor.codeActionsOnSave": {
-      "source.fixAll.eslint": "always"
+      "source.fixAll": "always"
     },
     "editor.detectIndentation": false,
     "editor.insertSpaces": true,
@@ -13,7 +13,10 @@
   "[css]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.formatOnSave": true,
-    "editor.suggest.insertMode": "replace"
+    "editor.suggest.insertMode": "replace",
+    "editor.codeActionsOnSave": {
+      "source.fixAll.stylelint": "always"
+    }
   },
   "[scss]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode",
@@ -42,9 +45,15 @@
   ],
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": "always",
-    "source.fixAll.tslint": "always"
+    "source.fixAll.tslint": "always",
+    "source.fixAll.stylelint": "always"
   },
   "editor.formatOnSave": true,
+  "editor.quickSuggestions": {
+    "other": "on",
+    "comments": "off",
+    "strings": "on"
+  },
   "editor.insertSpaces": true,
   "editor.renderWhitespace": "boundary",
   "editor.rulers": [70],
@@ -71,8 +80,13 @@
     "node_modules/**": true,
     "public/**": true
   },
+  "stylelint.validate": ["css", "postcss", "astro", "svelte", "scss"],
   "stylelint.packageManager": "yarn",
+  "tailwindCSS.codeActions": true,
   "tailwindCSS.emmetCompletions": true,
+  "tailwindCSS.lint.cssConflict": "error",
+  "tailwindCSS.lint.invalidApply": "error",
+  "tailwindCSS.lint.recommendedVariantOrder": "error",
   "typescript.tsdk": "./node_modules/typescript/lib",
   "tsInterfaceSorter.emptyLineBetweenProperties": false,
   "workbench.colorCustomizations": {}

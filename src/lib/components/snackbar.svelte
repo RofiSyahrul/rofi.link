@@ -61,33 +61,33 @@
 <style>
   .snackbar {
     display: inline-flex;
-    pointer-events: auto;
     align-items: center;
     justify-content: space-around;
-    border-radius: 4px;
-    margin: 8px 0;
-    box-shadow: var(--shadow-high);
-    pointer-events: auto;
     min-height: 48px;
+    margin: 8px 0;
+    border-radius: 4px;
+    pointer-events: auto;
+
+    @apply shadow-lg;
   }
 
   .snackbar_neutral {
-    background-color: var(--color-neutral-dim);
+    @apply bg-neutral-dim;
   }
 
   .snackbar_error {
-    background-color: var(--color-danger-dim);
+    @apply bg-danger-dim;
   }
 
   .snackbar_success {
-    background-color: var(--color-primary-bright);
+    @apply bg-primary-bright;
   }
 
   .snackbar__message {
     margin: 4px;
     color: transparent;
-    filter: invert(1) brightness(1) grayscale(1) contrast(9);
     background: inherit;
     background-clip: text;
+    filter: invert(1) brightness(1) grayscale(1) contrast(9);
   }
 </style>

@@ -39,34 +39,34 @@
     gap: 4px;
 
     &.required .label::after {
-      content: '*';
-      color: var(--color-danger-dim);
       order: 2;
       margin-left: 2px;
+      content: '*';
+
+      @apply text-danger-dim;
     }
 
     .helper {
       position: absolute;
       top: 100%;
       right: 4px;
-      z-index: 1;
+      z-index: 10;
       display: none;
       max-width: 90%;
-      padding: 8px;
       margin-top: -4px;
+      padding: 8px;
       border-radius: 4px;
-      background-color: var(--color-neutral-bright);
-      color: var(--color-danger-dim);
-      box-shadow: var(--shadow-low);
-      z-index: 10;
+
+      @apply text-danger-dim bg-neutral-bright shadow;
 
       &::before {
         position: absolute;
-        bottom: 100%;
         right: 8px;
-        content: '';
+        bottom: 100%;
         border: 6px solid transparent;
-        border-bottom-color: var(--color-neutral-bright);
+        content: '';
+
+        @apply border-b-neutral-bright;
       }
     }
 
@@ -79,6 +79,7 @@
     display: flex;
     align-items: center;
     font-weight: 700;
+
     @apply text-base;
 
     @include xxs {
@@ -86,8 +87,8 @@
     }
 
     &::before {
-      content: ':';
       order: 1;
+      content: ':';
     }
   }
 </style>

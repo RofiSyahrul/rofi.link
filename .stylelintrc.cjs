@@ -9,18 +9,13 @@ module.exports = {
     'stylelint-config-prettier-scss',
   ],
 
-  ignorePatterns: [
-    '**/.astro/',
-    '**/dist/',
-    '**/node_modules',
-    '**/public',
-  ],
+  ignorePatterns: ['**/dist/', '**/node_modules', '**/public'],
 
   rules: {
     'at-rule-no-unknown': [
       true,
       {
-        ignoreAtRules: ['extends', 'tailwind', 'layer'],
+        ignoreAtRules: ['extends', 'tailwind', 'layer', 'include'],
       },
     ],
     'custom-media-pattern': [

@@ -40,3 +40,9 @@ $screen-xl: 1024px;
     @content;
   }
 }
+
+@mixin dark {
+  :global(.dark) {
+    @content;
+  }
+}

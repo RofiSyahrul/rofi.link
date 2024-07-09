@@ -118,17 +118,16 @@
 <style lang="scss">
   dialog {
     position: relative;
+    max-width: var(--popup-max-width);
+    max-height: var(--popup-max-height);
+    padding: 16px;
     overflow: auto;
     border: none;
     border-radius: 8px;
-    box-shadow: var(--shadow-high);
-    color: var(--color-neutral-dim);
-    background-color: var(--color-neutral-bright);
-    max-height: var(--popup-max-height);
-    max-width: var(--popup-max-width);
-    padding: 16px;
     animation-duration: inherit;
     animation-fill-mode: inherit;
+
+    @apply text-neutral-dim bg-neutral-bright shadow-xl;
   }
 
   .overlay {
@@ -137,23 +136,23 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: var(--color-neutral-dim0);
-    opacity: 56%;
+
+    @apply bg-neutral-dim0 bg-opacity-55;
   }
 
   .popup {
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
+    z-index: 1000;
     display: flex;
     align-items: center;
     justify-content: center;
+    width: 100%;
+    height: 100%;
     animation-duration: 0.2s;
-    animation-fill-mode: both;
     animation-timing-function: ease-in;
-    z-index: 1000;
+    animation-fill-mode: both;
 
     --popup-max-height: 90%;
     --popup-max-width: 95%;
