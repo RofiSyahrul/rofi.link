@@ -1,0 +1,52 @@
+---
+import { APP_NAME, AUTHOR_NAME, AUTHOR_URL } from 'astro:env/server';
+---
+
+<footer>
+  <span class='mb-2 gap-1'>
+    <em>Powered by</em>
+    <a
+      class='btn btn-text btn-primary h-6'
+      href='https://vercel.com/home'
+      target='_blank'
+    >
+      Vercel
+      <span class='visually-hidden'>Vercel</span>
+    </a>
+  </span>
+
+  <span>
+    <strong>{APP_NAME}</strong>
+    &nbsp; dibuat oleh &nbsp;
+    <a
+      class='btn btn-text btn-primary h-6'
+      href={AUTHOR_URL}
+      target='_blank'
+    >
+      {AUTHOR_NAME}
+    </a>
+  </span>
+</footer>
+
+<style lang='scss'>
+  span {
+    display: inline-flex;
+  }
+
+  footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    width: 100%;
+    height: 160px;
+    padding: 12px;
+
+    > span {
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+  }
+</style>

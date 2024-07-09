@@ -52,7 +52,6 @@ type CriticalFont = 'myriad_pro_regular' | 'myriad_pro_bold';
 interface Props extends Partial<SEOMeta> {
   class?: string;
   criticalFonts?: CriticalFont[];
-  disabledTransitionAnimation?: boolean;
   disabledCanonicalURL?: boolean;
   keyword?: string;
   noIndex?: boolean;
@@ -78,7 +77,7 @@ const {
   imageURL: imageURLProp,
   keyword,
   noIndex = false,
-  title = APP_NAME,
+  title = 'Pemendek Tautan',
 } = Astro.props;
 
 function buildImageURL() {
@@ -97,6 +96,8 @@ function buildImageURL() {
 
 const canonicalURL = origin + pathname;
 const imageURL = imageURLProp || buildImageURL();
+
+const resolvedTitle = `${title} | ${APP_NAME}`;
 
 const { backgroundColor, iconSizes, msTileIcon, themeColor } =
   appConfig.manifest;
@@ -204,9 +205,9 @@ const links: LinkDescriptor[] = [
       })
     }
 
-    <title>{title}</title>
-    <meta property='og:title' content={title} />
-    <meta name='twitter:title' content={title} />
+    <title>{resolvedTitle}</title>
+    <meta property='og:title' content={resolvedTitle} />
+    <meta name='twitter:title' content={resolvedTitle} />
 
     {
       !disabledCanonicalURL && (

@@ -48,6 +48,16 @@ async function constructEnvSchema() {
       context: 'server',
       default: pkg.version,
     }),
+    AUTHOR_NAME: envField.string({
+      access: 'public',
+      context: 'server',
+      default: pkg.author.name,
+    }),
+    AUTHOR_URL: envField.string({
+      access: 'public',
+      context: 'server',
+      default: pkg.author.url,
+    }),
     OG_LOGO_BASE_64_SRC: envField.string({
       access: 'public',
       context: 'server',

@@ -15,7 +15,13 @@ module.exports = {
     'at-rule-no-unknown': [
       true,
       {
-        ignoreAtRules: ['extends', 'tailwind', 'layer', 'include'],
+        ignoreAtRules: [
+          'extends',
+          'tailwind',
+          'layer',
+          'include',
+          'mixin',
+        ],
       },
     ],
     'custom-media-pattern': [

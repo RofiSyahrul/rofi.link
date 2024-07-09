@@ -162,22 +162,22 @@
     }
 
     &[data-animation-type='enter'] {
-      animation-name: fadeIn;
+      animation-name: fade-in;
 
       dialog {
-        animation-name: zoomIn;
+        animation-name: zoom-in;
       }
     }
 
     &[data-animation-type='leave'] {
-      animation-name: fadeOut;
+      animation-name: fade-out;
 
       .overlay {
         pointer-events: none;
       }
 
       dialog {
-        animation-name: zoomOut;
+        animation-name: zoom-out;
       }
     }
   }

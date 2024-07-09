@@ -37,7 +37,7 @@ module.exports = {
   darkMode: 'class',
   plugins: [
     require('tailwind-scrollbar'),
-    plugin(({ addComponents }) => {
+    plugin(({ addComponents, addUtilities }) => {
       addComponents({
         '.btn': {
           display: 'flex',
@@ -134,6 +134,13 @@ module.exports = {
           zIndex: '1',
           maxWidth: 'calc(100% - 32px)',
           overflow: 'hidden',
+        },
+      });
+
+      addUtilities({
+        '.layout-full': {
+          minHeight: 'calc(100vh - 15rem)',
+          width: '100%',
         },
       });
     }),

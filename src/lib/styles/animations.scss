@@ -2,30 +2,31 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
 }
 
-@keyframes fadeIn {
+@keyframes fade-in {
   from {
-    opacity: 0%;
+    opacity: 0;
   }
 }
 
-@keyframes fadeOut {
+@keyframes fade-out {
   to {
-    opacity: 0%;
+    opacity: 0;
   }
 }
 
-@keyframes zoomIn {
+@keyframes zoom-in {
   from {
     transform: scale3d(0.3, 0.3, 0.3);
   }
 }
 
-@keyframes zoomOut {
+@keyframes zoom-out {
   to {
     transform: scale3d(0.3, 0.3, 0.3);
   }

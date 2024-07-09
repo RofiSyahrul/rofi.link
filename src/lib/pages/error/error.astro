@@ -1,0 +1,67 @@
+---
+import Document from '$lib/_document.astro';
+import Layout from '$lib/layout/layout.astro';
+
+export interface Props {
+  status: '404' | '500';
+}
+
+const { status } = Astro.props;
+
+const titleConfig: Record<Props['status'], string> = {
+  '404': 'Halaman Tidak Ditemukan',
+  '500': 'Internal Server Error',
+};
+
+const title = titleConfig[status];
+const statusText = status.replaceAll('0', '<span>0</span>');
+---
+
+<Document {title} noIndex>
+  <Layout class='layout-full gap-4'>
+    <div>
+      <h1 set:html={statusText} />
+      <h2>{title}</h2>
+    </div>
+    <a class='btn btn-solid btn-primary h-10 p-3' href='/'>
+      Coba singkat tautan disini
+    </a>
+  </Layout>
+</Document>
+
+<style lang='scss'>
+  .layout-full {
+    align-items: center;
+    justify-content: center;
+  }
+
+  h1 {
+    &,
+    :global(span) {
+      @apply text-9xl text-center;
+
+      @include md {
+        font-size: 10rem;
+      }
+    }
+
+    :global(span) {
+      background-image: url('https://res.cloudinary.com/rofi/image/upload/c_fit,q_auto:good,w_80/v1640233522/samples/rho-pi.png');
+      background-repeat: no-repeat;
+      background-position: bottom 36px right 50%;
+      background-size: 3rem;
+
+      @include md {
+        background-position: bottom 44px right 50%;
+      }
+    }
+  }
+
+  h2 {
+    @apply text-3xl text-center;
+
+    @include md {
+      @apply text-5xl;
+    }
+  }
+</style>
