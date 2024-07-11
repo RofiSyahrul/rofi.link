@@ -32,6 +32,9 @@ dependencies:
   astrojs-service-worker:
     specifier: ^2.0.0
     version: 2.0.0(astro@4.11.5)
+  chalk:
+    specifier: ^5.3.0
+    version: 5.3.0
   clsx:
     specifier: ^2.1.1
     version: 2.1.1

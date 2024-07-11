@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/triple-slash-reference */
+/// <reference path="../.astro/actions.d.ts" />
 /// <reference path="../.astro/env.d.ts" />
 /// <reference types="astro/client" />
 
@@ -7,10 +8,15 @@ import type {
   TransitionBeforeSwapEvent,
 } from 'astro:transitions/client';
 
+import type { ColorModeManager } from './middleware/color-mode';
+import type { Logger } from './middleware/logger';
+
 declare global {
   namespace App {
     interface Locals {
+      colorModeManager: ColorModeManager;
       isMobile: boolean;
+      logger: Logger;
     }
   }
 

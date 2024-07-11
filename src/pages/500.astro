@@ -6,9 +6,9 @@ export interface Props {
 }
 
 const { error } = Astro.props;
+const { logger } = Astro.locals;
 
-// eslint-disable-next-line no-console
-console.log('ERROR 500', error);
+logger.fatal('ERROR 500', error);
 ---
 
 <Error status='500' />

@@ -26,6 +26,7 @@ export default defineConfig({
     enabled: process.env.DEV_TOOLBAR === 'true',
   },
   experimental: {
+    actions: true,
     env,
   },
   integrations: [
@@ -48,6 +49,7 @@ export default defineConfig({
       }),
     },
   },
+  site: process.env.SITE_URL,
   vite: {
     css: {
       preprocessorOptions: {

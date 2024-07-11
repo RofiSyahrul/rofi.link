@@ -123,7 +123,7 @@ export default [
           pathGroups: [
             {
               group: 'external',
-              pattern: '{$**}',
+              pattern: '{$**,$/**}',
               position: 'after',
             },
           ],

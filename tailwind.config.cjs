@@ -116,6 +116,51 @@ module.exports = {
             },
           },
         },
+        '.dark .btn': {
+          '&.btn-solid': {
+            '&.btn-primary': {
+              color: colors.neutral.dim,
+              backgroundColor: colors.primary.bright,
+            },
+            '&.btn-primary-invert': {
+              color: colors.neutral.bright0,
+              backgroundColor: colors.primary.dim,
+            },
+            '&.btn-secondary': {
+              color: colors.neutral.dim,
+              backgroundColor: colors.secondary.bright,
+            },
+            '&.btn-danger': {
+              color: colors.neutral.dim,
+              backgroundColor: colors.danger.bright,
+            },
+          },
+          '&.btn-text': {
+            '&.btn-primary': {
+              color: colors.primary.bright,
+            },
+            '&.btn-secondary': {
+              color: colors.secondary.bright,
+            },
+            '&.btn-danger': {
+              color: colors.danger.bright,
+            },
+          },
+          '&.btn-outline': {
+            '&.btn-primary': {
+              border: `1px solid ${colors.primary.bright}`,
+              color: colors.primary.bright,
+            },
+            '&.btn-secondary': {
+              border: `1px solid ${colors.secondary.bright}`,
+              color: colors.secondary.bright,
+            },
+            '&.btn-danger': {
+              border: `1px solid ${colors.danger.bright}`,
+              color: colors.danger.bright,
+            },
+          },
+        },
         '.visually-hidden': {
           position: 'absolute',
           width: '1px',

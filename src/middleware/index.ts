@@ -1,10 +1,10 @@
+import 'dotenv/config';
+
 import { defineMiddleware, sequence } from 'astro:middleware';
-import dotenv from 'dotenv';
 
-import { initLocalsHandler } from './locals';
+import { injectColorModeManager } from './color-mode';
+import { injectLogger } from './logger';
 import { userAgentHandler } from './user-agent';
-
-dotenv.config();
 
 const IGNORED_PATHNAMES = new Set([
   '/browserconfig.xml',
@@ -19,7 +19,8 @@ const isIgnored = (pathname: string): boolean => {
 };
 
 const middlewareHandler = sequence(
-  initLocalsHandler,
+  injectLogger,
+  injectColorModeManager,
   userAgentHandler,
 );
 

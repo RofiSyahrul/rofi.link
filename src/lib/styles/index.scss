@@ -17,8 +17,11 @@
 body {
   @apply w-full h-full p-0 bg-neutral-bright0 text-neutral-dim;
 
-  overflow: auto;
   font-family: var(--font-myriad);
+}
+
+body.dark {
+  @apply bg-neutral-dim text-neutral-bright0;
 }
 
 h1,
@@ -101,6 +104,20 @@ progress.bar {
 
   &::-moz-progress-bar {
     @apply bg-primary-dim rounded-full;
+  }
+}
+
+.dark progress.bar {
+  &::-webkit-progress-bar {
+    @apply bg-neutral-dim;
+  }
+
+  &::-webkit-progress-value {
+    @apply bg-primary-bright;
+  }
+
+  &::-moz-progress-bar {
+    @apply bg-primary-bright;
   }
 }
 

@@ -59,7 +59,7 @@ interface Props extends Partial<SEOMeta> {
 
 export type DocumentProps = Props;
 
-const { isMobile } = Astro.locals;
+const { colorModeManager, isMobile } = Astro.locals;
 const { origin, pathname } = Astro.url;
 
 const DEFAULT_CRITICAL_FONTS: CriticalFont[] = [
@@ -296,7 +296,13 @@ const links: LinkDescriptor[] = [
     <slot name='head' />
   </head>
 
-  <body class:list={[isMobile ? 'mobile' : 'desktop', className]}>
+  <body
+    class:list={[
+      isMobile ? 'mobile' : 'desktop',
+      colorModeManager.colorMode,
+      className,
+    ]}
+  >
     <slot />
   </body>
 </html>

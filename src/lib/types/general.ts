@@ -17,8 +17,13 @@ export type ServerResponse<P extends object> =
   | { props: P }
   | Response;
 
-export type GetServerResponse<P extends object> = (
-  astro: AstroGlobal,
+type RouteParams = Record<string, string | undefined>;
+
+export type GetServerResponse<
+  P extends Record<string, any>,
+  TParams extends RouteParams = RouteParams,
+> = (
+  astro: AstroGlobal<Record<string, any>, unknown, TParams>,
 ) => ServerResponse<P> | Promise<ServerResponse<P>>;
 
 export interface SEOMeta {

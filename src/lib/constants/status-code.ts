@@ -33,6 +33,35 @@ enum StatusCode {
    */
   NoContent = 204,
 
+  // REDIRECTION
+  /**
+   * The URL of the requested resource has been changed permanently.
+   * The new URL is given in the response.
+   */
+  MovedPermanently = 301,
+  /**
+   * This response code means that the URI of requested resource
+   * has been changed temporarily. Further changes in the URI might be
+   * made in the future. Therefore, this same URI should be used by
+   * the client in future requests.
+   */
+  Found = 302,
+  /**
+   * The server sends this response to direct the client to get
+   * the requested resource at another URI with the same method
+   * that was used in the prior request. This has the same semantics
+   * as the `302 Found` HTTP response code, with the exception that
+   * the user agent *must not* change the HTTP method used.
+   */
+  TemporaryRedirect = 307,
+  /**
+   * This means that the resource is now permanently located at another URI,
+   * specified by the `Location:` HTTP Response header. This has the same semantics
+   * as the `301 Moved Permanently` HTTP response code, with the exception that
+   * the user agent must not change the HTTP method used
+   */
+  PermanentRedirect = 308,
+
   // CLIENT ERROR
   /**
    * The server could not understand the request due to invalid syntax.
@@ -67,7 +96,7 @@ enum StatusCode {
   /**
    * The server has encountered a situation it doesn't know how to handle.
    */
-  InternalServerError = 500
+  InternalServerError = 500,
 }
 
 export default StatusCode;

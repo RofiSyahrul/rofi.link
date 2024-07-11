@@ -12,7 +12,8 @@
     "moduleResolution": "Bundler",
     "noEmit": true,
     "paths": {
-      "$lib/*": ["./src/lib/*"]
+      "$lib/*": ["./src/lib/*"],
+      "$/*": ["./src/*"]
     },
     "resolveJsonModule": true,
     "skipLibCheck": true,

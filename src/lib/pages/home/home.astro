@@ -2,7 +2,7 @@
 import { APP_NAME, APP_VERSION } from 'astro:env/server';
 
 import Document from '$lib/_document.astro';
-import { oneLine } from '$lib/utils/string';
+import Layout from '$lib/layout/layout.astro';
 
 import type { HomeProps } from './_script.server';
 
@@ -11,14 +11,11 @@ export type Props = HomeProps;
 const { createdBy } = Astro.props;
 ---
 
-<Document title={`🏠 Homepage | ${APP_NAME}`}>
-  <main
-    class={oneLine`w-full h-full
-      flex flex-col gap-2 items-center justify-center`}
-  >
+<Document>
+  <Layout class='layout-full gap-2 items-center justify-center'>
     <h1 class='text-center text-2xl font-bold'>
       {APP_NAME} v{APP_VERSION}
     </h1>
     <code>{JSON.stringify({ createdBy })}</code>
-  </main>
+  </Layout>
 </Document>

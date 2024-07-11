@@ -1,8 +1,11 @@
 ---
 import Footer from './components/footer.astro';
-import SwitchModeButton from './components/switch-mode-button.astro';
+import SwitchColorMode from './components/switch-color-mode/_switch-color-mode.astro';
 
 export interface Props {
+  /**
+   * class for `main` element
+   */
   class?: string;
 }
 
@@ -10,7 +13,7 @@ const { class: className } = Astro.props;
 ---
 
 <header>
-  <SwitchModeButton />
+  <SwitchColorMode />
   <slot name='header' />
 </header>
 
@@ -40,7 +43,7 @@ const { class: className } = Astro.props;
     display: flex;
     flex-direction: column;
     width: 100%;
-    padding: 0 12px;
+    padding: 12px;
   }
 
   @include dark {
