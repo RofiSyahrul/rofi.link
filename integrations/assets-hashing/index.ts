@@ -1,21 +1,5 @@
 import type { AstroConfig, AstroIntegration } from 'astro';
 
-interface PreRenderedChunk {
-  name: string;
-}
-
-function generateServerChunkFileNames(chunk: PreRenderedChunk) {
-  const { name } = chunk;
-  const extension = '.js';
-
-  const prefix = 'chunks/';
-  if (name === 'astro') return prefix + '_astro' + extension;
-
-  const suffix = '[hash]' + extension;
-  if (name.startsWith('pages/')) return prefix + 'pages/' + suffix;
-  return prefix + suffix;
-}
-
 export function assetsHashing(): AstroIntegration {
   let astroConfig: AstroConfig;
 
@@ -38,13 +22,11 @@ export function assetsHashing(): AstroIntegration {
         viteRollupOutput.assetFileNames = `${assetsDirectory}/[ext]/[hash].[ext]`;
 
         if (target === 'server') {
-          viteRollupOutput.chunkFileNames =
-            generateServerChunkFileNames;
           return;
         }
 
-        viteRollupOutput.chunkFileNames = `${assetsDirectory}/js/chunk.[hash].js`;
-        viteRollupOutput.entryFileNames = `${assetsDirectory}/js/_entry.[hash].js`;
+        viteRollupOutput.chunkFileNames = `${assetsDirectory}/js/c.[hash].js`;
+        viteRollupOutput.entryFileNames = `${assetsDirectory}/js/_e.[hash].js`;
       },
     },
   };
