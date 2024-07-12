@@ -16,7 +16,7 @@
 }
 
 body {
-  @apply w-full h-full p-0 bg-neutral-bright0 text-neutral-dim;
+  @apply w-full h-full p-0 bg-neutral-bright text-neutral-dim;
 
   font-family: var(--font-myriad);
 }
@@ -25,7 +25,7 @@ body {
   color-scheme: dark;
 
   body {
-    @apply bg-neutral-dim text-neutral-bright0;
+    @apply bg-neutral-dim text-neutral-bright;
   }
 }
 

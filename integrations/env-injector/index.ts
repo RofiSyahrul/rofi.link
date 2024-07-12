@@ -28,13 +28,28 @@ async function getReservedSlugs() {
     new URL('../../src/pages', import.meta.url),
   );
 
-  const pagesDirContents = await readdir(pagesDirPath, {
-    recursive: false,
-    withFileTypes: false,
-  });
+  const publicDirPath = fileURLToPath(
+    new URL('../../public', import.meta.url),
+  );
 
-  const reservedSlugs: string[] = ['_actions', '_image'];
-  for (const name of pagesDirContents) {
+  const [pagesDirContents, publicDirContents] = await Promise.all([
+    readdir(pagesDirPath, {
+      recursive: false,
+      withFileTypes: false,
+    }),
+    readdir(publicDirPath, {
+      recursive: false,
+      withFileTypes: false,
+    }),
+  ]);
+
+  const pagesAndPublicDirContents = [
+    ...pagesDirContents,
+    ...publicDirContents,
+  ];
+
+  const reservedSlugs: string[] = ['_actions', '_astro', '_image'];
+  for (const name of pagesAndPublicDirContents) {
     reservedSlugs.push(name.replace(/\.(astro|ts|js)$/, ''));
   }
 

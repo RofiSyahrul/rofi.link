@@ -71,5 +71,5 @@ Feel free to check [our documentation](https://docs.astro.build) or jump into ou
 ## TODO List
 
 - [] Google Auth
-- [] Copy button for the generated URL
-- [] Tech stacks in footer
+- [x] Copy button for the shortened URL
+- [x] Tech stacks in footer

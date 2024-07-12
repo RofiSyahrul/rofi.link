@@ -55,8 +55,8 @@
       {#if duration == null}
         <button
           class="btn btn-solid"
-          class:btn-primary={variant === 'neutral' ||
-            variant === 'success'}
+          class:btn-primary={variant === 'neutral'}
+          class:btn-secondary={variant === 'success'}
           class:btn-danger={variant === 'error'}
           type="button"
           on:click={close}
@@ -99,7 +99,7 @@
   }
 
   .snackbar_success {
-    @apply bg-primary-bright;
+    @apply bg-secondary-bright;
   }
 
   .snackbar__message {
@@ -138,7 +138,7 @@
     }
 
     .snackbar_success {
-      @apply bg-primary-dim;
+      @apply bg-secondary-dim;
     }
   }
 </style>

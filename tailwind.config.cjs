@@ -11,22 +11,22 @@ const colors = {
   },
   inherit: 'inherit',
   neutral: {
-    bright: twColors.slate[200],
-    bright0: twColors.slate[100],
-    bright1: twColors.slate[300],
-    bright2: twColors.slate[400],
-    dim: twColors.slate[800],
-    dim0: twColors.slate[900],
-    dim1: twColors.slate[700],
-    dim2: twColors.slate[600],
+    bright0: twColors.zinc[100],
+    bright: twColors.zinc[200],
+    bright1: twColors.zinc[300],
+    bright2: twColors.zinc[400],
+    dim0: twColors.zinc[900],
+    dim: twColors.zinc[800],
+    dim1: twColors.zinc[700],
+    dim2: twColors.zinc[600],
   },
   primary: {
-    bright: twColors.sky[200],
-    dim: twColors.sky[800],
+    bright: twColors.blue[200],
+    dim: twColors.blue[800],
   },
   secondary: {
-    bright: twColors.lime[200],
-    dim: twColors.emerald[600],
+    bright: twColors.emerald[200],
+    dim: twColors.emerald[800],
   },
   transparent: 'transparent',
 };
@@ -34,7 +34,7 @@ const colors = {
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: ['./src/**/*.{astro,svelte}'],
-  darkMode: 'class',
+  darkMode: 'selector',
   plugins: [
     require('tailwind-scrollbar'),
     plugin(({ addComponents, addUtilities }) => {

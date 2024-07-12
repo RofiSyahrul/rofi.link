@@ -1,15 +1,11 @@
 ---
-import { getActionProps, actions } from 'astro:actions';
-
 import Form from './form.svelte';
 import OptionsSwitch from './options-switch.svelte';
 
-const actionProps = getActionProps(actions.toggleColorMode);
 const activeValue = Astro.locals.colorModeManager.colorMode;
 ---
 
 <Form client:load>
-  <input {...actionProps} />
   <OptionsSwitch {activeValue} />
   <button class='visually-hidden'>Terapkan</button>
 </Form>
