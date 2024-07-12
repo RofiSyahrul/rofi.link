@@ -33,3 +33,5 @@ export interface SEOMeta {
   imageURL?: string;
   title?: string;
 }
+
+export type Ref<T> = { ref: T };

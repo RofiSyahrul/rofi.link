@@ -1,0 +1,74 @@
+---
+import CheckIcon from '$lib/icons/check-icon.svelte';
+import CopyIcon from '$lib/icons/copy-icon.svelte';
+import ExternalLinkIcon from '$lib/icons/external-link-icon.svelte';
+
+import Copy from './copy.svelte';
+
+export interface Props {
+  shortenedURL: URL;
+}
+
+const { shortenedURL } = Astro.props;
+const hostAndPathname = shortenedURL.host + shortenedURL.pathname;
+---
+
+<div class='shortened-url'>
+  <a
+    class='btn btn-text'
+    href={shortenedURL}
+    target='_blank'
+    rel='noopener noreferer'
+  >
+    <div class='line-clamp-1' title={hostAndPathname}>
+      {hostAndPathname}
+    </div>
+    <ExternalLinkIcon class='inherit' />
+  </a>
+  <Copy client:load>
+    <CopyIcon class='inherit' slot='copy' />
+    <CheckIcon class='inherit' slot='check' />
+    <Fragment slot='target'>{hostAndPathname}</Fragment>
+  </Copy>
+</div>
+
+<style lang='scss'>
+  .shortened-url {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+
+    svg.inherit {
+      @apply text-primary-dim;
+    }
+  }
+
+  a {
+    max-width: calc(100% - 40px);
+
+    svg {
+      display: none;
+      flex: 0 0 24px;
+      margin-left: 4px;
+
+      @include xs {
+        display: block;
+      }
+    }
+  }
+
+  .line-clamp-1 {
+    display: block;
+    text-wrap: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  @include dark {
+    .shortened-url {
+      svg.inherit {
+        @apply text-primary-bright;
+      }
+    }
+  }
+</style>

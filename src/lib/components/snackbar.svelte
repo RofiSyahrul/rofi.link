@@ -52,9 +52,6 @@
       out:fly={{ x: '-100%', opacity: 1 }}
       on:outroend={remove}
     >
-      <div class="snackbar__message">
-        <slot />
-      </div>
       {#if duration == null}
         <button
           class="btn btn-solid"
@@ -68,6 +65,9 @@
           <span class="visually-hidden">Tutup</span>
         </button>
       {/if}
+      <div class="snackbar__message">
+        <slot />
+      </div>
     </div>
   {/if}
 </div>
@@ -103,19 +103,29 @@
   }
 
   .snackbar__message {
-    color: transparent;
-    background: inherit;
-    background-clip: text;
-    filter: invert(1) brightness(1) grayscale(1) contrast(9);
+    max-width: 100%;
+
+    &,
+    & :global(.inherit) {
+      color: transparent;
+      background: inherit;
+      background-clip: text;
+      filter: invert(1) brightness(1) grayscale(1) contrast(9);
+    }
   }
 
   button {
     --size: 24px;
 
     flex: 0 0 var(--size);
+    order: 2;
     width: var(--size);
     height: var(--size);
     border-radius: 50%;
+
+    + .snackbar__message {
+      max-width: calc(100% - 28px);
+    }
   }
 
   @include dark {

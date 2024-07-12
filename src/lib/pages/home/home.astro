@@ -13,6 +13,7 @@ import Layout from '$lib/layout/layout.astro';
 import Feedback from './components/feedback.astro';
 import InputSlug from './components/input-slug.svelte';
 import InputUrl from './components/input-url.svelte';
+import ShortenedUrl from './components/shortened-url/_shortened-url.astro';
 
 interface FieldError {
   message: string;
@@ -79,16 +80,7 @@ if (actionResult?.data?.shortenedURL) {
       {
         shortenedURL && (
           <Feedback class='general-feedback' variant='success'>
-            <div>
-              <a
-                class='btn btn-text'
-                href={shortenedURL}
-                target='_blank'
-                rel='noopener noreferer'
-              >
-                {shortenedURL.host + shortenedURL.pathname}
-              </a>
-            </div>
+            <ShortenedUrl {shortenedURL} />
           </Feedback>
         )
       }
@@ -127,6 +119,10 @@ if (actionResult?.data?.shortenedURL) {
     .general-feedback {
       :global(.snackbar) {
         margin-top: 8px;
+      }
+
+      :global(.snackbar_success .snackbar__message) {
+        flex: 1;
       }
     }
   }

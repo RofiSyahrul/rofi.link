@@ -1,7 +1,21 @@
-export default function copyToClipboard(
+export default async function copyToClipboard(
+  win: Window,
   doc: Document,
   copiedText: string,
 ) {
+  let isCopied = false;
+
+  try {
+    await win.navigator.clipboard.writeText(copiedText);
+    isCopied = true;
+  } catch {
+    // silent
+  }
+
+  if (isCopied) {
+    return;
+  }
+
   const textarea = doc.createElement('textarea');
 
   textarea.style.fontSize = '12pt';
