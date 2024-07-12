@@ -1,7 +1,10 @@
 ---
 import { getActionProps, actions } from 'astro:actions';
 
-import { CustomActionInputError } from '$/actions/error';
+import {
+  CustomActionError,
+  CustomActionInputError,
+} from '$/actions/error';
 
 import Document from '$lib/_document.astro';
 import Form from '$lib/components/base-form.svelte';
@@ -33,6 +36,11 @@ if (actionResult?.data?.shortenedURL) {
   actualURLError.value = input.actualURL;
   slugError.message = fields.slug?.join('<br />') ?? '';
   slugError.value = input.slug;
+} else if (CustomActionError.hasInstance(actionResult?.error)) {
+  const { code, input, message } = actionResult.error;
+  errorMessage = `${message}<br />[<code>${code}</code>]`;
+  actualURLError.value = input.actualURL;
+  slugError.value = input.slug;
 }
 ---
 
@@ -61,28 +69,27 @@ if (actionResult?.data?.shortenedURL) {
         errorMessage &&
           !actualURLError.message &&
           !slugError.message && (
-            <div class='feedback-wrapper'>
-              <Feedback message={errorMessage} />
-            </div>
+            <Feedback
+              class='general-feedback'
+              message={errorMessage}
+            />
           )
       }
 
       {
         shortenedURL && (
-          <div class='feedback-wrapper'>
-            <Feedback variant='success'>
-              <div>
-                <a
-                  class='btn btn-text'
-                  href={shortenedURL}
-                  target='_blank'
-                  rel='noopener noreferer'
-                >
-                  {shortenedURL.host + shortenedURL.pathname}
-                </a>
-              </div>
-            </Feedback>
-          </div>
+          <Feedback class='general-feedback' variant='success'>
+            <div>
+              <a
+                class='btn btn-text'
+                href={shortenedURL}
+                target='_blank'
+                rel='noopener noreferer'
+              >
+                {shortenedURL.host + shortenedURL.pathname}
+              </a>
+            </div>
+          </Feedback>
         )
       }
 
@@ -117,7 +124,7 @@ if (actionResult?.data?.shortenedURL) {
       }
     }
 
-    .feedback-wrapper {
+    .general-feedback {
       :global(.snackbar) {
         margin-top: 8px;
       }

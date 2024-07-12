@@ -10,6 +10,9 @@
   import { createEventDispatcher, onMount, tick } from 'svelte';
   import { fly } from 'svelte/transition';
 
+  let className: string | undefined = undefined;
+  export { className as class };
+
   export let duration: number | null = 3500;
   export let variant: SnackbarVariant = 'neutral';
 
@@ -40,7 +43,7 @@
   });
 </script>
 
-<div data-snackbar={isActive ? variant : ''}>
+<div class={className} data-snackbar={isActive ? variant : ''}>
   {#if isActive}
     <div
       class={`snackbar snackbar_${variant}`}

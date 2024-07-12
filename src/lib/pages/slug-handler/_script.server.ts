@@ -22,16 +22,18 @@ export const getServerResponse: GetServerResponse<
     if (response?.actualURL) {
       actualURL = new URL(response.actualURL);
       urlId = response.id;
+    } else {
+      logger.error(`Slug not found`, new Error(`slug: ${slug}`));
     }
   } catch (error) {
     logger.fatal(
       '`prisma.url.findUnique` or URL construct error:',
       error,
+      { actualURL, slug },
     );
   }
 
   if (!actualURL || !urlId) {
-    logger.error(`Slug not found`, new Error(`slug: ${slug}`));
     return notFound;
   }
 

@@ -49,3 +49,22 @@ export class CustomActionInputError<
     return instance instanceof this;
   }
 }
+
+export class CustomActionError<
+  T extends ErrorInferenceObject,
+> extends ActionError<T> {
+  constructor(
+    public input: T,
+    message: string,
+    code: ActionError['code'] = 'INTERNAL_SERVER_ERROR',
+  ) {
+    super({ code, message });
+    this.name = 'CustomActionError';
+  }
+
+  public static hasInstance<T extends ErrorInferenceObject>(
+    instance?: ActionError<T>,
+  ): instance is CustomActionError<T> {
+    return instance instanceof this;
+  }
+}
