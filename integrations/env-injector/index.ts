@@ -1,4 +1,4 @@
-import { readFile } from 'node:fs/promises';
+import { readdir, readFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 
 import type { AstroIntegration } from 'astro';
@@ -23,9 +23,31 @@ async function getDefaultOGLogoBase64Src() {
   return `data:image/png;base64,${logoBase64}`;
 }
 
+async function getReservedSlugs() {
+  const pagesDirPath = fileURLToPath(
+    new URL('../../src/pages', import.meta.url),
+  );
+
+  const pagesDirContents = await readdir(pagesDirPath, {
+    recursive: false,
+    withFileTypes: false,
+  });
+
+  const reservedSlugs: string[] = ['_actions', '_image'];
+  for (const name of pagesDirContents) {
+    reservedSlugs.push(name.replace(/\.(astro|ts|js)$/, ''));
+  }
+
+  return reservedSlugs;
+}
+
 async function constructEnvSchema() {
-  const defaultOGLogoBase64Src = await getDefaultOGLogoBase64Src();
   const defaultAppName = titleCase(pkg.name);
+
+  const [defaultOGLogoBase64Src, reservedSlugs] = await Promise.all([
+    getDefaultOGLogoBase64Src(),
+    getReservedSlugs(),
+  ]);
 
   return {
     APP_DESC: envField.string({
@@ -62,6 +84,11 @@ async function constructEnvSchema() {
       access: 'public',
       context: 'server',
       default: defaultOGLogoBase64Src,
+    }),
+    RESERVED_SLUG: envField.string({
+      access: 'public',
+      context: 'server',
+      default: reservedSlugs.join(','),
     }),
   };
 }

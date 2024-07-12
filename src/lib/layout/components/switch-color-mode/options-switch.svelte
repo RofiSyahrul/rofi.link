@@ -5,8 +5,8 @@
   import type { SwitchOptionTuple } from '$lib/components/switch.svelte';
 
   const options: SwitchOptionTuple = [
-    { label: 'Terang', value: 'light' },
-    { label: 'Gelap', value: 'dark' },
+    { label: 'Mode Terang', value: 'light' },
+    { label: 'Mode Gelap', value: 'dark' },
   ];
 </script>
 

@@ -180,7 +180,7 @@ const links: LinkDescriptor[] = [
 ---
 
 <!doctype html>
-<html lang='id'>
+<html class={colorModeManager.colorMode} lang='id'>
   <head>
     <ViewTransitions fallback='animate' />
 
@@ -296,13 +296,7 @@ const links: LinkDescriptor[] = [
     <slot name='head' />
   </head>
 
-  <body
-    class:list={[
-      isMobile ? 'mobile' : 'desktop',
-      colorModeManager.colorMode,
-      className,
-    ]}
-  >
+  <body class:list={[isMobile ? 'mobile' : 'desktop', className]}>
     <slot />
   </body>
 </html>

@@ -1,9 +1,5 @@
 ---
-import { getServerResponse } from '$lib/pages/home/_script.server';
 import Home from '$lib/pages/home/home.astro';
-
-const response = await getServerResponse(Astro);
-if (response instanceof Response) return response;
 ---
 
-<Home {...response.props} />
+<Home />

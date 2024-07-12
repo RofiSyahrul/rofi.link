@@ -27,7 +27,7 @@
         value={option.value}
         checked={activeValue ? option.value === activeValue : i === 0}
       />
-      <span>
+      <span title={option.label}>
         <slot name="option-label" {option}>
           {option.label}
         </slot>
@@ -47,7 +47,7 @@
     border: 1px solid;
     border-radius: 30px;
 
-    @apply border-neutral-dim2;
+    @apply border-neutral-bright2;
   }
 
   input {
@@ -60,7 +60,7 @@
     justify-content: center;
     height: 100%;
     min-height: 28px;
-    padding: 0 12px;
+    padding: 0 4px;
     text-align: center;
     cursor: pointer;
 
@@ -78,7 +78,7 @@
 
   @include dark {
     fieldset {
-      @apply border-neutral-bright2;
+      @apply border-neutral-dim2;
     }
 
     span {

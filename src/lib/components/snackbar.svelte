@@ -1,7 +1,5 @@
 <script lang="ts" context="module">
-  import type { SnackbarDetail } from '$lib/types/snackbar';
-
-  export type SnackbarVariant = SnackbarDetail['variant'];
+  import type { SnackbarVariant } from '$lib/types/snackbar';
 
   export type SnackbarEvent = {
     destroyed: undefined;
@@ -42,7 +40,7 @@
   });
 </script>
 
-<div>
+<div data-snackbar={isActive ? variant : ''}>
   {#if isActive}
     <div
       class={`snackbar snackbar_${variant}`}
@@ -54,17 +52,35 @@
       <div class="snackbar__message">
         <slot />
       </div>
+      {#if duration == null}
+        <button
+          class="btn btn-solid"
+          class:btn-primary={variant === 'neutral' ||
+            variant === 'success'}
+          class:btn-danger={variant === 'error'}
+          type="button"
+          on:click={close}
+        >
+          ✕
+          <span class="visually-hidden">Tutup</span>
+        </button>
+      {/if}
     </div>
   {/if}
 </div>
 
-<style>
+<style lang="scss">
+  div[data-snackbar=''] {
+    display: contents;
+  }
+
   .snackbar {
+    position: relative;
     display: inline-flex;
-    align-items: center;
-    justify-content: space-around;
+    gap: 4px;
+    justify-content: space-between;
     min-height: 48px;
-    margin: 8px 0;
+    padding: 12px 8px;
     border-radius: 4px;
     pointer-events: auto;
 
@@ -76,7 +92,7 @@
   }
 
   .snackbar_error {
-    @apply bg-danger-dim;
+    @apply bg-danger-bright;
   }
 
   .snackbar_success {
@@ -84,10 +100,32 @@
   }
 
   .snackbar__message {
-    margin: 4px;
     color: transparent;
     background: inherit;
     background-clip: text;
     filter: invert(1) brightness(1) grayscale(1) contrast(9);
+  }
+
+  button {
+    --size: 24px;
+
+    flex: 0 0 var(--size);
+    width: var(--size);
+    height: var(--size);
+    border-radius: 50%;
+  }
+
+  @include dark {
+    .snackbar_neutral {
+      @apply bg-neutral-dim;
+    }
+
+    .snackbar_error {
+      @apply bg-danger-dim;
+    }
+
+    .snackbar_success {
+      @apply bg-primary-dim;
+    }
   }
 </style>

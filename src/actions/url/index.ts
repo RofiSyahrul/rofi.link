@@ -1,37 +1,68 @@
-import { ActionError, defineAction, z } from 'astro:actions';
+import { defineAction, z } from 'astro:actions';
+import { RESERVED_SLUG } from 'astro:env/server';
 
 import { prisma } from '$lib/prisma';
 
-const inputSchema = z.object({
-  actualURL: z
-    .string()
-    .url('Tautan harus dimulai dengan http:// atau https://'),
-  slug: z
-    .string()
-    .regex(
-      /[\w-]{1,50}/,
-      'Karakter yang diperbolehkan: huruf, angka, - dan _. Maks 50 karakter',
-    ),
+import {
+  ACTUAL_URL_INVALID_MESSAGE,
+  SLUG_HELPER_MESSAGE,
+  SLUG_REGEXP,
+} from './constants.server';
+import { CustomActionInputError } from '../error';
+
+const shortenNewURLInputSchema = z.object({
+  actualURL: z.string().url(ACTUAL_URL_INVALID_MESSAGE),
+  slug: z.string().regex(SLUG_REGEXP, SLUG_HELPER_MESSAGE),
 });
+
+const RESERVED_SLUGS = new Set(RESERVED_SLUG.split(','));
 
 export const shortenNewURL = defineAction({
   accept: 'form',
-  input: inputSchema,
-  async handler({ actualURL, slug }, ctx) {
-    const conflictError = new ActionError({
-      code: 'CONFLICT',
-      message: `"${slug}" sudah digunakan`,
-    });
+  input: shortenNewURLInputSchema,
+  async handler(input, ctx) {
+    const { actualURL, slug } = input;
+
+    const makeConflictSlugError = () => {
+      return new CustomActionInputError(
+        input,
+        { slug: [`"${slug}" sudah digunakan`] },
+        'CONFLICT',
+      );
+    };
+
+    const makeInaccessibleActualURLError = () => {
+      return new CustomActionInputError(input, {
+        actualURL: [`Tautan "${actualURL}" tidak dapat diakses`],
+      });
+    };
+
+    if (RESERVED_SLUGS.has(slug)) {
+      throw makeConflictSlugError();
+    }
+
+    const { locals, site } = ctx;
+
+    let actualURLResponse: Response;
+    try {
+      actualURLResponse = await fetch(actualURL);
+    } catch (error) {
+      locals.logger.error(`Failed to fetch "${actualURL}"`, error);
+      throw makeInaccessibleActualURLError();
+    }
+
+    if (!actualURLResponse.ok) throw makeInaccessibleActualURLError();
 
     try {
       const res = await prisma.url.create({
         data: { actualURL, slug },
-        select: { slug: true },
+        select: { id: true, slug: true },
       });
-      return { shortenedURL: new URL(res.slug, ctx.site) };
+      locals.session.shortenedURLManager.storeIdForGuestUser(res.id);
+      return { shortenedURL: new URL(res.slug, site) };
     } catch (error) {
       if (prisma.isUniqueConstraintFailed(error)) {
-        throw conflictError;
+        throw makeConflictSlugError();
       }
       throw error;
     }

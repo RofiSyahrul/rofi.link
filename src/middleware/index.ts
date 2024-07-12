@@ -4,6 +4,7 @@ import { defineMiddleware, sequence } from 'astro:middleware';
 
 import { injectColorModeManager } from './color-mode';
 import { injectLogger } from './logger';
+import { sessionInjectorAndHandler } from './session';
 import { userAgentHandler } from './user-agent';
 
 const IGNORED_PATHNAMES = new Set([
@@ -22,6 +23,7 @@ const middlewareHandler = sequence(
   injectLogger,
   injectColorModeManager,
   userAgentHandler,
+  sessionInjectorAndHandler,
 );
 
 export const onRequest = defineMiddleware((ctx, next) => {

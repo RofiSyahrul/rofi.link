@@ -6,8 +6,8 @@ const colors = {
   danger: {
     bright: twColors.red[200],
     bright1: twColors.red[300],
-    dim: twColors.red[700],
-    dim1: twColors.red[600],
+    dim: twColors.red[900],
+    dim1: twColors.red[800],
   },
   inherit: 'inherit',
   neutral: {

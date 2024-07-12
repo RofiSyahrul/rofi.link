@@ -10,6 +10,7 @@ import type {
 
 import type { ColorModeManager } from './middleware/color-mode';
 import type { Logger } from './middleware/logger';
+import type { Session } from './middleware/session';
 
 declare global {
   namespace App {
@@ -17,6 +18,7 @@ declare global {
       colorModeManager: ColorModeManager;
       isMobile: boolean;
       logger: Logger;
+      session: Session;
     }
   }
 

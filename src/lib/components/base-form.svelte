@@ -1,55 +1,74 @@
 <script lang="ts" context="module">
   export type FieldElement = HTMLInputElement | HTMLTextAreaElement;
 
-  export type FormCustomEvent = {
-    'input-field': {
-      field: FieldElement;
-      form: HTMLFormElement;
-    };
+  type FormFieldEventDetail = {
+    field: FieldElement;
+    form: HTMLFormElement;
+    formControl: HTMLElement | null;
   };
+
+  type FormCustomEvent = {
+    'input-field': FormFieldEventDetail;
+    'invalid-field': FormFieldEventDetail;
+    'valid-field': FormFieldEventDetail;
+  };
+
+  export type FormFieldEvent = CustomEvent<FormFieldEventDetail>;
 
   const INVALID = 'invalid';
 
-  function isFieldElement(
+  const isFieldElement = (
     target: EventTarget | null,
-  ): target is FieldElement {
+  ): target is FieldElement => {
     return (
       target instanceof HTMLInputElement ||
       target instanceof HTMLTextAreaElement
     );
-  }
+  };
 
-  function handleInvalidField(field: FieldElement) {
-    const fieldset = field.closest('fieldset');
-    if (fieldset) {
-      fieldset.classList.add(INVALID);
-    } else {
-      field.classList.add(INVALID);
-    }
-
+  const getFormControl = (
+    field: FieldElement,
+  ): HTMLElement | null => {
     const formControl = field.closest('[data-form-control]');
-    if (formControl instanceof HTMLElement) {
+    return formControl instanceof HTMLElement ? formControl : null;
+  };
+
+  const updateFieldOrFieldsetClass = (
+    field: FieldElement,
+    method: 'add' | 'remove',
+    className: string,
+  ) => {
+    const { classList } = field.closest('fieldset') ?? field;
+    const fn = classList[method].bind(classList);
+    fn(className);
+  };
+
+  const handleInvalidField = (
+    field: FieldElement,
+    formControl: HTMLElement | null,
+  ) => {
+    updateFieldOrFieldsetClass(field, 'add', INVALID);
+    if (formControl) {
       formControl.dataset.formControl = INVALID;
     }
-  }
+  };
 
-  function handleValidField(field: FieldElement) {
-    const fieldset = field.closest('fieldset');
-    if (fieldset) {
-      fieldset.classList.remove(INVALID);
-    } else {
-      field.classList.remove(INVALID);
-    }
-
-    const formControl = field.closest('[data-form-control]');
-    if (formControl instanceof HTMLElement) {
+  const handleValidField = (
+    field: FieldElement,
+    formControl: HTMLElement | null,
+  ) => {
+    updateFieldOrFieldsetClass(field, 'remove', INVALID);
+    if (formControl) {
       formControl.dataset.formControl = '';
     }
-  }
+  };
 </script>
 
 <script lang="ts">
   import { createEventDispatcher } from 'svelte';
+
+  let className: string | undefined = undefined;
+  export { className as class };
 
   export let action: string | undefined = undefined;
   export let id: string | undefined = undefined;
@@ -66,16 +85,27 @@
   function handleInput(this: HTMLFormElement, event: Event) {
     const target = event.target;
     if (isFieldElement(target)) {
-      if (target.validity.valid) {
-        handleValidField(target);
-      } else {
-        handleInvalidField(target);
+      const formControl = getFormControl(target);
+      const eventDetail: FormFieldEventDetail = {
+        field: target,
+        form: this,
+        formControl,
+      };
+      dispatch('input-field', eventDetail);
+
+      const { invalidValue } = target.dataset;
+      if (invalidValue) {
+        target.setCustomValidity(
+          target.value === invalidValue ? 'invalid' : '',
+        );
       }
 
-      dispatch('input-field', { field: target, form: this });
-
       if (target.validity.valid) {
-        handleValidField(target);
+        handleValidField(target, formControl);
+        dispatch('valid-field', eventDetail);
+      } else {
+        handleInvalidField(target, formControl);
+        dispatch('invalid-field', eventDetail);
       }
     }
   }
@@ -83,13 +113,20 @@
   function handleInvalid(this: HTMLFormElement, event: Event) {
     const target = event.target;
     if (isFieldElement(target)) {
-      handleInvalidField(target);
+      const formControl = getFormControl(target);
+      handleInvalidField(target, formControl);
+      dispatch('invalid-field', {
+        field: target,
+        form: this,
+        formControl,
+      });
     }
   }
 </script>
 
 <form
   {action}
+  class={className}
   {id}
   {method}
   {name}

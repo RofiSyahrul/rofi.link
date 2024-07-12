@@ -17,10 +17,20 @@ export const env: Env = {
       context: 'server',
       url: true,
     }),
+    SHORTENED_URL_MANAGER_COOKIE_KEY: envField.string({
+      access: 'secret',
+      context: 'server',
+      max: 24,
+    }),
     SITE_URL: envField.string({
       access: 'public',
       context: 'server',
       url: true,
+    }),
+    USER_SESSION_COOKIE_KEY: envField.string({
+      access: 'secret',
+      context: 'server',
+      max: 24,
     }),
   },
 };

@@ -4,6 +4,7 @@
   let className = '';
   export { className as class };
 
+  export let alwaysVisibleHelper = false;
   export let el: 'div' | 'label' = 'label';
   export let invalid = false;
   export let helperText = '';
@@ -18,7 +19,7 @@
   class={clsx('form-control', className)}
   class:required
   data-form-control={invalid ? 'invalid' : ''}
-  title={parsedHelperText}
+  title={alwaysVisibleHelper ? '' : parsedHelperText}
 >
   <div class="label">
     {label}
@@ -27,54 +28,16 @@
   <slot />
 
   {#if parsedHelperText}
-    <div class="helper">{parsedHelperText}</div>
+    <div
+      class="helper"
+      data-helper={alwaysVisibleHelper ? 'visible' : ''}
+    >
+      {parsedHelperText}
+    </div>
   {/if}
 </svelte:element>
 
 <style lang="scss">
-  .form-control {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-
-    &.required .label::after {
-      order: 2;
-      margin-left: 2px;
-      content: '*';
-
-      @apply text-danger-dim;
-    }
-
-    .helper {
-      position: absolute;
-      top: 100%;
-      right: 4px;
-      z-index: 10;
-      display: none;
-      max-width: 90%;
-      margin-top: -4px;
-      padding: 8px;
-      border-radius: 4px;
-
-      @apply text-danger-dim bg-neutral-bright shadow;
-
-      &::before {
-        position: absolute;
-        right: 8px;
-        bottom: 100%;
-        border: 6px solid transparent;
-        content: '';
-
-        @apply border-b-neutral-bright;
-      }
-    }
-
-    &[data-form-control='invalid'] .helper {
-      display: block;
-    }
-  }
-
   .label {
     display: flex;
     align-items: center;
@@ -89,6 +52,118 @@
     &::before {
       order: 1;
       content: ':';
+    }
+  }
+
+  .helper {
+    visibility: hidden;
+
+    @apply text-xs text-neutral-dim1;
+
+    &[data-helper='visible'] {
+      visibility: visible;
+    }
+  }
+
+  .form-control {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+    &.required .label::after {
+      order: 2;
+      margin-left: 2px;
+      content: '*';
+
+      @apply text-danger-dim;
+    }
+
+    :global(input) {
+      &::-webkit-input-placeholder,
+      &::-moz-placeholder,
+      &::placeholder {
+        @apply text-neutral-dim1;
+      }
+    }
+
+    :global([data-field]) {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      height: 48px;
+      padding: 0 12px;
+      border: 2px solid transparent;
+      border-radius: 4px;
+
+      @apply bg-neutral-bright1;
+
+      &:focus-within {
+        @apply border-primary-dim;
+      }
+    }
+
+    :global([data-field='wrapper']) {
+      padding-right: 0;
+
+      :global(input) {
+        width: 100%;
+        height: 100%;
+        padding: 0 12px 0 4px;
+        background: inherit;
+      }
+    }
+
+    &[data-form-control='invalid'] {
+      :global([data-field]) {
+        @apply border-danger-dim1;
+
+        &:focus-within {
+          @apply bg-danger-bright;
+        }
+      }
+
+      .helper {
+        visibility: visible;
+        @apply text-danger-dim;
+      }
+    }
+  }
+
+  @include dark {
+    .helper {
+      @apply text-neutral-bright1;
+    }
+
+    .form-control {
+      &.required .label::after,
+      &[data-form-control='invalid'] .helper {
+        @apply text-danger-bright;
+      }
+
+      :global(input) {
+        &::-webkit-input-placeholder,
+        &::-moz-placeholder,
+        &::placeholder {
+          @apply text-neutral-bright1;
+        }
+      }
+
+      :global([data-field]) {
+        @apply bg-neutral-dim1;
+
+        &:focus-within {
+          @apply border-primary-bright;
+        }
+      }
+
+      &[data-form-control='invalid'] :global([data-field]) {
+        @apply border-danger-bright1;
+
+        &:focus-within {
+          @apply bg-danger-dim;
+        }
+      }
     }
   }
 </style>

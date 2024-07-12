@@ -6,6 +6,7 @@
     'Segoe UI Emoji';
   --font-myriad: 'Myriad Pro', var(--font-default);
 
+  color-scheme: light;
   height: 100%;
 }
 
@@ -20,8 +21,12 @@ body {
   font-family: var(--font-myriad);
 }
 
-body.dark {
-  @apply bg-neutral-dim text-neutral-bright0;
+.dark {
+  color-scheme: dark;
+
+  body {
+    @apply bg-neutral-dim text-neutral-bright0;
+  }
 }
 
 h1,
@@ -130,4 +135,8 @@ progress.bar {
   animation: spin 0.4s linear infinite;
 
   @apply border-t-neutral-bright border-l-neutral-bright;
+}
+
+.dark .spinner {
+  @apply border-t-neutral-dim border-l-neutral-dim;
 }

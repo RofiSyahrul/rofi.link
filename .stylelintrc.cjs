@@ -54,6 +54,7 @@ module.exports = {
         message: 'Expected id selector to be kebab-case',
       },
     ],
+    'selector-no-vendor-prefix': null,
     'block-no-empty': true,
     'media-feature-range-notation': 'prefix',
     'selector-pseudo-class-no-unknown': [

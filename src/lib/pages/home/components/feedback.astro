@@ -1,0 +1,18 @@
+---
+import Snackbar from '$lib/components/snackbar.svelte';
+import type { SnackbarDetail } from '$lib/types/snackbar';
+
+export type Props = Partial<SnackbarDetail>;
+
+const { message = '', variant = 'error' } = Astro.props;
+---
+
+<Snackbar duration={null} {variant} client:load>
+  {
+    Astro.slots.has('default') ? (
+      <slot />
+    ) : (
+      <Fragment set:html={message} />
+    )
+  }
+</Snackbar>
