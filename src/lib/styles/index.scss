@@ -5,6 +5,7 @@
     'Helvetica Neue', helvetica, roboto, arial, 'Apple Color Emoji',
     'Segoe UI Emoji';
   --font-myriad: 'Myriad Pro', var(--font-default);
+  --header-height: 80px;
 
   color-scheme: light;
   height: 100%;
@@ -40,6 +41,35 @@ p {
   margin: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+h1,
+h2,
+h3 {
+  @apply font-semibold text-neutral-dim0 dark:text-neutral-bright0;
+}
+
+h4,
+h5 {
+  @apply font-medium;
+}
+
+h1 {
+  @apply text-3xl;
+}
+
+h2 {
+  @apply text-2xl;
+}
+
+h3,
+h4 {
+  @apply text-xl;
+}
+
+h5,
+h6 {
+  @apply text-lg;
 }
 
 label,

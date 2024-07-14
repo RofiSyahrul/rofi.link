@@ -1,6 +1,14 @@
 ---
+import { APP_NAME, IS_GOOGLE_AUTH_ENABLED } from 'astro:env/server';
+
+import { HOMEPAGE_PATH } from '$lib/constants/internal-urls';
+import HomeIcon from '$lib/icons/home-icon.svelte';
+import HomeSolidIcon from '$lib/icons/home-solid-icon.svelte';
+
 import Footer from './components/footer/_footer.astro';
+import GoogleLogin from './components/google-login.astro';
 import SwitchColorMode from './components/switch-color-mode/_switch-color-mode.astro';
+import UserMenu from './components/user-menu.astro';
 
 export interface Props {
   /**
@@ -10,11 +18,41 @@ export interface Props {
 }
 
 const { class: className } = Astro.props;
+
+const { currentUser, status } = Astro.locals.session;
+
+const isHomepage = Astro.url.pathname === HOMEPAGE_PATH;
 ---
 
 <header>
-  <SwitchColorMode />
-  <slot name='header' />
+  <a
+    aria-current={isHomepage}
+    class='btn btn-text btn-primary'
+    href={HOMEPAGE_PATH}
+  >
+    {isHomepage ? <HomeSolidIcon /> : <HomeIcon />}
+    {APP_NAME}
+  </a>
+  {
+    currentUser ? (
+      <UserMenu
+        {currentUser}
+        justSignedIn={status === 'sign-in-success'}
+      >
+        <SwitchColorMode
+          slot='switch-color-mode'
+          transition:animate='fade'
+        />
+      </UserMenu>
+    ) : (
+      <div>
+        {IS_GOOGLE_AUTH_ENABLED && (
+          <GoogleLogin failedSignIn={status === 'sign-in-failed'} />
+        )}
+        <SwitchColorMode transition:animate='fade' />
+      </div>
+    )
+  }
 </header>
 
 <main class={className}>
@@ -33,10 +71,36 @@ const { class: className } = Astro.props;
     align-items: center;
     justify-content: space-between;
     width: 100%;
-    height: 80px;
-    padding: 12px 16px;
+    height: var(--header-height);
+    padding: 8px 16px;
 
     @apply shadow-lg bg-neutral-bright;
+
+    > div {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+  }
+
+  a {
+    height: 32px;
+    border-bottom: 2px solid transparent;
+
+    svg {
+      flex: 0 0 24px;
+      width: 24px;
+      height: 24px;
+    }
+
+    &:hover svg {
+      stroke-width: 2px;
+    }
+
+    &[aria-current='true'] {
+      pointer-events: none;
+      @apply border-b-primary-dim;
+    }
   }
 
   main {
@@ -46,6 +110,10 @@ const { class: className } = Astro.props;
   @include dark {
     header {
       @apply shadow-2xl bg-neutral-dim;
+    }
+
+    a[aria-current='true'] {
+      @apply border-b-primary-bright;
     }
   }
 </style>

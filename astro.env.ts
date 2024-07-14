@@ -17,6 +17,15 @@ export const env: Env = {
       context: 'server',
       url: true,
     }),
+    GOOGLE_AUTH_CLIENT_ID: envField.string({
+      access: 'public',
+      context: 'server',
+      endsWith: '.apps.googleusercontent.com',
+    }),
+    GOOGLE_AUTH_CLIENT_SECRET: envField.string({
+      access: 'secret',
+      context: 'server',
+    }),
     SHORTENED_URL_MANAGER_COOKIE_KEY: envField.string({
       access: 'secret',
       context: 'server',

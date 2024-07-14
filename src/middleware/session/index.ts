@@ -1,100 +1,36 @@
-import type { Account } from '@prisma/client';
-import type {
-  AstroCookies,
-  AstroCookieSetOptions,
-  MiddlewareHandler,
-} from 'astro';
+import type { AstroCookies, MiddlewareHandler } from 'astro';
 import { z } from 'astro/zod';
-import {
-  SHORTENED_URL_MANAGER_COOKIE_KEY,
-  USER_SESSION_COOKIE_KEY,
-} from 'astro:env/server';
+import { actions } from 'astro:actions';
+import { SHORTENED_URL_MANAGER_COOKIE_KEY } from 'astro:env/server';
 
+import { HOMEPAGE_PATH } from '$lib/constants/internal-urls';
 import { prisma } from '$lib/prisma';
 
+import { UserSession } from './user-session';
+import { COOKIES_SET_OPTIONS } from '../constants';
 import type { Logger } from '../logger';
 
 const arrayOfStringSchema = z.array(z.string());
 
-type CurrentUser = Pick<Account, 'avatarURL' | 'id' | 'name'>;
-
-const cookiesSetOptions: AstroCookieSetOptions = {
-  httpOnly: true,
-  maxAge: 31_536_000,
-  path: '/',
-  sameSite: 'lax',
-  secure:
-    import.meta.env.PROD &&
-    import.meta.env.SITE.startsWith('https://'),
-};
-
-class UserSession {
-  readonly #cookieKey = USER_SESSION_COOKIE_KEY;
-  readonly #cookies: AstroCookies;
-  readonly #logger: Logger;
-
-  #currentUser: CurrentUser | null = null;
-
-  constructor(cookies: AstroCookies, logger: Logger) {
-    this.#cookies = cookies;
-    this.#logger = logger;
-  }
-
-  public get currentUser() {
-    return this.#currentUser;
-  }
-
-  public async fetchCurrentUser(): Promise<CurrentUser | null> {
-    if (this.#currentUser) return this.#currentUser;
-
-    const accountId = this.#cookies.get(this.#cookieKey)?.value;
-    if (!accountId) {
-      this.#currentUser = null;
-      return this.#currentUser;
-    }
-
-    try {
-      const account = await prisma.account.findUnique({
-        select: { avatarURL: true, id: true, name: true },
-        where: { id: accountId },
-      });
-      if (account) {
-        this.#currentUser = account;
-        return this.#currentUser;
-      }
-    } catch (error) {
-      this.#logger.error(`Failed to fetch current user`, error, {
-        accountId,
-      });
-    }
-
-    this.#cookies.delete(this.#cookieKey);
-    this.#currentUser = null;
-    return this.#currentUser;
-  }
-
-  public storeId(id: string) {
-    this.#cookies.set(this.#cookieKey, id, cookiesSetOptions);
-  }
-
-  public async signIn() {
-    // TODO: implementation
-  }
-}
-
 class ShortenedURLManager {
   readonly #cookieKey = SHORTENED_URL_MANAGER_COOKIE_KEY;
   readonly #cookies: AstroCookies;
+  readonly #logger: Logger;
   readonly #userSession: UserSession;
 
   #allStoredIds: Set<string> | undefined;
 
-  constructor(cookies: AstroCookies, userSession: UserSession) {
+  constructor(
+    cookies: AstroCookies,
+    logger: Logger,
+    userSession: UserSession,
+  ) {
     this.#cookies = cookies;
+    this.#logger = logger;
     this.#userSession = userSession;
   }
 
-  #getAllStoredIds(): Set<string> {
+  private get allStoredIds(): Set<string> {
     if (this.#allStoredIds) return this.#allStoredIds;
 
     try {
@@ -109,36 +45,59 @@ class ShortenedURLManager {
   }
 
   public storeIdForGuestUser(id: string) {
-    if (this.#userSession.currentUser) return;
+    if (this.#userSession.currentUser) return this;
 
-    const allStoredIds = this.#getAllStoredIds();
-    allStoredIds.add(id);
+    this.allStoredIds.add(id);
     this.#cookies.set(
       this.#cookieKey,
-      JSON.stringify([...allStoredIds]),
-      cookiesSetOptions,
+      JSON.stringify([...this.allStoredIds]),
+      COOKIES_SET_OPTIONS,
     );
+
+    return this;
   }
 
   public async flushStoredIdsForCurrentUser() {
-    // TODO: implementation
+    const { currentUser } = this.#userSession;
+    const allStoredIds = [...this.allStoredIds];
+
+    if (!currentUser || allStoredIds.length === 0) return this;
+
+    try {
+      await prisma.url.updateMany({
+        data: { accountId: currentUser.id },
+        where: {
+          account: null,
+          id: {
+            in: allStoredIds,
+          },
+        },
+      });
+      this.allStoredIds.clear();
+      this.#cookies.delete(this.#cookieKey, COOKIES_SET_OPTIONS);
+    } catch (error) {
+      this.#logger.error(
+        `Failed to flush stored ids for current user`,
+        error,
+        { currentUser, allStoredIds },
+      );
+    }
+
+    return this;
   }
 }
 
-class Session {
-  readonly #userSession: UserSession;
+class Session extends UserSession {
   #isInitialized = false;
 
   public shortenedURLManager: ShortenedURLManager;
-  public signIn: () => Promise<void>;
 
   constructor(cookies: AstroCookies, logger: Logger) {
-    this.#userSession = new UserSession(cookies, logger);
-    this.signIn = this.#userSession.signIn.bind(this.#userSession);
-
+    super(cookies, logger);
     this.shortenedURLManager = new ShortenedURLManager(
       cookies,
-      this.#userSession,
+      logger,
+      this,
     );
   }
 
@@ -146,13 +105,9 @@ class Session {
     if (this.#isInitialized) {
       return this;
     }
-    await this.#userSession.fetchCurrentUser();
+    await this.fetchCurrentUser();
     this.#isInitialized = true;
     return this;
-  }
-
-  public get currentUser() {
-    return this.#userSession.currentUser;
   }
 }
 
@@ -164,5 +119,24 @@ export const sessionInjectorAndHandler: MiddlewareHandler = async (
 ) => {
   const session = new Session(ctx.cookies, ctx.locals.logger);
   ctx.locals.session = await session.init();
-  return next();
+
+  const response = await next();
+
+  if (ctx.url.pathname === actions.signIn.toString()) {
+    const redirectURL = new URL(
+      ctx.url.searchParams.get('r') ?? HOMEPAGE_PATH,
+      ctx.url.origin,
+    );
+    ctx.cookies.delete('g_csrf_token');
+    return ctx.redirect(redirectURL.pathname + redirectURL.search);
+  }
+
+  const isSignInFailed = session.status === 'sign-in-failed';
+  const isSignInSuccess = session.status === 'sign-in-success';
+
+  if (isSignInFailed || isSignInSuccess) {
+    session.status = isSignInFailed ? 'guest' : 'signed-in';
+  }
+
+  return response;
 };

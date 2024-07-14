@@ -22,7 +22,7 @@ const colors = {
   },
   primary: {
     bright: twColors.blue[200],
-    dim: twColors.blue[800],
+    dim: twColors.blue[900],
   },
   secondary: {
     bright: twColors.emerald[200],
@@ -50,7 +50,6 @@ module.exports = {
           lineHeight: '1.5rem',
           border: 'none',
           outline: 'none',
-          borderRadius: '0.25rem',
           cursor: 'pointer',
           '&:disabled': {
             cursor: 'not-allowed',
@@ -60,6 +59,7 @@ module.exports = {
             filter: 'brightness(80%)',
           },
           '&.btn-solid': {
+            borderRadius: '4px',
             '&:disabled': {
               opacity: '50%',
             },
@@ -97,6 +97,7 @@ module.exports = {
             },
           },
           '&.btn-outline': {
+            borderRadius: '4px',
             backgroundColor: colors.transparent,
             '&:hover:not(:disabled), &:focus-visible:not(:disabled)':
               {
@@ -173,8 +174,8 @@ module.exports = {
           clip: 'rect(0, 0, 0, 0)',
         },
         '.snackbar-container': {
-          position: 'absolute',
-          top: '8px',
+          position: 'fixed',
+          top: 'calc(var(--header-height) + 8px)',
           right: '8px',
           zIndex: '1',
           maxWidth: 'calc(100% - 32px)',

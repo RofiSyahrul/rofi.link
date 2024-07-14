@@ -12,11 +12,14 @@ import type { ColorModeManager } from './middleware/color-mode';
 import type { Logger } from './middleware/logger';
 import type { Session } from './middleware/session';
 
+export type { CurrentUser } from './middleware/session/user-session';
+
 declare global {
   namespace App {
     interface Locals {
       colorModeManager: ColorModeManager;
       isMobile: boolean;
+      isErrorPage: boolean;
       logger: Logger;
       session: Session;
     }

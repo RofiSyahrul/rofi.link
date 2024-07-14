@@ -15,6 +15,11 @@ import {
 const isVercel = process.env.DEPLOYMENT_PLATFORM === 'vercel';
 const isSWEnabled = process.env.SW_ENABLED === 'true' || isVercel;
 
+const googleImageDomains = Array.from(
+  { length: 30 },
+  (_, i) => `lh${i + 1}.googleusercontent.com`,
+);
+
 // https://astro.build/config
 export default defineConfig({
   adapter: isVercel ? vercel() : node({ mode: 'standalone' }),
@@ -29,6 +34,9 @@ export default defineConfig({
     actions: true,
     env,
   },
+  image: {
+    domains: googleImageDomains,
+  },
   integrations: [
     svelte(),
     tailwind(),
@@ -38,9 +46,7 @@ export default defineConfig({
     serviceWorker({ enabled: isSWEnabled }),
   ],
   output: 'server',
-  prefetch: {
-    defaultStrategy: 'viewport',
-  },
+  prefetch: false,
   scopedStyleStrategy: 'class',
   server: {
     headers: {

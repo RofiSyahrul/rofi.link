@@ -64,6 +64,12 @@ async function constructEnvSchema() {
     getReservedSlugs(),
   ]);
 
+  const SITE_URL = new URL(process.env.SITE_URL!);
+
+  const isGoogleAuthEnabled =
+    SITE_URL.hostname === 'localhost' ||
+    SITE_URL.hostname === 'rofi.link';
+
   return {
     APP_DESC: envField.string({
       access: 'public',
@@ -94,6 +100,11 @@ async function constructEnvSchema() {
       access: 'public',
       context: 'server',
       default: pkg.author.url,
+    }),
+    IS_GOOGLE_AUTH_ENABLED: envField.boolean({
+      access: 'public',
+      context: 'server',
+      default: isGoogleAuthEnabled,
     }),
     OG_LOGO_BASE_64_SRC: envField.string({
       access: 'public',

@@ -1,5 +1,10 @@
 ---
-import { APP_DESC, APP_NAME, APP_NAME_SHORT } from 'astro:env/server';
+import {
+  APP_DESC,
+  APP_NAME,
+  APP_NAME_SHORT,
+  IS_GOOGLE_AUTH_ENABLED,
+} from 'astro:env/server';
 import { ViewTransitions } from 'astro:transitions';
 
 import appConfig from './app.config';
@@ -59,8 +64,11 @@ interface Props extends Partial<SEOMeta> {
 
 export type DocumentProps = Props;
 
-const { colorModeManager, isMobile } = Astro.locals;
+const { colorModeManager, isMobile, session } = Astro.locals;
 const { origin, pathname } = Astro.url;
+
+const { colorMode } = colorModeManager;
+const { currentUser } = session;
 
 const DEFAULT_CRITICAL_FONTS: CriticalFont[] = [
   'myriad_pro_regular',
@@ -180,7 +188,7 @@ const links: LinkDescriptor[] = [
 ---
 
 <!doctype html>
-<html class={colorModeManager.colorMode} lang='id'>
+<html class={colorMode} lang='id'>
   <head>
     <ViewTransitions fallback='animate' />
 
@@ -294,6 +302,16 @@ const links: LinkDescriptor[] = [
     }
 
     <slot name='head' />
+
+    {
+      !currentUser && IS_GOOGLE_AUTH_ENABLED && (
+        <script
+          async
+          src='https://accounts.google.com/gsi/client?hl=id'
+          is:inline
+        />
+      )
+    }
   </head>
 
   <body class:list={[isMobile ? 'mobile' : 'desktop', className]}>

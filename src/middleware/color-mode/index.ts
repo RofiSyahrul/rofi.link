@@ -1,6 +1,8 @@
 import type { AstroCookies, MiddlewareHandler } from 'astro';
 import { z } from 'astro/zod';
 
+import { COOKIES_SET_OPTIONS } from '../constants';
+
 const colorModeSchema = z.enum(['dark', 'light']);
 
 export type ColorMode = z.infer<typeof colorModeSchema>;
@@ -9,42 +11,35 @@ class ColorModeManager {
   readonly #cookieKey = 'rofi.link-color-mode';
   readonly #cookies: AstroCookies;
 
+  #colorMode: ColorMode | undefined;
+
   constructor(cookies: AstroCookies) {
     this.#cookies = cookies;
   }
 
-  get #cookieValue() {
+  public get colorMode() {
+    if (this.#colorMode) return this.#colorMode;
+
     const colorModeCookie = this.#cookies.get(this.#cookieKey);
     const { data } = colorModeSchema.safeParse(
       colorModeCookie?.value,
     );
-    return data;
+
+    this.#colorMode = data ?? 'light';
+
+    return this.#colorMode;
   }
 
-  hasCookieValue() {
-    return Boolean(this.#cookieValue);
-  }
+  public toggle() {
+    this.#colorMode = this.colorMode === 'dark' ? 'light' : 'dark';
 
-  get colorMode() {
-    return this.#cookieValue ?? 'light';
-  }
+    this.#cookies.set(
+      this.#cookieKey,
+      this.#colorMode,
+      COOKIES_SET_OPTIONS,
+    );
 
-  toggle() {
-    const current = this.colorMode;
-    const next: typeof current =
-      current === 'dark' ? 'light' : 'dark';
-
-    this.#cookies.set(this.#cookieKey, next, {
-      httpOnly: true,
-      maxAge: 31_536_000,
-      path: '/',
-      sameSite: 'lax',
-      secure:
-        import.meta.env.PROD &&
-        import.meta.env.SITE.startsWith('https://'),
-    });
-
-    return next;
+    return this;
   }
 }
 

@@ -1,5 +1,6 @@
 ---
 import Document from '$lib/_document.astro';
+import { HOMEPAGE_PATH } from '$lib/constants/internal-urls';
 import Layout from '$lib/layout/layout.astro';
 
 export interface Props {
@@ -15,6 +16,8 @@ const titleConfig: Record<Props['status'], string> = {
 
 const title = titleConfig[status];
 const statusText = status.replaceAll('0', '<span>0</span>');
+
+Astro.locals.isErrorPage = true;
 ---
 
 <Document {title} noIndex>
@@ -23,7 +26,10 @@ const statusText = status.replaceAll('0', '<span>0</span>');
       <h1 set:html={statusText} />
       <h2>{title}</h2>
     </div>
-    <a class='btn btn-solid btn-primary h-10 p-3' href='/'>
+    <a
+      class='btn btn-solid btn-primary h-10 p-3'
+      href={HOMEPAGE_PATH}
+    >
       Coba singkat tautan disini
     </a>
   </Layout>

@@ -1,0 +1,9 @@
+---
+import { getServerResponse } from '$lib/pages/dashboard/_script.server';
+import DashboardPage from '$lib/pages/dashboard/dashboard.astro';
+
+const response = await getServerResponse(Astro);
+if (response instanceof Response) return response;
+---
+
+<DashboardPage {...response.props} />

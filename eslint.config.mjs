@@ -132,6 +132,18 @@ export default [
       ],
       'import/prefer-default-export': 0,
       'no-console': 'warn',
+      'no-restricted-imports': [
+        'error',
+        {
+          paths: [
+            { name: '$/middleware' },
+            { name: 'src/middleware' },
+          ],
+          patterns: [
+            { group: ['$/middleware/*', 'src/middleware/*'] },
+          ],
+        },
+      ],
       'no-unused-vars': 0,
       'unicorn/no-keyword-prefix': 0,
       'unicorn/no-null': 0,

@@ -28,5 +28,7 @@ const middlewareHandler = sequence(
 
 export const onRequest = defineMiddleware((ctx, next) => {
   if (isIgnored(ctx.url.pathname)) return next();
+
+  ctx.locals.isErrorPage = false;
   return middlewareHandler(ctx, next);
 });

@@ -7,10 +7,10 @@ import {
 } from '$/actions/error';
 
 import Document from '$lib/_document.astro';
-import Form from '$lib/components/base-form.svelte';
 import Layout from '$lib/layout/layout.astro';
 
 import Feedback from './components/feedback.astro';
+import Form from './components/form.svelte';
 import InputSlug from './components/input-slug.svelte';
 import InputUrl from './components/input-url.svelte';
 import ShortenedUrl from './components/shortened-url/_shortened-url.astro';
@@ -47,7 +47,7 @@ if (actionResult?.data?.shortenedURL) {
 
 <Document class='home'>
   <Layout class='layout-full'>
-    <Form class='form' name='shorten-url' method='post' client:load>
+    <Form client:load>
       <input {...actionProps} />
 
       <InputUrl
@@ -85,7 +85,11 @@ if (actionResult?.data?.shortenedURL) {
         )
       }
 
-      <button class='btn btn-solid btn-primary h-10 w-full'>
+      <button
+        class='btn btn-solid btn-primary h-10 w-full'
+        disabled
+        type='submit'
+      >
         Singkat
       </button>
     </Form>
