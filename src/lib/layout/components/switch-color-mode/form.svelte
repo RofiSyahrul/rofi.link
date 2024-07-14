@@ -15,7 +15,7 @@
     const root = this.ownerDocument.documentElement;
     root.classList.toggle('dark');
     root.classList.toggle('light');
-    actions.toggleColorMode().catch(() => {});
+    actions.toggleColorMode(new FormData()).catch(() => {});
   }
 </script>
 
