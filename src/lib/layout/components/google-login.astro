@@ -11,7 +11,7 @@ export interface Props {
 
 const { failedSignIn } = Astro.props;
 
-const { isErrorPage } = Astro.locals;
+const { isErrorPage, isMobile } = Astro.locals;
 const { origin, pathname, search } = Astro.url;
 
 const redirectURL = isErrorPage ? HOMEPAGE_PATH : pathname + search;
@@ -38,6 +38,7 @@ loginURI.searchParams.set('r', redirectURL);
   data-shape='pill'
   data-theme='filled_blue'
   data-text='signin_with'
+  data-type={isMobile ? 'icon' : 'standard'}
   data-size='large'
   data-logo_alignment='left'
   transition:persist

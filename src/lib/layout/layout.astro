@@ -31,7 +31,9 @@ const isHomepage = Astro.url.pathname === HOMEPAGE_PATH;
     href={HOMEPAGE_PATH}
   >
     {isHomepage ? <HomeSolidIcon /> : <HomeIcon />}
-    {APP_NAME}
+    <div>
+      {APP_NAME}
+    </div>
   </a>
   {
     currentUser ? (
@@ -91,6 +93,14 @@ const isHomepage = Astro.url.pathname === HOMEPAGE_PATH;
       flex: 0 0 24px;
       width: 24px;
       height: 24px;
+    }
+
+    div {
+      display: none;
+
+      @include xs {
+        display: block;
+      }
     }
 
     &:hover svg {
