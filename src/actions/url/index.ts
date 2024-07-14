@@ -56,9 +56,11 @@ export const shortenNewURL = defineAction({
     try {
       const res = await prisma.url.create({
         data: {
-          account: {
-            connect: { id: locals.session.currentUser?.id },
-          },
+          ...(locals.session.currentUser?.id && {
+            account: {
+              connect: { id: locals.session.currentUser.id },
+            },
+          }),
           actualURL,
           slug,
         },
