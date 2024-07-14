@@ -55,7 +55,13 @@ export const shortenNewURL = defineAction({
 
     try {
       const res = await prisma.url.create({
-        data: { actualURL, slug },
+        data: {
+          account: {
+            connect: { id: locals.session.currentUser?.id },
+          },
+          actualURL,
+          slug,
+        },
         select: { id: true, slug: true },
       });
       locals.session.shortenedURLManager.storeIdForGuestUser(res.id);
