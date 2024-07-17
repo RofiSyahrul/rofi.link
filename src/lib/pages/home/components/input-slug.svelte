@@ -1,8 +1,9 @@
 <script lang="ts" context="module">
   import {
-    SLUG_HELPER_MESSAGE,
+    SLUG_MAX_LENGTH,
     SLUG_PATTERN,
   } from '$/actions/url/constants.server';
+  import * as m from '$/paraglide/messages';
 
   import FormControl from '$lib/components/form-control.svelte';
 
@@ -18,8 +19,8 @@
 <FormControl
   alwaysVisibleHelper
   {invalid}
-  label="Singkatnya"
-  helperText={SLUG_HELPER_MESSAGE}
+  label={m.input_slug_label()}
+  helperText={m.input_slug_helper({ max: SLUG_MAX_LENGTH })}
 >
   <div data-field="wrapper">
     <span>{siteHost}/</span>

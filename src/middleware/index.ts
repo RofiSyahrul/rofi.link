@@ -9,6 +9,7 @@ import { userAgentHandler } from './user-agent';
 
 const IGNORED_PATHNAMES = new Set([
   '/browserconfig.xml',
+  '/en/manifest.json',
   '/manifest.json',
   '/og.png',
 ]);

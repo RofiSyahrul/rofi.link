@@ -12,6 +12,7 @@ import type { ColorModeManager } from './middleware/color-mode';
 import type { Logger } from './middleware/logger';
 import type { Session } from './middleware/session';
 
+export type { ColorMode } from './middleware/color-mode';
 export type { CurrentUser } from './middleware/session/user-session';
 
 declare global {

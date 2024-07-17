@@ -1,9 +1,9 @@
 ---
 import { APP_NAME, IS_GOOGLE_AUTH_ENABLED } from 'astro:env/server';
 
-import { HOMEPAGE_PATH } from '$lib/constants/internal-urls';
 import HomeIcon from '$lib/icons/home-icon.svelte';
 import HomeSolidIcon from '$lib/icons/home-solid-icon.svelte';
+import { homepagePath } from '$lib/utils/url';
 
 import Footer from './components/footer/_footer.astro';
 import GoogleLogin from './components/google-login.astro';
@@ -21,14 +21,15 @@ const { class: className } = Astro.props;
 
 const { currentUser, status } = Astro.locals.session;
 
-const isHomepage = Astro.url.pathname === HOMEPAGE_PATH;
+const $homepagePath = homepagePath();
+const isHomepage = Astro.url.pathname === $homepagePath;
 ---
 
 <header>
   <a
     aria-current={isHomepage}
     class='btn btn-text btn-primary'
-    href={HOMEPAGE_PATH}
+    href={$homepagePath}
   >
     {isHomepage ? <HomeSolidIcon /> : <HomeIcon />}
     <div>

@@ -1,6 +1,8 @@
 <script lang="ts" context="module">
   import type { ComponentType } from 'svelte';
 
+  import * as m from '$/paraglide/messages';
+
   import AstroIcon from '$lib/icons/astro-icon.svelte';
   import PrismaIcon from '$lib/icons/prisma-icon.svelte';
   import SvelteIcon from '$lib/icons/svelte-icon.svelte';
@@ -46,7 +48,7 @@
 
 {#each techStacks as { href, icon, name }, index (name)}
   {@const isLastIndex = index === total - 1}
-  {isLastIndex ? 'dan' : ''}
+  {isLastIndex ? m.base_and() : ''}
   <span>
     <a
       class="btn btn-text btn-primary"

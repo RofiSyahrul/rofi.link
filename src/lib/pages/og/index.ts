@@ -1,6 +1,8 @@
 import { ImageResponse } from '@vercel/og';
 import type { APIRoute } from 'astro';
-import { APP_DESC, APP_NAME } from 'astro:env/server';
+import { APP_NAME } from 'astro:env/server';
+
+import * as m from '$/paraglide/messages';
 
 import { generateBgImage, renderContent, renderLogo } from './utils';
 
@@ -12,7 +14,7 @@ export const getOGImage: APIRoute = ({ url }) => {
 
   let description = url.searchParams.get('d');
   if (!description) {
-    description = APP_DESC;
+    description = m.app_default_description();
   }
 
   return new ImageResponse({

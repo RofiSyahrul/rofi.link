@@ -3,8 +3,8 @@ import { z } from 'astro/zod';
 import { actions } from 'astro:actions';
 import { SHORTENED_URL_MANAGER_COOKIE_KEY } from 'astro:env/server';
 
-import { HOMEPAGE_PATH } from '$lib/constants/internal-urls';
 import { prisma } from '$lib/prisma';
+import { homepagePath } from '$lib/utils/url';
 
 import { UserSession } from './user-session';
 import { COOKIES_SET_OPTIONS } from '../constants';
@@ -124,7 +124,7 @@ export const sessionInjectorAndHandler: MiddlewareHandler = async (
 
   if (ctx.url.pathname === actions.signIn.toString()) {
     const redirectURL = new URL(
-      ctx.url.searchParams.get('r') ?? HOMEPAGE_PATH,
+      ctx.url.searchParams.get('r') ?? homepagePath(),
       ctx.url.origin,
     );
     ctx.cookies.delete('g_csrf_token');

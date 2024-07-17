@@ -72,6 +72,7 @@
   "files.insertFinalNewline": true,
   "files.trimTrailingWhitespace": true,
   "html.autoClosingTags": true,
+  "javascript.suggest.autoImports": true,
   "javascript.updateImportsOnFileMove.enabled": "always",
   "rewrap.autoWrap.enabled": true,
   "rewrap.wrappingColumn": 75,
@@ -87,6 +88,7 @@
   "tailwindCSS.lint.cssConflict": "error",
   "tailwindCSS.lint.invalidApply": "error",
   "tailwindCSS.lint.recommendedVariantOrder": "error",
+  "typescript.suggest.autoImports": true,
   "typescript.tsdk": "./node_modules/typescript/lib",
   "tsInterfaceSorter.emptyLineBetweenProperties": false,
   "workbench.colorCustomizations": {}

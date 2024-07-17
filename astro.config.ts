@@ -2,6 +2,7 @@ import node from '@astrojs/node';
 import svelte from '@astrojs/svelte';
 import tailwind from '@astrojs/tailwind';
 import vercel from '@astrojs/vercel/serverless';
+import paraglide from '@inlang/paraglide-astro';
 import { defineConfig } from 'astro/config';
 
 import { env } from './astro.env';
@@ -40,6 +41,10 @@ export default defineConfig({
   integrations: [
     svelte(),
     tailwind(),
+    paraglide({
+      outdir: './src/paraglide',
+      project: './project.inlang',
+    }),
     assetsHashing(),
     envInjector(),
     globalInjector(),
@@ -56,6 +61,7 @@ export default defineConfig({
     },
   },
   site: process.env.SITE_URL,
+  trailingSlash: 'never',
   vite: {
     css: {
       preprocessorOptions: {

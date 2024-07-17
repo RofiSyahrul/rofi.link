@@ -22,7 +22,7 @@ export function serviceWorker({
             },
           },
           urlPattern: new RegExp(
-            String.raw`^https://(res\.cloudinary\.com/[a-zA-Z0-9_-]+/image/|\w+\.googleusercontent\.com)`,
+            String.raw`(/_image|^https://(res\.cloudinary\.com/[a-zA-Z0-9_-]+/image/|\w+\.googleusercontent\.com))`,
           ),
         },
         {

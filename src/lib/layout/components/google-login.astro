@@ -2,8 +2,11 @@
 import { actions } from 'astro:actions';
 import { GOOGLE_AUTH_CLIENT_ID } from 'astro:env/server';
 
+import * as m from '$/paraglide/messages';
+import { languageTag } from '$/paraglide/runtime';
+
 import Snackbar from '$lib/components/snackbar.svelte';
-import { HOMEPAGE_PATH } from '$lib/constants/internal-urls';
+import { homepagePath } from '$lib/utils/url';
 
 export interface Props {
   failedSignIn: boolean;
@@ -14,7 +17,7 @@ const { failedSignIn } = Astro.props;
 const { isErrorPage, isMobile } = Astro.locals;
 const { origin, pathname, search } = Astro.url;
 
-const redirectURL = isErrorPage ? HOMEPAGE_PATH : pathname + search;
+const redirectURL = isErrorPage ? homepagePath() : pathname + search;
 
 const loginURI = new URL(actions.signIn.toString(), origin);
 loginURI.searchParams.set('r', redirectURL);
@@ -34,7 +37,7 @@ loginURI.searchParams.set('r', redirectURL);
 
 <div
   class='g_id_signin'
-  data-locale='id'
+  data-locale={languageTag()}
   data-shape='pill'
   data-theme='filled_blue'
   data-text='signin_with'
@@ -49,7 +52,7 @@ loginURI.searchParams.set('r', redirectURL);
   failedSignIn && (
     <div class='snackbar-container'>
       <Snackbar variant='error' client:load>
-        Gagal masuk menggunakan Google
+        {m.app_sign_in_failed()}
       </Snackbar>
     </div>
   )
