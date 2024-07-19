@@ -1,0 +1,20 @@
+---
+import { actions, getActionProps } from 'astro:actions';
+
+import * as m from '$/paraglide/messages';
+import { languageTag } from '$/paraglide/runtime';
+
+import BaseForm from '$lib/components/base-form.svelte';
+
+import OptionsSwitch from './options-switch.svelte';
+
+const actionProps = getActionProps(actions.switchLang);
+---
+
+<BaseForm autoSubmit method='post' name='switch-language' client:load>
+  <input {...actionProps} />
+  <OptionsSwitch activeValue={languageTag()} />
+  <button class='visually-hidden' type='submit'>
+    {m.base_apply()}
+  </button>
+</BaseForm>

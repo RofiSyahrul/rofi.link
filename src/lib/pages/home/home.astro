@@ -10,7 +10,6 @@ import * as m from '$/paraglide/messages';
 import Document from '$lib/_document.astro';
 import AlternateLinks from '$lib/components/alternate-links.astro';
 import Layout from '$lib/layout/layout.astro';
-import { HOMEPAGE_PATH } from '$lib/utils/url';
 
 import Feedback from './components/feedback.astro';
 import Form from './components/form.svelte';
@@ -50,7 +49,7 @@ if (actionResult?.data?.shortenedURL) {
 
 <Document class='home'>
   <Fragment slot='head'>
-    <AlternateLinks pathname={HOMEPAGE_PATH} />
+    <AlternateLinks />
   </Fragment>
 
   <Layout class='layout-full'>

@@ -222,24 +222,12 @@ const lang = languageTag();
       )
     }
 
-    {
-      description && (
-        <>
-          <meta name='description' content={description} />
-          <meta property='og:description' content={description} />
-          <meta name='twitter:description' content={description} />
-        </>
-      )
-    }
+    <meta name='description' content={description} />
+    <meta property='og:description' content={description} />
+    <meta name='twitter:description' content={description} />
 
-    {
-      imageURL && (
-        <>
-          <meta property='og:image' content={imageURL} />
-          <meta name='twitter:image' content={imageURL} />
-        </>
-      )
-    }
+    <meta property='og:image' content={imageURL} />
+    <meta name='twitter:image' content={imageURL} />
 
     <meta
       transition:persist='twitter:card'

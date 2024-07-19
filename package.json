@@ -15,6 +15,8 @@
     "dev": "astro sync && pnpm \"/^dev:.*/\"",
     "dev:astro": "astro dev",
     "dev:paraglide": "paraglide-js compile --watch --project ./project.inlang --outdir ./src/paraglide",
+    "inlang:translate": "inlang machine translate --force --project ./project.inlang --sourceLanguageTag id --targetLanguageTags en",
+    "paraglide:compile": "paraglide-js compile --project ./project.inlang",
     "prepare": "husky && astro sync && prisma generate",
     "preview": "astro preview",
     "preview:sw": "astro preview --port 9999 --host",

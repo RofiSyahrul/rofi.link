@@ -1,14 +1,6 @@
 ---
-import { APP_NAME, IS_GOOGLE_AUTH_ENABLED } from 'astro:env/server';
-
-import HomeIcon from '$lib/icons/home-icon.svelte';
-import HomeSolidIcon from '$lib/icons/home-solid-icon.svelte';
-import { homepagePath } from '$lib/utils/url';
-
-import Footer from './components/footer/_footer.astro';
-import GoogleLogin from './components/google-login.astro';
-import SwitchColorMode from './components/switch-color-mode/_switch-color-mode.astro';
-import UserMenu from './components/user-menu.astro';
+import Footer from './components/footer/footer.astro';
+import Header from './components/header/header.astro';
 
 export interface Props {
   /**
@@ -18,45 +10,9 @@ export interface Props {
 }
 
 const { class: className } = Astro.props;
-
-const { currentUser, status } = Astro.locals.session;
-
-const $homepagePath = homepagePath();
-const isHomepage = Astro.url.pathname === $homepagePath;
 ---
 
-<header>
-  <a
-    aria-current={isHomepage}
-    class='btn btn-text btn-primary'
-    href={$homepagePath}
-  >
-    {isHomepage ? <HomeSolidIcon /> : <HomeIcon />}
-    <div>
-      {APP_NAME}
-    </div>
-  </a>
-  {
-    currentUser ? (
-      <UserMenu
-        {currentUser}
-        justSignedIn={status === 'sign-in-success'}
-      >
-        <SwitchColorMode
-          slot='switch-color-mode'
-          transition:animate='fade'
-        />
-      </UserMenu>
-    ) : (
-      <div>
-        {IS_GOOGLE_AUTH_ENABLED && (
-          <GoogleLogin failedSignIn={status === 'sign-in-failed'} />
-        )}
-        <SwitchColorMode transition:animate='fade' />
-      </div>
-    )
-  }
-</header>
+<Header />
 
 <main class={className}>
   <slot />
@@ -65,66 +21,7 @@ const isHomepage = Astro.url.pathname === $homepagePath;
 <Footer />
 
 <style lang='scss'>
-  header {
-    position: sticky;
-    top: 0;
-    z-index: 40;
-    display: flex;
-    gap: 8px;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-    height: var(--header-height);
-    padding: 8px 16px;
-
-    @apply shadow-lg bg-neutral-bright;
-
-    > div {
-      display: flex;
-      gap: 8px;
-      align-items: center;
-    }
-  }
-
-  a {
-    height: 32px;
-    border-bottom: 2px solid transparent;
-
-    svg {
-      flex: 0 0 24px;
-      width: 24px;
-      height: 24px;
-    }
-
-    div {
-      display: none;
-
-      @include xs {
-        display: block;
-      }
-    }
-
-    &:hover svg {
-      stroke-width: 2px;
-    }
-
-    &[aria-current='true'] {
-      pointer-events: none;
-      @apply border-b-primary-dim;
-    }
-  }
-
   main {
     padding: 12px;
-  }
-
-  @include dark {
-    header {
-      @apply shadow-2xl bg-neutral-dim;
-    }
-
-    a[aria-current='true'] {
-      @apply border-b-primary-bright;
-    }
   }
 </style>

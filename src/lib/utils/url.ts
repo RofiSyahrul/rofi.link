@@ -1,16 +1,16 @@
 import {
+  availableLanguageTags,
   languageTag,
   sourceLanguageTag,
   type AvailableLanguageTag,
 } from '$/paraglide/runtime';
 
-export type AbsolutePathname = `/${string}`;
+type AbsolutePathname = `/${string}`;
 
-export const HOMEPAGE_PATH = '/';
-export const DASHBOARD_PATH = '/p/dashboard';
+const HOMEPAGE_PATH = '/';
 
 const pathnames: Record<
-  AbsolutePathname,
+  string,
   Record<AvailableLanguageTag, AbsolutePathname>
 > = {
   [HOMEPAGE_PATH]: {
@@ -19,11 +19,29 @@ const pathnames: Record<
   },
 };
 
+const availableLanguageTagsPathSegmentPattern = new RegExp(
+  `^/(${availableLanguageTags.join('|')})($|/)`,
+  'g',
+);
+
+function unlocalizePathname(pathname: string): string {
+  return pathname.replaceAll(
+    availableLanguageTagsPathSegmentPattern,
+    (...args: string[]) => {
+      const slashAfterLanguageTag = args[2];
+      if (slashAfterLanguageTag) return slashAfterLanguageTag;
+      return '/';
+    },
+  );
+}
+
 export function localizePathname(
-  pathname: AbsolutePathname,
+  pathname: string,
   tag?: AvailableLanguageTag,
 ) {
+  pathname = unlocalizePathname(pathname);
   tag ??= languageTag();
+
   const mapping = pathnames[pathname];
 
   if (mapping) {
@@ -34,4 +52,3 @@ export function localizePathname(
 }
 
 export const homepagePath = () => localizePathname(HOMEPAGE_PATH);
-export const dashboardPath = () => localizePathname(DASHBOARD_PATH);

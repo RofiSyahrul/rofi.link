@@ -7,7 +7,7 @@ import * as m from '$/paraglide/messages';
 
 import Snackbar from '$lib/components/snackbar.svelte';
 import SignOutIcon from '$lib/icons/sign-out-icon.svelte';
-import { dashboardPath } from '$lib/utils/url';
+import { localizePathname } from '$lib/utils/url';
 
 export interface Props {
   currentUser: CurrentUser;
@@ -17,8 +17,8 @@ export interface Props {
 const { currentUser, justSignedIn } = Astro.props;
 const { avatarURL, name } = currentUser;
 
-const $dashboardPath = dashboardPath();
-const isDashboardPage = Astro.url.pathname === $dashboardPath;
+const dashboardPath = localizePathname('/p/dashboard');
+const isDashboardPage = Astro.url.pathname === dashboardPath;
 
 const signOutActionProps = getActionProps(actions.signOut);
 ---
@@ -40,13 +40,11 @@ const signOutActionProps = getActionProps(actions.signOut);
     <a
       aria-current={isDashboardPage}
       class='btn btn-text btn-primary'
-      href={$dashboardPath}
+      href={dashboardPath}
       title={m.dashboard_for({ name })}
     >
       {name}
     </a>
-
-    <slot name='switch-color-mode' />
 
     <form method='post'>
       <input {...signOutActionProps} />
@@ -93,7 +91,7 @@ const signOutActionProps = getActionProps(actions.signOut);
 
   form {
     flex: 1;
-    max-width: calc(100% - 72px);
+    max-width: 100%;
 
     button {
       width: 100%;

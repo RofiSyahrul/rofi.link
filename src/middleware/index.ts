@@ -3,6 +3,7 @@ import 'dotenv/config';
 import { defineMiddleware, sequence } from 'astro:middleware';
 
 import { injectColorModeManager } from './color-mode';
+import { languageHandler } from './lang';
 import { injectLogger } from './logger';
 import { sessionInjectorAndHandler } from './session';
 import { userAgentHandler } from './user-agent';
@@ -25,6 +26,7 @@ const middlewareHandler = sequence(
   injectColorModeManager,
   userAgentHandler,
   sessionInjectorAndHandler,
+  languageHandler,
 );
 
 export const onRequest = defineMiddleware((ctx, next) => {

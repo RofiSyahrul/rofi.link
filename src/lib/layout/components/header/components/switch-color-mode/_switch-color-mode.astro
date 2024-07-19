@@ -9,5 +9,7 @@ const activeValue = Astro.locals.colorModeManager.colorMode;
 
 <Form client:load>
   <OptionsSwitch {activeValue} />
-  <button class='visually-hidden'>{m.base_apply()}</button>
+  <button class='visually-hidden' type='submit'>
+    {m.base_apply()}
+  </button>
 </Form>

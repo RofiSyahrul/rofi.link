@@ -4,7 +4,6 @@ import * as m from '$/paraglide/messages';
 import Document from '$lib/_document.astro';
 import AlternateLinks from '$lib/components/alternate-links.astro';
 import Layout from '$lib/layout/layout.astro';
-import { DASHBOARD_PATH } from '$lib/utils/url';
 
 import type { DashboardProps } from './_script.server';
 
@@ -15,7 +14,7 @@ const { name = '' } = Astro.props.currentUser;
 
 <Document noIndex title={`Dashboard ${name}`}>
   <Fragment slot='head'>
-    <AlternateLinks pathname={DASHBOARD_PATH} />
+    <AlternateLinks />
   </Fragment>
 
   <Layout

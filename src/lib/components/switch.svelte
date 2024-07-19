@@ -1,17 +1,26 @@
 <script lang="ts" context="module">
-  export interface SwitchOption {
+  export interface SwitchOption<
+    TValue extends string | number = string | number,
+  > {
     label: string;
-    value: string | number;
+    value: TValue;
   }
 
-  export type SwitchOptionTuple = [SwitchOption, SwitchOption];
+  export type SwitchOptionTuple<
+    T extends SwitchOption = SwitchOption,
+  > = [T, T];
 </script>
 
 <script lang="ts">
+  // eslint-disable-next-line no-undef
+  type V = $$Generic<string | number>;
+  // eslint-disable-next-line no-undef
+  type T = $$Generic<SwitchOption<V>>;
+
   export let activeValue: string | number | undefined = undefined;
   export let label: string | undefined = undefined;
   export let name: string;
-  export let options: SwitchOptionTuple;
+  export let options: SwitchOptionTuple<T>;
 </script>
 
 <fieldset>
@@ -50,6 +59,11 @@
     @apply border-neutral-bright2;
   }
 
+  label {
+    width: 50%;
+    min-width: 36px;
+  }
+
   input {
     display: none;
   }
@@ -64,7 +78,7 @@
     text-align: center;
     cursor: pointer;
 
-    @apply text-sm text-neutral-dim;
+    @apply text-lg text-neutral-dim;
   }
 
   input:checked + span {

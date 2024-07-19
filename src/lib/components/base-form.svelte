@@ -71,6 +71,7 @@
   export { className as class };
 
   export let action: string | undefined = undefined;
+  export let autoSubmit = false;
   export let id: string | undefined = undefined;
   export let method: 'dialog' | 'get' | 'post' = 'post';
   export let name: string | undefined = undefined;
@@ -103,6 +104,12 @@
       if (target.validity.valid) {
         handleValidField(target, formControl);
         dispatch('valid-field', eventDetail);
+        if (autoSubmit) {
+          const button = this.querySelector<HTMLButtonElement>(
+            'button[type="submit"]',
+          );
+          button?.click();
+        }
       } else {
         handleInvalidField(target, formControl);
         dispatch('invalid-field', eventDetail);

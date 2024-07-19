@@ -6,19 +6,19 @@ import { languageTag } from '$/paraglide/runtime';
 
 import VercelIcon from '$lib/icons/vercel-icon.svelte';
 
-import TechStacks from './tech-stacks.svelte';
+import TechStacks from './components/tech-stacks.svelte';
 
 const EmOrFragment = languageTag() === 'en' ? Fragment : 'em';
 ---
 
-<footer transition:persist>
+<footer>
   <p>
     <EmOrFragment>Powered by</EmOrFragment>
     <a
       class='btn btn-text btn-primary'
       href='https://vercel.com/'
       target='_blank'
-      rel='noopener noreferer'
+      rel='noopener noreferrer'
     >
       <VercelIcon />
       <span class='visually-hidden'>Vercel</span>

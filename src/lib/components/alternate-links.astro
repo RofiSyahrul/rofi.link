@@ -1,16 +1,9 @@
 ---
 import { availableLanguageTags } from '$/paraglide/runtime';
 
-import {
-  localizePathname,
-  type AbsolutePathname,
-} from '$lib/utils/url';
+import { localizePathname } from '$lib/utils/url';
 
-export interface Props {
-  pathname: AbsolutePathname;
-}
-
-const { pathname } = Astro.props;
+const { pathname } = Astro.url;
 
 const site = Astro.site;
 ---

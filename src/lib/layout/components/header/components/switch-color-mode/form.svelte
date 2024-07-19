@@ -1,14 +1,7 @@
 <script lang="ts" context="module">
   import { actions } from 'astro:actions';
 
-  import BaseForm, {
-    type FormFieldEvent,
-  } from '$lib/components/base-form.svelte';
-
-  const handleInputField = (event: FormFieldEvent) => {
-    const button = event.detail.form.querySelector('button');
-    button?.click();
-  };
+  import BaseForm from '$lib/components/base-form.svelte';
 
   function handleSubmit(this: HTMLFormElement, ev: SubmitEvent) {
     ev.preventDefault();
@@ -20,9 +13,9 @@
 </script>
 
 <BaseForm
+  autoSubmit
   method="post"
   name="switch-color-mode"
-  on:input-field={handleInputField}
   on:submit={handleSubmit}
 >
   <slot />

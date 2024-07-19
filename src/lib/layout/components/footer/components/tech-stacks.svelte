@@ -54,7 +54,7 @@
       class="btn btn-text btn-primary"
       {href}
       target="_blank"
-      rel="noopener noreferer"
+      rel="noopener noreferrer"
     >
       <svelte:component this={icon} />
       {name}
