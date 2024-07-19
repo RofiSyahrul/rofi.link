@@ -1,11 +1,13 @@
 import {
   APP_NAME,
   APP_NAME_SHORT,
-  APP_DESC,
   APP_VERSION,
 } from 'astro:env/server';
 
+import * as m from '$/paraglide/messages';
+
 import appConfig from '$lib/app.config';
+import { homepagePath } from '$lib/utils/url';
 
 interface ManifestIcon {
   src: string;
@@ -37,12 +39,12 @@ export function getManifest() {
     name: APP_NAME,
     short_name: APP_NAME_SHORT,
     version: APP_VERSION,
-    description: APP_DESC,
+    description: m.app_default_description(),
     background_color: appConfig.manifest.backgroundColor,
     theme_color: appConfig.manifest.themeColor,
-    start_url: '/',
+    start_url: homepagePath(),
     display: 'standalone',
-    scope: '/',
+    scope: homepagePath(),
     icons,
   };
 

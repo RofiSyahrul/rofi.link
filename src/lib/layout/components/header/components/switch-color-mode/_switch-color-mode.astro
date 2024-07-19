@@ -1,4 +1,6 @@
 ---
+import * as m from '$/paraglide/messages';
+
 import Form from './form.svelte';
 import OptionsSwitch from './options-switch.svelte';
 
@@ -7,5 +9,7 @@ const activeValue = Astro.locals.colorModeManager.colorMode;
 
 <Form client:load>
   <OptionsSwitch {activeValue} />
-  <button class='visually-hidden'>Terapkan</button>
+  <button class='visually-hidden' type='submit'>
+    {m.base_apply()}
+  </button>
 </Form>

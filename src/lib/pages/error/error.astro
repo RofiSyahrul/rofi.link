@@ -1,7 +1,9 @@
 ---
+import * as m from '$/paraglide/messages';
+
 import Document from '$lib/_document.astro';
-import { HOMEPAGE_PATH } from '$lib/constants/internal-urls';
 import Layout from '$lib/layout/layout.astro';
+import { homepagePath } from '$lib/utils/url';
 
 export interface Props {
   status: '404' | '500';
@@ -10,7 +12,7 @@ export interface Props {
 const { status } = Astro.props;
 
 const titleConfig: Record<Props['status'], string> = {
-  '404': 'Halaman Tidak Ditemukan',
+  '404': m.error_page_not_found(),
   '500': 'Internal Server Error',
 };
 
@@ -28,9 +30,9 @@ Astro.locals.isErrorPage = true;
     </div>
     <a
       class='btn btn-solid btn-primary h-10 p-3'
-      href={HOMEPAGE_PATH}
+      href={homepagePath()}
     >
-      Coba singkat tautan disini
+      {m.error_page_cta()}
     </a>
   </Layout>
 </Document>

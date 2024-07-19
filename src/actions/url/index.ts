@@ -1,18 +1,38 @@
 import { defineAction, z } from 'astro:actions';
 import { RESERVED_SLUG } from 'astro:env/server';
 
+import * as m from '$/paraglide/messages';
+
 import { prisma } from '$lib/prisma';
 
 import {
-  ACTUAL_URL_INVALID_MESSAGE,
-  SLUG_HELPER_MESSAGE,
+  ACTUAL_URL_REGEXP,
+  SLUG_MAX_LENGTH,
   SLUG_REGEXP,
 } from './constants.server';
 import { CustomActionError, CustomActionInputError } from '../error';
 
 const shortenNewURLInputSchema = z.object({
-  actualURL: z.string().url(ACTUAL_URL_INVALID_MESSAGE),
-  slug: z.string().regex(SLUG_REGEXP, SLUG_HELPER_MESSAGE),
+  actualURL: z.string().refine(
+    value => {
+      if (!ACTUAL_URL_REGEXP.test(value)) return false;
+      try {
+        new URL(value);
+        return true;
+      } catch {
+        return false;
+      }
+    },
+    () => ({
+      message: m.input_actual_url_invalid(),
+    }),
+  ),
+  slug: z.string().refine(
+    value => SLUG_REGEXP.test(value),
+    () => ({
+      message: m.input_slug_helper({ max: SLUG_MAX_LENGTH }),
+    }),
+  ),
 });
 
 const RESERVED_SLUGS = new Set(RESERVED_SLUG.split(','));
@@ -26,14 +46,14 @@ export const shortenNewURL = defineAction({
     const makeConflictSlugError = () => {
       return new CustomActionInputError(
         input,
-        { slug: [`"${slug}" sudah digunakan`] },
+        { slug: [m.input_error_conflict({ slug })] },
         'CONFLICT',
       );
     };
 
     const makeInaccessibleActualURLError = () => {
       return new CustomActionInputError(input, {
-        actualURL: [`Tautan "${actualURL}" tidak dapat diakses`],
+        actualURL: [m.input_error_inaccessible({ url: actualURL })],
       });
     };
 
@@ -76,10 +96,7 @@ export const shortenNewURL = defineAction({
         actualURL,
         slug,
       });
-      throw new CustomActionError(
-        input,
-        'Terjadi kesalahan. Silakan coba beberapa saat lagi',
-      );
+      throw new CustomActionError(input, m.input_error_unknown());
     }
   },
 });

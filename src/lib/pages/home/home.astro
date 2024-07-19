@@ -5,8 +5,10 @@ import {
   CustomActionError,
   CustomActionInputError,
 } from '$/actions/error';
+import * as m from '$/paraglide/messages';
 
 import Document from '$lib/_document.astro';
+import AlternateLinks from '$lib/components/alternate-links.astro';
 import Layout from '$lib/layout/layout.astro';
 
 import Feedback from './components/feedback.astro';
@@ -46,6 +48,10 @@ if (actionResult?.data?.shortenedURL) {
 ---
 
 <Document class='home'>
+  <Fragment slot='head'>
+    <AlternateLinks />
+  </Fragment>
+
   <Layout class='layout-full'>
     <Form client:load>
       <input {...actionProps} />
@@ -90,7 +96,7 @@ if (actionResult?.data?.shortenedURL) {
         disabled
         type='submit'
       >
-        Singkat
+        {m.input_submit_button()}
       </button>
     </Form>
   </Layout>

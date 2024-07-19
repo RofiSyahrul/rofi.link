@@ -1,14 +1,17 @@
 ---
 import {
-  APP_DESC,
   APP_NAME,
   APP_NAME_SHORT,
   IS_GOOGLE_AUTH_ENABLED,
 } from 'astro:env/server';
 import { ViewTransitions } from 'astro:transitions';
 
+import * as m from '$/paraglide/messages';
+import { languageTag } from '$/paraglide/runtime';
+
 import appConfig from './app.config';
 import type { LiteralUnion, SEOMeta } from './types/general';
+import { localizePathname } from './utils/url';
 
 interface LinkDescriptor {
   /**
@@ -52,11 +55,8 @@ interface LinkDescriptor {
   color?: string;
 }
 
-type CriticalFont = 'myriad_pro_regular' | 'myriad_pro_bold';
-
 interface Props extends Partial<SEOMeta> {
   class?: string;
-  criticalFonts?: CriticalFont[];
   disabledCanonicalURL?: boolean;
   keyword?: string;
   noIndex?: boolean;
@@ -70,26 +70,20 @@ const { origin, pathname } = Astro.url;
 const { colorMode } = colorModeManager;
 const { currentUser } = session;
 
-const DEFAULT_CRITICAL_FONTS: CriticalFont[] = [
-  'myriad_pro_regular',
-  'myriad_pro_bold',
-];
-
 const {
   class: className,
-  criticalFonts = DEFAULT_CRITICAL_FONTS,
-  description = APP_DESC,
+  description = m.app_default_description(),
   disabledCanonicalURL,
   imageDescription,
   imageTitle,
   imageURL: imageURLProp,
   keyword,
   noIndex = false,
-  title = 'Pemendek Tautan',
+  title = m.app_default_title(),
 } = Astro.props;
 
 function buildImageURL() {
-  const imgURL = new URL('/og.png', origin);
+  const imgURL = new URL(localizePathname('/og.png'), origin);
 
   if (imageTitle) {
     imgURL.searchParams.set('t', imageTitle);
@@ -174,7 +168,7 @@ const links: LinkDescriptor[] = [
   },
   {
     rel: 'manifest',
-    href: '/manifest.json',
+    href: localizePathname('/manifest.json'),
   },
   {
     rel: 'icon',
@@ -185,10 +179,12 @@ const links: LinkDescriptor[] = [
     href: '/favicon.ico',
   },
 ];
+
+const lang = languageTag();
 ---
 
 <!doctype html>
-<html class={colorMode} lang='id'>
+<html class={colorMode} {lang}>
   <head>
     <ViewTransitions fallback='animate' />
 
@@ -226,24 +222,12 @@ const links: LinkDescriptor[] = [
       )
     }
 
-    {
-      description && (
-        <>
-          <meta name='description' content={description} />
-          <meta property='og:description' content={description} />
-          <meta name='twitter:description' content={description} />
-        </>
-      )
-    }
+    <meta name='description' content={description} />
+    <meta property='og:description' content={description} />
+    <meta name='twitter:description' content={description} />
 
-    {
-      imageURL && (
-        <>
-          <meta property='og:image' content={imageURL} />
-          <meta name='twitter:image' content={imageURL} />
-        </>
-      )
-    }
+    <meta property='og:image' content={imageURL} />
+    <meta name='twitter:image' content={imageURL} />
 
     <meta
       transition:persist='twitter:card'
@@ -288,26 +272,13 @@ const links: LinkDescriptor[] = [
       ))
     }
 
-    {
-      criticalFonts.map(font => (
-        <link
-          transition:persist
-          rel='preload'
-          href={`/fonts/${font}.woff2`}
-          as='font'
-          type='font/woff2'
-          crossorigin
-        />
-      ))
-    }
-
     <slot name='head' />
 
     {
       !currentUser && IS_GOOGLE_AUTH_ENABLED && (
         <script
           async
-          src='https://accounts.google.com/gsi/client?hl=id'
+          src={`https://accounts.google.com/gsi/client?hl=${lang}`}
           is:inline
         />
       )

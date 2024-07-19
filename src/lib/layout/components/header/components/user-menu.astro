@@ -3,10 +3,11 @@ import { getActionProps, actions } from 'astro:actions';
 import { Image } from 'astro:assets';
 
 import type { CurrentUser } from '$/env';
+import * as m from '$/paraglide/messages';
 
 import Snackbar from '$lib/components/snackbar.svelte';
-import { DASHBOARD_PATH } from '$lib/constants/internal-urls';
 import SignOutIcon from '$lib/icons/sign-out-icon.svelte';
+import { localizePathname } from '$lib/utils/url';
 
 export interface Props {
   currentUser: CurrentUser;
@@ -16,7 +17,8 @@ export interface Props {
 const { currentUser, justSignedIn } = Astro.props;
 const { avatarURL, name } = currentUser;
 
-const isDashboardPage = Astro.url.pathname === DASHBOARD_PATH;
+const dashboardPath = localizePathname('/p/dashboard');
+const isDashboardPage = Astro.url.pathname === dashboardPath;
 
 const signOutActionProps = getActionProps(actions.signOut);
 ---
@@ -38,18 +40,16 @@ const signOutActionProps = getActionProps(actions.signOut);
     <a
       aria-current={isDashboardPage}
       class='btn btn-text btn-primary'
-      href={DASHBOARD_PATH}
-      title={`Halaman dashboard untuk ${name}`}
+      href={dashboardPath}
+      title={m.dashboard_for({ name })}
     >
       {name}
     </a>
 
-    <slot name='switch-color-mode' />
-
     <form method='post'>
       <input {...signOutActionProps} />
       <button class='btn btn-solid btn-danger'>
-        <div>Keluar</div>
+        <div>{m.app_sign_out()}</div>
         <SignOutIcon />
       </button>
     </form>
@@ -60,8 +60,7 @@ const signOutActionProps = getActionProps(actions.signOut);
   justSignedIn && (
     <div class='snackbar-container'>
       <Snackbar variant='success' client:load>
-        {`Berhasil masuk menggunakan Google. Akun: `}
-        <strong>{name}</strong>
+        <Fragment set:html={m.app_sign_in_success({ name })} />
       </Snackbar>
     </div>
   )
@@ -92,7 +91,7 @@ const signOutActionProps = getActionProps(actions.signOut);
 
   form {
     flex: 1;
-    max-width: calc(100% - 72px);
+    max-width: 100%;
 
     button {
       width: 100%;

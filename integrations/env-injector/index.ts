@@ -71,11 +71,6 @@ async function constructEnvSchema() {
     SITE_URL.hostname === 'rofi.link';
 
   return {
-    APP_DESC: envField.string({
-      access: 'public',
-      context: 'server',
-      default: pkg.description,
-    }),
     APP_NAME: envField.string({
       access: 'public',
       context: 'server',

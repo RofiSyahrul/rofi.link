@@ -1,0 +1,19 @@
+---
+import { availableLanguageTags } from '$/paraglide/runtime';
+
+import { localizePathname } from '$lib/utils/url';
+
+const { pathname } = Astro.url;
+
+const site = Astro.site;
+---
+
+{
+  availableLanguageTags.map(tag => (
+    <link
+      rel='alternate'
+      hreflang={tag}
+      href={new URL(localizePathname(pathname, tag), site)}
+    />
+  ))
+}

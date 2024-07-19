@@ -28,6 +28,7 @@ export default [
       '**/node_modules',
       '**/public',
       'src/lib/types/schema.ts',
+      'src/paraglide/**/*.js',
     ],
   },
 
