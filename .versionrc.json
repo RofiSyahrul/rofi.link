@@ -13,8 +13,12 @@
       "section": "Tests"
     },
     {
+      "type": "ci",
+      "section": "CI Changes"
+    },
+    {
       "type": "build",
-      "section": "Improvements"
+      "section": "Build Improvements"
     },
     {
       "type": "docs",
@@ -22,7 +26,7 @@
     },
     {
       "type": "style",
-      "section": "Improvements"
+      "section": "Code Style Changes"
     },
     {
       "type": "refactor",
