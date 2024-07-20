@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.0.1](https://github.com/RofiSyahrul/rofi.link/compare/v1.0.0...v1.0.1) (2024-07-20)
+
+
+### Bug Fixes
+
+* update transition persist strategy on header and footer ([1183ed3](https://github.com/RofiSyahrul/rofi.link/commit/1183ed35b71b89530ee65a7d5862280c58965ebf))
+
+
+### CI Changes
+
+* **vercel:** install and use pnpm ([e9dfaec](https://github.com/RofiSyahrul/rofi.link/commit/e9dfaec592b718311f1bc313e0de40fe81a868fb))
+
 ## 1.0.0 (2024-07-19)
 
 
