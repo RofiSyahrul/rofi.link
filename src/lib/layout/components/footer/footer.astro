@@ -8,10 +8,11 @@ import VercelIcon from '$lib/icons/vercel-icon.svelte';
 
 import TechStacks from './components/tech-stacks.svelte';
 
-const EmOrFragment = languageTag() === 'en' ? Fragment : 'em';
+const lang = languageTag();
+const EmOrFragment = lang === 'en' ? Fragment : 'em';
 ---
 
-<footer>
+<footer transition:persist={`footer__${lang}`}>
   <p>
     <EmOrFragment>Powered by</EmOrFragment>
     <a

@@ -21,6 +21,8 @@ const redirectURL = isErrorPage ? homepagePath() : pathname + search;
 
 const loginURI = new URL(actions.signIn.toString(), origin);
 loginURI.searchParams.set('r', redirectURL);
+
+const lang = languageTag();
 ---
 
 <div
@@ -37,14 +39,14 @@ loginURI.searchParams.set('r', redirectURL);
 
 <div
   class='g_id_signin'
-  data-locale={languageTag()}
+  data-locale={lang}
   data-shape='pill'
   data-theme='filled_blue'
   data-text='signin_with'
   data-type={isMobile ? 'icon' : 'standard'}
   data-size='large'
   data-logo_alignment='left'
-  transition:persist
+  transition:persist={`g_id_signin__${lang}`}
 >
 </div>
 
