@@ -1,12 +1,8 @@
-import {
-  ActionError,
-  ActionInputError,
-  type ErrorInferenceObject,
-  type z,
-} from 'astro:actions';
+import type { z } from 'astro/zod';
+import { ActionError, ActionInputError } from 'astro:actions';
 
 export class CustomActionInputError<
-  T extends ErrorInferenceObject,
+  T extends Record<string, any>,
 > extends ActionInputError<T> {
   constructor(
     public input: T,
@@ -43,7 +39,7 @@ export class CustomActionInputError<
     }
   }
 
-  public static hasInstance<T extends ErrorInferenceObject>(
+  public static hasInstance<T extends Record<string, any>>(
     instance?: ActionError<T>,
   ): instance is CustomActionInputError<T> {
     return instance instanceof this;
@@ -51,7 +47,7 @@ export class CustomActionInputError<
 }
 
 export class CustomActionError<
-  T extends ErrorInferenceObject,
+  T extends Record<string, any>,
 > extends ActionError<T> {
   constructor(
     public input: T,
@@ -62,7 +58,7 @@ export class CustomActionError<
     this.name = 'CustomActionError';
   }
 
-  public static hasInstance<T extends ErrorInferenceObject>(
+  public static hasInstance<T extends Record<string, any>>(
     instance?: ActionError<T>,
   ): instance is CustomActionError<T> {
     return instance instanceof this;
