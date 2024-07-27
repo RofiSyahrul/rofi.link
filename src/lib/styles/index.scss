@@ -170,3 +170,7 @@ progress.bar {
 .dark .spinner {
   @apply border-t-neutral-dim border-l-neutral-dim;
 }
+
+.grecaptcha-badge {
+  visibility: hidden !important;
+}

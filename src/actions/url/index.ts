@@ -4,6 +4,7 @@ import { RESERVED_SLUG } from 'astro:env/server';
 import * as m from '$/paraglide/messages';
 
 import { prisma } from '$lib/prisma';
+import { verifyRecaptchaToken } from '$lib/services/recaptcha.server';
 
 import {
   ACTUAL_URL_REGEXP,
@@ -27,6 +28,7 @@ const shortenNewURLInputSchema = z.object({
       message: m.input_actual_url_invalid(),
     }),
   ),
+  recaptchaToken: z.string(),
   slug: z.string().refine(
     value => SLUG_REGEXP.test(value),
     () => ({
@@ -41,7 +43,7 @@ export const shortenNewURL = defineAction({
   accept: 'form',
   input: shortenNewURLInputSchema,
   async handler(input, ctx) {
-    const { actualURL, slug } = input;
+    const { actualURL, recaptchaToken, slug } = input;
 
     const makeConflictSlugError = () => {
       return new CustomActionInputError(
@@ -61,7 +63,24 @@ export const shortenNewURL = defineAction({
       throw makeConflictSlugError();
     }
 
-    const { locals, site } = ctx;
+    const { clientAddress, locals, site } = ctx;
+
+    const response = await verifyRecaptchaToken(
+      recaptchaToken,
+      clientAddress,
+    );
+
+    if (!response.success) {
+      locals.logger.error(
+        m.recaptcha_verification_failed({}, { languageTag: 'en' }),
+        response,
+      );
+      throw new CustomActionError(
+        input,
+        m.recaptcha_verification_failed(),
+        'BAD_REQUEST',
+      );
+    }
 
     let actualURLResponse: Response;
     try {

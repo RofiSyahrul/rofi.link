@@ -27,5 +27,6 @@
   "input_error_unknown": "There is an error. Please try again in a moment",
   "input_slug_helper": "Allowed characters: letters, numbers, - and _. Max {max} characters.",
   "input_slug_label": "In short",
-  "input_submit_button": "Shorten the link"
+  "input_submit_button": "Shorten the link",
+  "recaptcha_verification_failed": "Oops! There was an error submitting the form. Please try again later."
 }
