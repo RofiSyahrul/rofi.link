@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.1.0](https://github.com/RofiSyahrul/rofi.link/compare/v1.0.3...v1.1.0) (2024-07-27)
+
+
+### Features
+
+* implement recaptcha on shorten new URL form ([#8](https://github.com/RofiSyahrul/rofi.link/issues/8)) ([be47ede](https://github.com/RofiSyahrul/rofi.link/commit/be47edef1c9f395f1c320c8a037098ba2b91d8d9))
+
 ## [1.0.3](https://github.com/RofiSyahrul/rofi.link/compare/v1.0.2...v1.0.3) (2024-07-20)
 
 
