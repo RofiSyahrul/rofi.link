@@ -26,6 +26,14 @@ export const env: Env = {
       access: 'secret',
       context: 'server',
     }),
+    GOOGLE_RECAPTCHA_SITE_KEY: envField.string({
+      access: 'public',
+      context: 'client',
+    }),
+    GOOGLE_RECAPTCHA_SECRET_KEY: envField.string({
+      access: 'secret',
+      context: 'server',
+    }),
     SHORTENED_URL_MANAGER_COOKIE_KEY: envField.string({
       access: 'secret',
       context: 'server',

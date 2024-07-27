@@ -1,3 +1,7 @@
+import { GOOGLE_RECAPTCHA_SITE_KEY } from 'astro:env/client';
+
+import type { RecaptchaInstance } from './types/recaptcha';
+
 type SubmitterElement = HTMLButtonElement | HTMLInputElement;
 
 const isSourceElementASubmitter = (
@@ -44,7 +48,7 @@ class SubmitHandler {
 class ProgressBar {
   readonly #INTERVAL = 50;
   readonly #MAX = 100;
-  readonly #STEP = 15;
+  readonly #STEP = 5;
 
   readonly #doc: Document;
 
@@ -89,6 +93,47 @@ class ProgressBar {
   }
 }
 
+const getRecaptchaToken = async (
+  grecaptcha: RecaptchaInstance,
+  action: string,
+  retry = true,
+): Promise<string> => {
+  try {
+    const token = await grecaptcha.execute(
+      GOOGLE_RECAPTCHA_SITE_KEY,
+      { action },
+    );
+    return token;
+  } catch {
+    if (!retry) return '';
+    return new Promise<string>(resolve => {
+      grecaptcha.ready(async () => {
+        const token = await getRecaptchaToken(
+          grecaptcha,
+          action,
+          false,
+        );
+        resolve(token);
+      });
+    });
+  }
+};
+
+const injectRecaptchTokenToFormData = async (
+  formData: FormData,
+  grecaptcha: RecaptchaInstance,
+): Promise<FormData> => {
+  const recaptchaAction = formData.get('recaptchaAction');
+  if (typeof recaptchaAction !== 'string') {
+    return formData;
+  }
+
+  const token = await getRecaptchaToken(grecaptcha, recaptchaAction);
+  formData.set('recaptchaToken', token);
+
+  return formData;
+};
+
 const init = (win: Window, doc: Document) => {
   const progressBar = new ProgressBar(doc);
   const submitHandler = new SubmitHandler(doc);
@@ -109,6 +154,14 @@ const init = (win: Window, doc: Document) => {
       }
 
       progressBar.start();
+
+      if (event.formData) {
+        event.formData = await injectRecaptchTokenToFormData(
+          event.formData,
+          win.grecaptcha,
+        );
+      }
+
       await originalLoader();
       submitHandler.stop();
       progressBar.stop();

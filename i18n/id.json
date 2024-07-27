@@ -27,5 +27,6 @@
   "input_error_unknown": "Terjadi kesalahan. Silakan coba beberapa saat lagi",
   "input_slug_helper": "Karakter yang diperbolehkan: huruf, angka, - dan _. Maksimum {max} karakter.",
   "input_slug_label": "Singkatnya",
-  "input_submit_button": "Persingkat tautan"
+  "input_submit_button": "Persingkat tautan",
+  "recaptcha_verification_failed": "Ups! Terjadi kesalahan saat mengirim form. Silakan coba lagi nanti."
 }

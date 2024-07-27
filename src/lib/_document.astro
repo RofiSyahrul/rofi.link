@@ -1,4 +1,5 @@
 ---
+import { GOOGLE_RECAPTCHA_SITE_KEY } from 'astro:env/client';
 import {
   APP_NAME,
   APP_NAME_SHORT,
@@ -60,6 +61,7 @@ interface Props extends Partial<SEOMeta> {
   disabledCanonicalURL?: boolean;
   keyword?: string;
   noIndex?: boolean;
+  withRecaptcha?: boolean;
 }
 
 export type DocumentProps = Props;
@@ -80,6 +82,7 @@ const {
   keyword,
   noIndex = false,
   title = m.app_default_title(),
+  withRecaptcha = false,
 } = Astro.props;
 
 function buildImageURL() {
@@ -279,6 +282,17 @@ const lang = languageTag();
         <script
           async
           src={`https://accounts.google.com/gsi/client?hl=${lang}`}
+          is:inline
+        />
+      )
+    }
+
+    {
+      withRecaptcha && (
+        <script
+          async
+          data-astro-rerun
+          src={`https://www.google.com/recaptcha/api.js?render=${GOOGLE_RECAPTCHA_SITE_KEY}`}
           is:inline
         />
       )
