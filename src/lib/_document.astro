@@ -286,6 +286,10 @@ const lang = languageTag();
         />
       )
     }
+  </head>
+
+  <body class:list={[isMobile ? 'mobile' : 'desktop', className]}>
+    <slot />
 
     {
       withRecaptcha && (
@@ -297,9 +301,5 @@ const lang = languageTag();
         />
       )
     }
-  </head>
-
-  <body class:list={[isMobile ? 'mobile' : 'desktop', className]}>
-    <slot />
   </body>
 </html>
