@@ -1,7 +1,7 @@
 {
   "name": "rofi.link",
   "type": "module",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Shorten URLs",
   "author": {
     "name": "Rofi",

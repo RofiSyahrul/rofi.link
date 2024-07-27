@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.1.1](https://github.com/RofiSyahrul/rofi.link/compare/v1.1.0...v1.1.1) (2024-07-27)
+
+
+### Bug Fixes
+
+* move recaptcha script to bottom of body ([0165f46](https://github.com/RofiSyahrul/rofi.link/commit/0165f46b3498aeca2de4a20b2b19f4555d3b414b))
+
 ## [1.1.0](https://github.com/RofiSyahrul/rofi.link/compare/v1.0.3...v1.1.0) (2024-07-27)
 
 
